@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!--
+JAVASCRIPT
+----------------------------------------
+-Lenguaje interpretado
+-Ejecutado por un motor javascript
+-Inicialmente solo en el navegador
+-NO es un lenguaje multipropósito
+    -No permite el acceso al sistema de archivos
+    -No permite ejecutar comandos del
+    -No permite la apretura de sockets
+        -> Por ejemplo: no podemos conectar con una BB.DD
+
+-Sintaxis basada en C
+-Nada que ver con Java
+-Dimámico
+-Secuencial (sin goto)
+-Estructurado
+-Orientado a objetos (por prototipado)
+-Funcional
+-No tipado
+-Case sensitive
+-Tiene null
+-No permite al programador crear hilos
+-Tiene referencias, no punteros
+-->
+
+<!--
+MIME TYPES de JS:
+-text/javascript
+-application/javascript <--
+-->
+
+<!--
+No deben usarse bloques JS en documentos HTML    
+-->
+
+<script type="application/javascript">
+
+    //Javascript no tiene 'main'
+    
+    //alert es una función implícita el api de JS
+    //alert("Jamás hay que usar alert")
+
+    //console es un objeto implícito
+    console.log("Tampoco hay que usar console.log")
+
+    ///////////////
+    // VARIABLES //
+    ///////////////
+
+    //No estan tipadas
+    //Pueden guardar:
+    //-nada en absoluto
+    //-números
+    //-cadenas de texto (arrays de caracteres)
+    //-un caracter
+    //-booleanos
+    //-referencia a un objeto
+    //-null
+    
+    //Podemos utilizar variables sin molestarnos en declararlas
+    //Si lo hacemos así es obligatorio darles un valor
+
+    numero = 5
+    nombre = "Bender" //Podemos utilizar comillas dobles y simples indistintamente
+    activo = true
+
+    //Las variables que no declaramos son asignadas a -SPOLIER-
+
+    //
+    //Declarando las variables con 'var'
+    //
+
+    var altura = 14
+    var apellidos //Podemos dejarlas sin valor
+    console.log(apellidos) //No tiene valor: undefined
+
+    var noseque = null
+    console.log(noseque) //em JS null es un valor
+
+    //Podemos redefinir variables (feo)
+    var dato1 = 5
+    var dato1 = "HOLA RADIOLA"
+
+    //
+    //Definiendo las varialbes con 'let' (desde ECMAScript 6)
+    //La principal diferencia con 'var' es el ámbito de la variable
+    //
+
+    let dato2 = 100
+    let dato3 //Sin valor (undefined)
+
+    //No podemos redefinir varialbes con let
+    let dato4 = 111
+    //let dato4 = 222 //Explosión
+    dato4 = 222 //si que podemos cambiar el valor
+    console.log(dato4)
+    dato4 = true
+    console.log(dato4)
+
+    //Declarando las variables con 'const' (ES6)
+    //define una constante. Solo se le puede asignar valor una vez
+    const PI = 3.1416
+    //PI = 6 //ZASCA!
+
+    //
+    //null != undefined y null ~ undefined
+    //
+
+    let dato5 // no tiene valor. en la consola aparecería como 'undefinded'
+
+    //Con '==' JS comprara el valor 'de aquella manera'
+    console.log("=========================================")
+    if( dato5 == null ){
+        console.log("es null (mentira)") 
+    }
+    
+    //Con '===' JS compara el valor y el tipo
+    console.log("=========================================")
+    if( dato5 === null ){
+        console.log("es null (de verdad)") 
+    } else {
+        console.log("no es null") 
+    }
+
+    //
+    //Averiguando el tipo de una variable
+    //
+
+    let numero5 = "cinco"
+    if( isNaN(numero5)) {
+        console.log("No es un número")
+    }
+
+    //Mucho mejor con typeof
+    //Typeof es un OPERADOR
+    //valores devueltos por typeof
+    //-number
+    //-string
+    //-boolean
+    //-object
+    //-function 
+    //-undefined
+    //-null
+    //-...
+
+    console.log(typeof numero5)
+
+    if( typeof numero5 != "number"){
+        console.log("No es un número")
+    }
+
+    ///////////////////////////
+    //ÁMBITO DE LAS VARIABLES//
+    ///////////////////////////
+
+
+
+
+</script>
+
+<body>
+
+    <h1>01_Variables</h1>
+
+</body>
+</html>
+
+
