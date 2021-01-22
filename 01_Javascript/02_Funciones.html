@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+//
+//En JS las funciones son OBJETOS
+//asociados siempre a otro objetos
+//
+
+//Los nombres de las funciones serán verbos
+//Utilizaremos camel case
+
+
+//En javascript las funciones no indican si devuelven algo o no
+//No existe la palabra reservada 'void'
+function saludar(){
+    console.log("Buenos días")
+}
+
+//Para invocar una función utilizamos su nombre seguido de parentesis
+saludar()
+
+//El nombre de una función es una variable que la referencia
+console.log( saludar ) 
+console.log( saludar() ) //?????? 
+
+//Las funciones pueden recibir parámetros
+//No se indica el tipo (normal)
+function sumar(s1, s2){
+    console.log("Suma1:"+ (s1+s2) )
+}
+sumar(20,30)
+sumar(20, "bicicleta")
+sumar(20, true) //21
+
+//Podemos invocar cualquier funcion con el número de parámetros que queramos
+//Solo tiene sentido si la función ha sido programada pensando en esta posibilidad
+sumar()          //NaN         
+sumar(1)         //NaN
+sumar(1,2)       //3
+sumar(1,2,3)     //3
+sumar(1,2,3,4)   //3
+sumar(1,2,3,4,5) //3
+
+//Dentro de una función disponemos de un array 'arguments' en el que están
+//guardados los parámetros recibidos
+console.log("====================================")
+function sumarNumeros(){
+    //arguments es una variable implícita 
+    console.log(arguments)
+    let total = 0
+    for(let a=0; a<arguments.length; a++){
+        total = total + arguments[a]
+    }
+    console.log(total)
+}
+
+sumarNumeros()          //0      
+sumarNumeros(1)         //1
+sumarNumeros(1,2)       //3
+sumarNumeros(1,2,3)     //6
+sumarNumeros(1,2,3,4)   //10
+sumarNumeros(1,2,3,4,5) //15
+
+//Tambien podemos acceder a los parámetros recibidos utilizando
+//la sintaxis de C para los parámetros variables
+console.log("====================================")
+function sumarNumerosBis(...numeros){
+    //Dentro de la funcion 'numeros' es una array
+    let total = 0
+    for(let a=0; a<numeros.length; a++){
+        total = total + numeros[a]
+    }
+    console.log(total)
+}
+
+sumarNumerosBis()          //0      
+sumarNumerosBis(1)         //1
+sumarNumerosBis(1,2)       //3
+sumarNumerosBis(1,2,3)     //6
+sumarNumerosBis(1,2,3,4)   //10
+sumarNumerosBis(1,2,3,4,5) //15
+
+//
+//Las funciones pueden devolver un valor (y solo uno)
+// 
+console.log("====================================")
+function restar(n1, n2){
+    let resta = n1-n2
+    return resta
+}
+
+let resta = restar(50,20)
+console.log(resta)
+
+//Aunque una funcion no devuelva nada nos permiten hacer esta cosa
+//sin sentido:
+//function saludar(){
+//    console.log("Buenos días")
+//}
+let resultado = saludar()
+console.log(resultado) //undefined
+
+//
+//Desde ECMAScript 6 se puede dar valores por defecto a los parámetros
+//
+function ejemplo(dato1=100, dato2=200){
+    console.log(dato1+","+dato2)
+}
+
+ejemplo()         //100,200
+ejemplo(10)       //10, 200
+ejemplo(10,20)    //10, 20
+ejemplo(10,20,30) //10, 20
+
+//
+//Funciones anidadas / nested functions
+//
+function nido(){
+    console.log("Ejecutando la función nido")
+    
+    //En javascript las funciones anidadas son CLOSURES
+    function pajaro(){
+        console.log("Ejecutando la función anidada")
+    }
+
+    pajaro()
+}
+
+//Pues muy bien...
+nido()
+//pajaro() //ZASCA TARRASCA
+
+//
+//Las funciones son OBJETOS
+//Como tales pueden referenciarse con variables o pasarlas por parámetro
+//
+
+//Esto es lo 'normal'
+//function dividir(n1,n2){
+//    return n1/n2
+//}
+
+//Esta es una función 'anónima'
+let dividir = function(n1, n2){
+    return n1/n2
+}
+
+//Esto es sintácticamente correcto pero no tiene ni sentido ni utilidad
+//Si declaramos una función a la derecha del '=' aunque le pongamos nombre
+//será una función anónima
+let dividir2 = function tocoto(n1, n2){
+    return n1/n2
+}
+//console.log( dividir2(100,2) )
+//console.log( tocoto(100,2) ) ZASCA
+
+console.log(dividir)         //sale la función
+console.log(dividir(100,25)) //4
+
+
+//
+//En JS a cualquier variable le podemos colocar los parentesis
+//
+
+let dato = "ARSA"
+
+console.log( saludar )   //Estamos referenciando la función
+console.log( saludar() ) //Estamos invocando la función
+console.log( dato )
+console.log( dato() )    //Esto es sintáticamente correcto, pero cuando le ponemos los parentesis
+                         //a una variable mas nos vale que esa variable referencie a una función
+                         //o explotará
+
+//
+//Se puede crear un función utilizando el prototipo Function
+//
+
+//Otro día...
+
+
+
+</script>
+
+
+<body>
+    
+    <h1>02_Funciones</h1>
+
+</body>
+</html>
