@@ -107,8 +107,10 @@ No deben usarse bloques JS en documentos HTML
     dato4 = true
     console.log(dato4)
 
+    //
     //Declarando las variables con 'const' (ES6)
     //define una constante. Solo se le puede asignar valor una vez
+    //
     const PI = 3.1416
     //PI = 6 //ZASCA!
 
@@ -163,6 +165,87 @@ No deben usarse bloques JS en documentos HTML
     //ÁMBITO DE LAS VARIABLES//
     ///////////////////////////
 
+    //VAR
+
+    console.log("=========================================")
+    function pruebaVar(){
+
+        //Las variables declaradas con 'var' dentro de una función tienen como ámbito
+        //la función
+        var v1 = "HOLA"
+        console.log(v1)
+
+        if(10>5){
+            //Incluso si están declaradas dentro de un bloque de código
+            var v2 = "QUE TAL"
+        }
+        console.log(v2) //????
+
+        for(var a=0; a<10; a++){
+        }
+        console.log(a)
+
+        //En JS (y en muchos otros lenguajes) se pueden declarar bloques de código 
+        {
+            var v3 = "PA KE KIERES ESTO"
+        }
+        console.log(v3)
+
+    }
+
+    pruebaVar()
+    //console.log(v1) //UNDEFINED
+
+
+    //LET
+
+    console.log("=========================================")
+    function pruebaLet(){
+
+        //Las variables declaradas con let tienen como ámbito el BLOQUE en el que están 
+        //declaradas
+        let v1Bis = "OLA"
+        console.log(v1Bis)
+
+        if(10>5){
+            let v2 = "kE TAL"
+        }
+        //console.log(v2) //????
+
+        for(let a=0; a<10; a++){
+        }
+        //console.log(a)
+
+        {
+            let v3 = "PA KE KIERES ESTO"
+        }
+        //console.log(v3)
+
+    }
+
+    pruebaLet()
+    //console.log(v1Bis) //UNDEFINED
+
+    //
+    //El ámbito de una variable declarada con 'const' es el bloque en el que está
+    //declarada (como let)
+    //
+
+    //
+    //Variables utilizadas son declaración previa
+    //
+    console.log("=========================================")
+    function pruebaMovida(){
+
+        //Las variables utilizadas sin declarar se convierten en globales
+        mensaje = "Al loro"
+        console.log(mensaje)
+
+    }
+
+    //console.log(mensaje) ZASCA
+    pruebaMovida()
+    console.log(mensaje) //????????????
 
 
 
