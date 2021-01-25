@@ -72,11 +72,81 @@
         console.log(arrayDeNodos)
 
         //Recorrer el array para imprimir el value de los elementos que sean del tipo 'button'
-        
+        for(nodo of arrayDeNodos){
+            if(nodo.type == 'button'){
+                console.log(nodo.value)
+            }
+        }
 
+        //
+        //Buscando nodos por 'name'
+        //
+        console.log("=========================================")   
+        arrayDeNodos = document.getElementsByName("nombre")
+        for(nodo of arrayDeNodos){
+            console.log(nodo)
+        }    
+        nodo = document.getElementsByName("nombre")[0]  //Esto da por sentado que solo hay uno con ese name  
 
+        //
+        //Buscando nodos por estilo css
+        //
+        console.log("=========================================")   
+        arrayDeNodos = document.getElementsByClassName("xXx")
+        for(nodo of arrayDeNodos){
+            console.log(nodo)
+        }    
 
+        //
+        //Buscando nodos utilizando selectores
+        //
+        console.log("=========================================")  
+        let nodoFormulario = document.querySelector("#formulario")
+        console.log(nodoFormulario)
+
+        let arrayNodos = document.querySelectorAll("#formulario input[type=text]")
+        for(let nodo of arrayNodos){
+            console.log(nodo)
+        }
+
+        //document tiene una función específica para buscar nodos en un
+        //XML
+        //document.getElementsByTagNameNS()        
     
+    }
+
+    function validar(){
+
+        let errores = ""
+
+        let nombre = document.getElementById("nombre")
+        if(nombre.value.trim().length == 0){
+            errores = errores + "El nombre no puede estar vacío. "
+        }
+
+        let direccion = document.getElementById("direccion")
+        if(direccion.value.trim().length == 0){
+            errores += "La dirección no puede estar vacía. "
+        }
+
+        let telefono = document.getElementById("telefono")
+        if(telefono.value.trim().length == 0){
+            errores += "El teléfono no puede estar vacío. "
+        }
+
+        if(errores.length > 0){
+            alert(errores)
+        }
+
+        return errores.length == 0
+    }
+
+
+    insertarPersona(){
+
+
+
+        
     }
 
 </script>
