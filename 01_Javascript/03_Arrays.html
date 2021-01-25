@@ -163,6 +163,8 @@
     persona3["telefono"]  = "555765432"
     persona3["edad"]      = "30"    
 
+    console.log(persona3["nombre"])
+
     //Y ahora ya podemos meter a las personas en un array indexado
     let listaPersonas = []
     listaPersonas.push(persona1)    
@@ -174,6 +176,7 @@
     //Pdemos utilizar el '.' para añadir claves y valores a un array o para acceder a ellos
 
     let coche = []
+    //coche["marca"] = "FIAT"
     coche.marca  = "FIAT"
     coche.modelo = "Uno 45s"
     coche.color  = "Rojo"
@@ -208,14 +211,121 @@
     //
     //Añadiendo funcionalidad a los objetos declarados como arrays asociativos
     //
-
+    console.log("=======================================") 
     let receta = {
         nombre       : "Tortilla de patata",
         tiempo       : 45,
-        preparacion  : "Sobornas a alguien para que te haga una deliciosa tortilla de patatas",
-        ingredientes : [ "Aceite","Huevos","Patatas","Cebolla","Sal" ]
+        preparacion  : "Sobornas a alguien para que te haga una deliciosa tortilla de patata",
+        //Composición de objetos
+        //Cardinalidad: 1..n, 1..*
+        ingredientes : [ { nombre : "Aceite",  cantidad : 100 },
+                         { nombre : "Huevos",  cantidad : 50 },
+                         { nombre : "Patatas", cantidad : 10 },
+                         { nombre : "Cebolla", cantidad : 0.001 },
+                         { nombre : "Sal",     cantidad : 50 } ],
+
+        //Simplemente asociamos una función al valor de una propiedad
+        saludar      : function(){
+            console.log("Hola que tal, soy una receta")
+        }
     }
 
+    console.log(receta)
+    console.log(receta.nombre)
+    console.log(receta.saludar)
+    receta.saludar()
+
+    //////////////////////
+    //RECORRIENDO ARRAYS//
+    //////////////////////
+
+    //Con un for normal de toda la vida
+    //Solo para arrays indexados
+    console.log("=======================================") 
+    let array7 = [ 11,22,33,44,55,66,77,88,99 ]
+    for(let a=0; a<array7.length; a++){
+        let elemento = array7[a]
+        console.log(elemento)
+    }
+    
+    //For of
+    //Solo para arrays indexados
+    console.log("=======================================") 
+    for(let elemento of array7){
+        console.log("For..of: "+ elemento)
+    } 
+    
+    //Con la función forEach
+    //Solo para arrays indexados
+    console.log("=======================================") 
+    //Al forEach se le envía por parámetro UNA FUNCION
+    //function(elemento, posicion, referencia al array){
+    //    codigo para procesar el elemento
+    //}
+    array7.forEach(function(elem, pos){
+        //console.log(arguments)
+        console.log("forEach ("+pos+"): "+elem)
+    })
+
+    //Aqui vemos claramente que las funciones son objetos:
+    let f = function(elem){
+        //console.log(elem)
+    }
+    array7.forEach(f)
+
+    //Utilizando funciones flecha (ya las veremos)
+    array7.forEach( e => console.log("=>"+e ))
+
+    //
+    //For in
+    //Para arrays indexados y asociativos
+    //Si es un array asociativo recorre las claves
+    console.log("=======================================") 
+    let grupo = []
+    grupo["bateria"]  = "Ringo"    
+    grupo["bajo"]     = "Paul"    
+    grupo["Sitar"]    = "George"    
+    grupo["Guitarra"] = "John" 
+    console.log(grupo.length) //0
+
+    for(let clave in grupo){
+        console.log(clave+":"+grupo[clave])
+        //Esto está mal: tratan 'clave' como una propiedad/clave, no como la variable que hemos definido
+        //console.log(grupo.clave) //undefined
+    }
+
+    //Si es un array indexado entrega las posiciones en las que hay valores
+    let array8 = []
+    array8[0] = 11 
+    array8[1] = 22 
+    array8[4] = 33
+    array8[9] = 44 
+    console.log(array8)
+    console.log(array8.length) //10
+    for(let posicion in array8){
+        console.log(posicion+":"+array8[posicion])
+    }
+
+    //El For in nos permite ver las propiedades de un objeto
+    let disco = {
+        titulo : "The wall",
+        grupo  : "Pink Floyd",
+        year   : 1979
+    }
+    for(let propiedad in disco){
+        console.log(propiedad+":"+disco[propiedad])
+    }
+
+    //
+    //Creando arrays usando la función prototipo 'Array'
+    //
+    //Más adelante...
+    let array9 = new Array()
+
+
+    ///////////////////////////////////////////
+    //INCISO: haciendo nuestro propio forEach//
+    ///////////////////////////////////////////
 
 
 
