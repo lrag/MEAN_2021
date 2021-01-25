@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+    //DOM
+    //Document Object Model
+    //Igual que en un documento XML
+    //
+    //Estructura de tipo árbol con nodos de tres tipos:
+    //-Elemento/etiqueta
+    //-Atributo
+    //-Nodo de texto
+
+    /*
+    let nodo = {
+        nombre : "input",
+        tipo   : "text",
+        value  : "",
+        id     : "",
+        size   : 5,
+        
+        parentNode : ref,
+        childNodes : [ hijitos ]
+    }
+    */
+
+    //document es un objeto implícito que guarda una referencia al raíz del árbol DOM
+    //Tiene una serie de funciones que sirven para:
+    //-localizar nodos en el árbol
+    //-crear nodos!
+    //
+    //Cuidado con usarlo antes de que se termine de crear el árbol DOM
+    //let nodo = document.getElementById("dato")
+    //console.log(nodo) //NULL
+
+    function pruebas(){
+
+        //
+        //Buscando nodos en el árbol por 'id'
+        //
+        console.log("=========================================")
+        let nodo = document.getElementById("dato")
+        console.log(nodo) //NULL
+        console.log(nodo.size)
+        console.log(nodo["value"])
+        
+        //Los nodos del árbol DOM tienen un cerro de propiedades
+        for(let propiedad in nodo){
+            //console.log(propiedad+":"+nodo[propiedad])
+        }
+
+        //Por cada elemento del árbol DOM que tenga id nos crean una variable
+        //implícita cuyo nombre es el id y cuyo valor es el nodo
+        console.log(h1)        
+        //Cuidado con no usar esa variable para otra cosa
+        //formulario = 5       
+        console.log(formulario)
+
+        //
+        //Buscando nodos por tipo de etiqueta 
+        //
+        //Devuelve un array con los nodos encontrados
+        console.log("=========================================")        
+        let arrayDeNodos = document.getElementsByTagName("input")
+        console.log(arrayDeNodos.length)
+        console.log(arrayDeNodos)
+
+        //Recorrer el array para imprimir el value de los elementos que sean del tipo 'button'
+        
+
+
+
+    
+    }
+
+</script>
+
+<!--
+Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
+-->
+<body onload="pruebas()">
+
+    <h1 id="h1">05_Árbol DOM</h1>
+
+    Nombre: <input type="text" 
+                   name="dato" 
+                   id="dato" 
+                   size="25" 
+                   value="texto" 
+                   class="xXx"/>
+    
+    <hr/>
+    
+    <form name="formulario" id="formulario" action="http://www.estaseguroquenoexiste.es" method="get"> 
+        
+        <input type="button" name="accion" value="Validar" onclick="validar()"/>
+        <input type="button" value="Preparar parametros"/>
+        <input type="button" name="accion" value="Insertar" onclick="insertarPersona()"/>
+        <input type="submit" name="accion" value="Modificar"/>
+        <input type="submit" name="accion" value="Borrar"/>
+
+        <table>
+            <tr>
+                <td id="td1">Nombre</td>
+                <td id="td2">
+                    <input type="text" name="nombre" id="nombre"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td3">Dirección</td>
+                <td id="td4">
+                    <input type="text" name="direccion" id="direccion"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td5">Teléfono</td>
+                <td id="td6">
+                    <input type="text" name="telefono" id="telefono"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="td7">Ciudad</td>
+                <td id="td8">
+                    <select name="ciudad" id="ciudad">
+                        <option>Getafe</option>
+                        <option>Madrid</option>
+                        <option>Salamanca</option>
+                        <option>Santa Pola</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td id="td9">Observaciones</td>
+                <td id="td10">
+                    <textarea name="observaciones" id="observaciones"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+</html>
+
