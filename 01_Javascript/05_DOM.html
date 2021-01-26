@@ -148,9 +148,49 @@
         //Crear un jotasón con los datos
         //Imprimirlo en la consolita
 
+        let nombre        = document.getElementById("nombre").value
+        let direccion     = document.getElementById("direccion").value
+        let telefono      = document.getElementById("telefono").value
+        let ciudad        = document.getElementById("ciudad").value
+        let observaciones = document.getElementById("observaciones").value
+
+        //Concatenando las cosas
+        let personaJSON = "{ \"nombre\" : \""+document.getElementById("nombre").value+"\" }"
+        console.log(personaJSON)
         
+        personaJSON = '{ "nombre" : "'+nombre+'", "direccion" : "'+direccion+'" }';
+        console.log(personaJSON)
 
+        personaJSON = '{'+
+            ' "nombre" : "'+nombre+'",'+
+            ' "direccion" : "'+direccion+'" '+
+            '}';
+        console.log(personaJSON)
 
+        //Si hay que concatenar muchas cosas lo mejor es utilizar la interpolación de cadenas
+        personaJSON = `
+            {
+                "nombre"        : "${nombre}",
+                "direccion"     : "${direccion}",
+                "telefono"      : "${telefono}",
+                "ciudad"        : "${ciudad}",
+                "observaciones" : "${observaciones}"
+            }`
+        console.log(personaJSON)
+
+        //Para crear un JSON lo mejor es crear primero un objeto y luego utilizar el api para
+        //obtener un JSON a partir de él
+        let persona = {
+            nombre        : nombre,
+            direccion     : direccion,
+            telefono      : telefono,
+            ciudad        : ciudad,
+            observaciones : observaciones
+        }
+        console.log(persona)
+
+        personaJSON = JSON.stringify(persona)
+        console.log(personaJSON)
 
     }
 
@@ -168,8 +208,7 @@ Cuando el navegador termina de crear el árbol DOM dispara el evento 'load'
                    id="dato" 
                    size="25" 
                    value="texto" 
-                   class="xXx"/>
-    
+                   class="xXx"/>    
     <hr/>
     
     <form name="formulario" id="formulario" action="http://www.estaseguroquenoexiste.es" method="get"> 
