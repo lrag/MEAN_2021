@@ -8,6 +8,234 @@
 
 <script type="application/javascript">
 
+function document_write(){
+    console.log("document.write")
+    //Sustituye todo el árbol dom por lo que recibe por parametro (la primera vez que se invoca)
+    //Si se invoca  más veces añade al final
+    document.write("<h1>Nuevo contenido generado diámicamente con document.write</h1>")
+    document.write("<button onclick='document_write()'>Dale</button>")
+}
+
+function innerHTML(){
+
+    //Solo tienen innerHTML aquellas etiquetas pensadas para contener a otras
+    //div, span, p, table, tr, td
+
+    let div = document.getElementById("div1")
+    div.innerHTML = "HOLA QUE TAL"
+    
+    div.innerHTML = "<h1>Contenido generado dinámicamente con innerHTML</h1>"
+    
+    //Si queremos que no se pierda el contenido anterior podemos guardar el contenido 
+    //inicial en una variable e ir concatenando
+    let innerHTML = div.innerHTML
+    innerHTML += "<h2>OTRA COSA</h2>"
+    div.innerHTML = innerHTML
+}
+
+function vaciarInnerHTML(){
+    let div = document.getElementById("div1")
+    div.innerHTML = ""
+}
+
+function obtenerPeliculas(){
+
+    //Supongamos que hemos enviado una petición a un servicio remoto que nos ha entregado
+    //esta información
+    let peliculas = [
+        { 
+          titulo   : 'Alien',
+          director : 'R.S.',
+          genero   : 'Ci-Fi' 
+        },
+        { 
+          titulo   : 'Cazafantasmas',
+          director : 'Ivan Reitman',
+          genero   : 'Estupenda' 
+        },
+        { 
+          titulo   : 'Harry Potter',
+          director : 'Varios',
+          genero   : 'Fantasia' 
+        },
+        { 
+          titulo   : 'Don erre que erre',
+          director : 'Jose Luis Saez de Heredia',
+          genero   : 'Comedia' 
+        }
+    ]
+    return peliculas
+
+}
+
+function crearNodos(){
+
+    let peliculas = obtenerPeliculas()
+
+    let tabla = document.createElement("table")
+
+    //Manera antígua de crear atributos
+    let align = document.createAttribute("align")
+    align.value = "center"
+    tabla.setAttributeNode(align)
+    //Manera actual:
+    tabla.setAttribute('border',1)
+
+    let trCabecera  = document.createElement("tr")
+    let tdTitulo    = document.createElement("th")
+    let tdDirector  = document.createElement("th")
+    let tdGenero    = document.createElement("th")
+    let cabTitulo   = document.createTextNode("Título")
+    let cabDirector = document.createTextNode("Director")
+    let cabGenero   = document.createTextNode("Género")
+    tdTitulo.append(cabTitulo)
+    tdDirector.append(cabDirector)
+    tdGenero.append(cabGenero)
+
+    //trCabecera.appendChild(tdTitulo)
+    //trCabecera.appendChild(tdDirector)
+    //trCabecera.appendChild(tdGenero)
+    //Más moderno:
+    trCabecera.append(tdTitulo, tdDirector, tdGenero)
+
+    tabla.append(trCabecera)
+
+    for(let pelicula of peliculas){
+
+        let tr = document.createElement("tr")
+        let td1 = document.createElement("td")
+        let td2 = document.createElement("td")
+        let td3 = document.createElement("td")
+        let txt1 = document.createTextNode(pelicula.titulo)
+        let txt2 = document.createTextNode(pelicula.director)
+        let txt3 = document.createTextNode(pelicula.genero)
+        td1.append(txt1)
+        td2.append(txt2)
+        td3.append(txt3)
+        tr.append(td1, td2, td3)
+
+        tabla.append(tr)
+    }
+
+    //Añadimos la tabla al div correspondiente
+    let div2 = document.getElementById("div2")
+    div2.append(tabla)
+
+}
+
+function crearNodos2(){
+
+    let peliculas = obtenerPeliculas()
+
+    let html = `
+        <table align="center" border="1">
+            <tr>
+                <th>Título</th>
+                <th>Director</th>
+                <th>Género</th>
+            </tr>`
+    for(let pelicula of peliculas){
+        html += `
+            <tr>
+                <td>${pelicula.titulo}</td>
+                <td>${pelicula.director}</td>
+                <td>${pelicula.genero}</td>
+            </tr>`
+    }
+    html +="</table>"
+
+    document.getElementById("div3").innerHTML = html
+
+}
+
+
+function vaciarSelect(){
+
+    //A día de hoy esta es la mejor manera de vaciar un desplegable:
+    //ciudades.innerHTML = ''
+
+    //Eliminando nodos del árbol DOM
+
+    //Podemos solicitarle a un nodo su array de hijos y eliminar 'a mano'
+    //el nodo correspondiente. Problemas:
+    //-los nodos de texto que se añaden al sangrar el código
+    //-hay que asegurarse de que no nos cargamos nada al tocar A MANO el array
+
+    //A cualquier nodo podemos solicitarle que elimine a un hijo
+    //let padre = document.getElementById("idDelPadre")
+    //let hijo  = document.getElementById("idDelHijo")
+    //padre.removeChild(hijo)
+
+    //Todos los nodos tienen una referencia a su padre asi que podemos
+    //simplificar lo anterior asi:
+    //let hijo  = document.getElementById("idDelHijo")
+    //hijo.parentNode.removeChild(hijo)
+
+    //La manera más sencilla es pedirselo directamente al nodo que queremos
+    //eliminar:
+    //let nodo  = document.getElementById("nodoABorrar")
+    //nodo.remove()
+
+    let numeroNodos = hijos.length
+    for(let a=0; a<numeroNodos; a++){
+        hijos[0].remove() //Eliminamos el primero!
+    }
+    
+    /*
+    //Con un while
+    let sel = document.getElementById("ciudades")
+    while(sel.firstChild) {
+        sel.removeChild(sel.firstChild)
+    }
+    */
+
+}
+
+function movida(){
+    div5.innerHTML = "<h1 align='center'><font color='lightBlue'>Movida</font></h1>"
+    alert("MOVIDA")
+}
+
+function inicializar(){
+    console.log("Inicializando...")
+
+    document.getElementById("btn_documentWrite").onclick   = document_write
+    document.getElementById("btn_innerHTML").onclick       = innerHTML
+    document.getElementById("btn_vaciarInnerHTML").onclick = vaciarInnerHTML
+    document.getElementById("btn_crearNodos").onclick      = crearNodos
+    document.getElementById("btn_crearNodos2").onclick     = crearNodos2
+    document.getElementById("btn_vaciarSelect").onclick    = vaciarSelect
+    document.getElementById("btn_movida").onclick          = movida
+}
+
+//////////
+//WINDOW//
+//////////
+
+//window es el objeto implícito que representa a la pestaña del navegador
+//Tiene un montón de propiedades. 
+//En algunas se guardan valores
+//-location: la url que está escrita en la barra de navegacion
+//-posicion x e y del navegor
+//-tamaño de la pestaña y del navegador
+//-...
+//En otras se guardan funciones, pensadas para ejecutarse cuando se
+//disparan los eventos
+//-onclose: se va a cerrar el navegador/pestaña
+//-onload : ha terminado la inicialización de la página
+//-...
+
+//for(let propiedad in window){
+    //console.log(propiedad, window[propiedad])
+//}
+
+//Esto está bien
+//window.onload = function(){
+    //código...
+//}
+
+//Pero esto es un poco mejor
+window.onload = inicializar
 
 </script>
 
@@ -23,13 +251,14 @@
 
     <hr/>
 
-    <div align="center">
+    <div id="botones" align="center">
         <input type="button" id="btn_documentWrite"   value="Document.write"/>
         <input type="button" id="btn_innerHTML"       value="innerHTML"/>       
         <input type="button" id="btn_vaciarInnerHTML" value="Vaciar innerHTML"/>
         <input type="button" id="btn_crearNodos"      value="Crear nodos"/>      
         <input type="button" id="btn_crearNodos2"     value="Crear nodos 2"/>
         <input type="button" id="btn_vaciarSelect"    value="Vaciar select"/>
+        <input type="button" id="btn_movida"          value="Movida"/>
     </div>
 
     <hr/>
