@@ -9,13 +9,33 @@
 <script type="application/javascript">
 
 //Guardaremos los contactos en este array
+//Las variables declaradas fuera de las funciones son globales
 let personas = []
 
-//Cuando se pulse el boton insertar
-//-recojer los valores del formulario
-//-crear un objeto con esos datos
-//-guardar el objeto en el array
-//-imprimir el array en la consola
+function insertarPersona(){
+
+    //Creamos una persona con los datos del formulario
+    let persona = {
+        nombre    : document.getElementById("nombre").value,
+        direccion : document.getElementById("direccion").value,
+        telefono  : document.getElementById("telefono").value,
+        correoE   : document.getElementById("correoE").value,
+    }
+
+    //La añadimos al array
+    personas.push(persona)
+    console.log(personas)
+
+}
+
+function inicializar(){
+    //let nodo = document.getElementById("btnInsertar")
+    //nodo.onclick = insertarPersona
+    //Lo mismo en una línea
+    document.getElementById("btnInsertar").onclick = insertarPersona
+}
+
+window.onload = inicializar
 
 </script>
 
