@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+
+function crearMultiplicador(numero){
+
+    let multiplicador = function(valor){
+        return valor * numero
+    }
+
+    return multiplicador
+
+}
+
+let multiplicadorX10 = crearMultiplicador(10)
+let multiplicadorX20 = crearMultiplicador(20)
+let multiplicadorX30 = crearMultiplicador(30)
+
+console.log( multiplicadorX10(25) ) //250
+console.log( multiplicadorX20(25) ) //500
+console.log( multiplicadorX30(25) ) //750
+
+
+
+
+</script>
+
+<body>
+
+    <h1>10_Closures</h1>
+    
+</body>
+</html>

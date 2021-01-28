@@ -11,6 +11,8 @@
 //Guardaremos los contactos en este array
 //Las variables declaradas fuera de las funciones son globales
 let personas = []
+//Guardaremos en esta variable la persona que esté seleccionada
+let idPersonaSel = null
 
 function insertarPersona(){
 
@@ -41,6 +43,7 @@ function vaciarFormulario(){
 }
 
 function rellenarFormulario(persona){
+    idPersonaSel = persona.id
     document.getElementById("nombre").value    = persona.nombre
     document.getElementById("direccion").value = persona.direccion
     document.getElementById("telefono").value  = persona.telefono
@@ -84,6 +87,26 @@ function rellenarTabla(){
 
 }
 
+function borrarPersona(){
+
+    //recorrer el array buscando la persona que hay que eliminar
+    //eliminarla
+    //repintar la tabla
+
+
+    
+
+
+
+
+    let nombre = document.getElementById("nombre").value
+    console.log("Borrando a:"+nombre)
+
+
+
+
+}
+
 function guardarDatos(){
     //En el session/local storage solo podemos guardar cadenas de texto
     //sessionStorage.setItem("clave","valor")
@@ -121,6 +144,7 @@ function inicializar(){
     document.getElementById("btnInsertar").onclick = insertarPersona
     document.getElementById("btnVaciar").onclick   = vaciarFormulario
     document.getElementById("btnGuardar").onclick  = guardarDatos
+    document.getElementById("btnBorrar").onclick   = borrarPersona
 
     cargarDatos()
 }
