@@ -36,6 +36,8 @@ function insertarPersona(){
 }
 
 function vaciarFormulario(){
+    //Vaciamos tambien la variable en la que guardamos el id de la persona seleccionada
+    idPersonaSel = null;
     document.getElementById("nombre").value    = ""
     document.getElementById("direccion").value = ""
     document.getElementById("telefono").value  = ""
@@ -43,7 +45,6 @@ function vaciarFormulario(){
 }
 
 function rellenarFormulario(persona){
-    idPersonaSel = persona.id
     document.getElementById("nombre").value    = persona.nombre
     document.getElementById("direccion").value = persona.direccion
     document.getElementById("telefono").value  = persona.telefono
@@ -85,25 +86,55 @@ function rellenarTabla(){
         tablaPersonas.append(tr)
     }
 
+    //Para que se rellene la segunda tabla
+    rellenarTabla2()
+
+}
+
+function rellenarTabla2(){
+    
+    let tablaPersonas2 = document.getElementById("tablaPersonas2")
+    tablaPersonas2.innerHTML = ""
+
+    for(let persona of personas){
+        let trHtml = 
+        `<tr>
+            <td>${persona.nombre}</td>
+            <td>${persona.direccion}</td>
+            <td>${persona.telefono}</td>
+            <td>${persona.correoE}</td>
+        </tr>`
+
+        let table = document.createElement("tbody")
+        table.innerHTML = trHtml
+        //let tr = table.childNodes[0]
+        let tr = table.firstElementChild
+
+        tr.onclick = function(){
+            rellenarFormulario(persona)
+        }
+
+        tablaPersonas2.append(tr)
+    }
+
 }
 
 function borrarPersona(){
+    for(a=0; a<personas.length; a++){
+        let persona = personas[a]
+        if(persona.id==idPersonaSel){
+            personas.splice(a,1)
+            break
+        }
+    }
 
-    //recorrer el array buscando la persona que hay que eliminar
-    //eliminarla
-    //repintar la tabla
+    rellenarTabla()
+    vaciarFormulario()
+}
 
+function modificarpersona(){
 
-    
-
-
-
-
-    let nombre = document.getElementById("nombre").value
-    console.log("Borrando a:"+nombre)
-
-
-
+    //
 
 }
 
@@ -141,10 +172,11 @@ function inicializar(){
     //let nodo = document.getElementById("btnInsertar")
     //nodo.onclick = insertarPersona
     //Lo mismo en una línea
-    document.getElementById("btnInsertar").onclick = insertarPersona
-    document.getElementById("btnVaciar").onclick   = vaciarFormulario
-    document.getElementById("btnGuardar").onclick  = guardarDatos
-    document.getElementById("btnBorrar").onclick   = borrarPersona
+    document.getElementById("btnInsertar").onclick  = insertarPersona
+    document.getElementById("btnVaciar").onclick    = vaciarFormulario
+    document.getElementById("btnGuardar").onclick   = guardarDatos
+    document.getElementById("btnBorrar").onclick    = borrarPersona
+    document.getElementById("btnModificar").onclick = modificarPersona
 
     cargarDatos()
 }
@@ -214,6 +246,18 @@ window.onload = inicializar
             <th>Correo E</th>
         </tr>
         <tbody id="tablaPersonas"></tbody>
+    </table>
+    
+    <hr/>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Correo E</th>
+        </tr>
+        <tbody id="tablaPersonas2"></tbody>
     </table>
 
 </body>
