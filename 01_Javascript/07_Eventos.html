@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+function btn2Pulsado(){
+    console.log("Botón 2 pulsado")
+}
+
+function btn4Pulsado(){
+    console.log("Botón 4 pulsado")
+    console.log(arguments)
+}
+
+let cadena = ""
+function concatenarCaracter(caracter){
+
+    console.log("Concatenando a la cadena...")
+    
+    cadena += caracter
+    document.getElementById("div1").innerHTML = cadena
+
+}
+
+//Esta funcion nos limita a que solo se pueda dibujar un círculo cuando el usuario
+//hace click...
+//function dibujarRedondel(evento){
+//    console.log(`dibujando un círculo en ${evento.x}, ${evento.y}`)
+//}
+
+//Esta es CORRECTA
+function dibujarRedondel(x, y, radio, color, relleno){
+    console.log(`Dibujando un círculo en ${x}, ${y} de color ${color}`)
+}
+
+//Para el ejemplo de addEventListener
+function btn6Pulsado(){
+    console.log("Botón 6 pulsado")
+}
+function btn6PulsadoBis(){
+    console.log("Botón 6 pulsado (Bis)")
+}
+
+
+function validarFormulario(){
+
+    let marca     = document.getElementsByName("marca")[0].value
+    let modelo    = document.getElementsByName("modelo")[0].value
+    let matricula = document.getElementsByName("matricula")[0].value
+
+    if(marca.trim()=="" || modelo.trim()=="" || matricula.trim()==""){
+        alert("Datos incorrectos")
+        return false
+    }
+
+    return true
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+function inicializar(){
+
+    //Podemos declarar la función que manejará el evento de forma anónima
+    //La desventaja es que no podremos invocar la función desde otro lugar
+    document.getElementById("btn1").onclick = function(){
+        console.log("Botón 1 pulsado")
+    }
+    //podríamos acceder de esta manera a la función, pero esto es lo más asqueroso
+    //que he visto en mi vida. En serio: NO
+    //document.getElementById("btn1").onclick()
+
+    //Podemos asignar una funcion que tengamos definida en otro lugar
+    //-código más limpio
+    //-posibilidad de reutilizar esa función
+    document.getElementById("btn2").onclick = btn2Pulsado //Sin parentesis
+    
+    ////////////////////
+    //El objeto EVENTO//
+    ////////////////////
+    
+    //Las funciones asignadas como manejadoras de eventos reciben siempre un parámetro
+    //cuando son invocadas
+    
+    document.getElementById("btn3").onclick = function(){
+        console.log("Botón 3 pulsado")
+        console.log(arguments)
+    }
+    
+    //Lo mismo sucede si referenciamos una función
+    document.getElementById("btn4").onclick = btn4Pulsado //Sin parentesis
+    
+    //Dentro del objeto evento hay información relacionada con lo que acaba de suceder
+    //-eventos del ratón (mouseEvent)
+    //  -posición x e y del puntero del raton 
+    //      -con respecto a la esquina superior izquierda de la pestaña
+    //      -con respecto a la esquina superior izquierda de la pantalla
+    //      -si se ha pusado el botón izquierdo o derecho
+    //      -cuantas veces se ha pulsado
+    //      -...
+    //-eventos del teclado
+    //      -qué tecla se ha pulsado
+
+    //Si el evento nos interesa para algo lo correcto es asignar como manejadora una función que lo reciba
+    //explícitamente
+    document.getElementById("btn5").onclick = function(evento){
+        console.log("Botón 5 pulsado")
+        console.log(evento)
+        console.log(evento.x, evento.y)
+    }
+    
+    //Cuando queremos que se ejecuta una función que recibe 
+    //parámetros QUE NO SON EL EVENTO lo mejor que podemos hacer es
+    //definir una función anónima que invoque la otra función
+
+    //concatenarCaracter es una función que recibe el caracter a concatenar.
+    //Si la asignamos como manejadora de eventos RECIBIRÁ EL EVENTO
+    //document.getElementById("cajaTexto").onkeydown = concatenarCaracter
+    document.getElementById("lienzo").onclick = function(evento){
+        let x = evento.x
+        let y = evento.y
+        dibujarRedondel(x, y, 10, "negro")
+    }
+
+    //
+    //keydown: el usuario ha 'hundido' la tecla
+    //keyup  : el usuario ha soltado la tecla
+    //    
+
+    //Esto no podemos hacerlo porque 'concatenarCaracter' recibe el char que hay que
+    //concatenar y si lo ponemos así recibirá el evento....
+    //document.getElementById("cajaTexto").onkeydown = concatenarCaracter
+
+    document.getElementById("cajaTexto").onkeydown = function(evento){
+        //Recopilamos aqui los parámetros para la función a la que hay
+        //que llamar 
+        let char = evento.key
+        concatenarCaracter(char)
+    }
+
+    //
+    //Otra manera de añadir manejadores de eventos: add event listener
+    //
+    //El primer párametro es un string con el evento al que nos referimos (sin el 'on')
+    //El segundo parámetro es la referencia a la funcion
+    //
+    //Nos permita añadir vários manejadores para un mismo evento:
+    //
+    document.getElementById("btn6").addEventListener('click', btn6Pulsado)
+    document.getElementById("btn6").addEventListener('click', btn6PulsadoBis)
+
+    //
+    //Cancelación de eventos: event.preventDefault()
+    //
+    document.getElementById("btnEnviar").onclick = function(evento){
+        //if(validarFormulario()==false){
+        if( !validarFormulario() ){
+            evento.preventDefault()
+        }
+    }
+
+}
+
+window.onload = inicializar
+
+
+</script>
+
+<body>
+    
+    <h1>07_Eventos</h1>
+
+    <hr/>
+
+    <button id="btn1">Botón 1</button>
+    <button id="btn2">Botón 2</button>
+    <button id="btn3">Botón 3</button>
+    <button id="btn4">Botón 4</button>
+    <button id="btn5">Botón 5</button>
+    <button id="btn6">Botón 6</button>
+
+    <hr/>
+
+    <input type="text" id="cajaTexto"/>
+    <button id="btnDale">DALE</button>
+    <span id="div1"></span>
+
+    <hr/>
+
+    <div id="lienzo" style='background-color: #C0C1D0'>Lienzo</div>
+
+    <hr/>
+
+    <form action="http://www.noexiste.es/altaCoche">
+        Marca <input type="text" name="marca"/>
+        Modelo <input type="text" name="modelo"/>
+        Matrícula <input type="text" name="matricula"/>
+        <input type="submit" id="btnEnviar" value="Enviar"/>
+    </form>   
+        
+</body>
+</html>
