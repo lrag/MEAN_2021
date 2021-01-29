@@ -232,7 +232,7 @@ No deben usarse bloques JS en documentos HTML
     //
 
     //
-    //Variables utilizadas son declaración previa
+    //Variables utilizadas sin declaración previa
     //
     console.log("=========================================")
     function pruebaMovida(){
@@ -243,9 +243,14 @@ No deben usarse bloques JS en documentos HTML
 
     }
 
-    //console.log(mensaje) ZASCA
+    //console.log(mensaje) ZASCA: todavía no existe
     pruebaMovida()
-    console.log(mensaje) //????????????
+    console.log(mensaje) 
+
+    //En realidad lo que sucede es que las variables utilizadas sin declarar se asocian
+    //al objeto WINDOW
+
+    console.log(window.mensaje)
 
 
 
