@@ -163,6 +163,26 @@ function inicializar(){
         }
     }
 
+    //RESUMEN
+    //
+    //Si cuando se pulsa un botón queremos que se ejecute una función que no recibe parametros 
+    //la colocamos directamente como manejadora del evento
+    //document.getElementById("btnInsertar").onclick = insertarPersona <--se invocará con el evento pero lo ignoraremos
+    //
+    //Si la funcion que ha de ejecutarse necesita el evento tambien la colocamos directamente
+    //como manejadora del mismo
+    //Esto suele ser un poco guarrete porque solo se podrá usar esa función cuando se produzca el evento
+    //
+    //Si la función que manejará el evento recibe parámetros pero ninguno es el evento crearemos
+    //una función intermedia (mejor que sea anónima) que extraiga del evento lo que hace falta y recopile
+    //los parámetros para invocar a la otra función
+    //function dibujarRedondel(x,y,radio){ ... }
+    //document.getElementById("xXx").onclick = function(e){
+    //  dibujarRedondel(e.x, e.y, 10)
+    //}
+
+
+
 }
 
 window.onload = inicializar

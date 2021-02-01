@@ -174,15 +174,16 @@
     console.log( saludar )   //Estamos referenciando la función
     console.log( saludar() ) //Estamos invocando la función
     console.log( dato )
-    console.log( dato() )    //Esto es sintáticamente correcto, pero cuando le ponemos los parentesis
-                            //a una variable mas nos vale que esa variable referencie a una función
-                            //o explotará
+    //console.log( dato() )  //Esto es sintáticamente correcto, pero cuando le ponemos los parentesis
+                             //a una variable mas nos vale que esa variable referencie a una función
+                             //o explotará
 
     //
-    //Se puede crear un función utilizando el prototipo Function
+    //Se puede crear una función utilizando el prototipo Function
     //
-    let funcioncilla = new Function()
-    //Otro día...
+    let multiplicar = new Function("n1", "n2", "return n1*n2")
+    
+    console.log( multiplicar(25,25) )
 
 
 

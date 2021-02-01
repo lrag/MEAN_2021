@@ -38,6 +38,7 @@
     //añadirles nuevas propiedades, cambiarles el valor a las existentes
     //y eliminarlas
     //Esto es así porque en realidad son ARRAYS ASOCIATIVOS
+    console.log(libro)
     libro.saludar = function(){
         console.log("Hola, soy un libro")
     }
@@ -131,15 +132,160 @@
     //Las funciones prototipo se invocan utilizando la palabra reservada 'new'
     let avion1 = new Avion()
     avion1.fabricante = "Airbus"
+    //Cada vez que invoquemos la función con 'new' tendremos un objeto diferente
     let avion2 = new Avion()
     avion2.fabricante = "Boeing"
     console.log(avion1)
     console.log(avion2)
 
+    //
+    //Composición de objetos
+    //
+
+    /*let persona = {
+        nombre       : "Bart J Simpson",
+        telefono     : "123 456 789",
+        //Demasiados datos relacionados con la dirección en el "primer nivel"
+        ciudad       : "Chinchón",
+        calle        : "C/Falsa, 123",
+        numero       : "42",
+        codigoPostal : "12345"
+    }
+    */
+
+    /*Empotrando los objetos, embedded object (esto no está mal)
+    let persona = {
+        nombre    : "Bart J Simpson",
+        telefono  : "123 456 789",
+        direccion : {
+            ciudad       : "Chinchón",
+            calle        : "C/Falsa, 123",
+            numero       : "42",
+            codigoPostal : "12345"
+        }
+    } 
+    */   
+
+    //Referenciando los objetos
+    let direccion = {
+        ciudad       : "Chinchón",
+        calle        : "C/Falsa, 123",
+        numero       : "42",
+        codigoPostal : "12345"
+    }
+
+    let persona = {
+        nombre    : "Bart J Simpson",
+        telefono  : "123 456 789",
+        direccion : direccion
+    }      
+
+    //Cardinalidad de las relaciones de composición
+    //1..1: 
+    //1..n: cliente - factura
+    //n..m: pelicula - actor
+
+    //Las relaciones contra muchos las expresamos con arrays
+    let personaBis = {
+        nombre    : "Bart J Simpson",
+        telefono  : "123 456 789",
+        direcciones : [ /*direccion1, direccion2, direccion3*/ ]
+    }      
+
+    //Para acceder a las propiedades cuando hay composición de objetos
+    console.log(persona) //La persona
+    console.log(persona.nombre) //El nombre de la persona
+    console.log(persona.direccion) //La direccion de la persona
+    console.log(persona.direccion.ciudad) //La ciudad de la direccion de la persona
+    //Lo mismo con corchetillos:
+    console.log(persona["direccion"]["ciudad"]) //Puagg
 
 
+    //
+    //Prototipos, simulando un constructor
+    //
+    console.log("=========================================================")
 
+    function Barco(nombre, year, eslora, TRB){
+        this.nombre = nombre,
+        this.year   = year,
+        this.eslora = eslora,
+        this.TRB    = TRB
+    }
+    let barco1 = new Barco("USS Nimitz",1968,330,100000)
+    let barco2 = new Barco("Graf Spee",1932,200)
+    let barco3 = new Barco("Andrea Doria",1950)
+    let barco4 = new Barco("Amoco Cádiz")
+    let barco5 = new Barco()
 
+    console.log(barco1)
+    console.log(barco2)
+    console.log(barco3)
+    console.log(barco4)
+    console.log(barco5)
+
+    //
+    //Añadiendo funcionalidad a los objetos dentro de la función prototipo (cutre)
+    //
+    console.log("=========================================================")
+    function Ordenador(tipo, fabricante, procesador, memoria, discoDuro){
+        this.tipo       = tipo
+        this.fabricante = fabricante
+        this.procesador = procesador
+        this.memoria    = memoria
+        this.discoDuro  = discoDuro
+        //Si asignamos aqui las funciones cada uno de los objetos creados tendrá una
+        //copia de ellas:
+        //-más tiempo de creación de objetos
+        //-mayor consumo de memoria
+        //-muchos objetos funciones que son identicos
+        this.toCSV = function(){
+            return `${this.tipo},${this.fabricante},${this.procesador},${this.memoria},${this.discoDuro}`
+        }
+    }
+
+    let ordenador1 = new Ordenador("PC sobremesa","IBM","8088",512,"10Mb")
+    let ordenador2 = new Ordenador("Microordenador","AMSTRAD","z80",64,"Cassette")
+    let ordenador3 = new Ordenador("Portatil","Apple","Powerpc",1024,"250Mb")
+    console.log(ordenador1)
+    console.log(ordenador2)
+    console.log(ordenador3)
+    console.log(ordenador1.toCSV())
+    console.log(ordenador2.toCSV())
+    console.log(ordenador3.toCSV())
+
+    //
+    //Añadiendo la funcionalidad al prototipo
+    //
+    console.log("=========================================================")
+    function Planeta(nombre, estrella, radio){
+        this.nombre   = nombre
+        this.estrella = estrella
+        this.radio    = radio
+    }
+    //Prototype nos da acceso a '__proto__'
+    //JAMAS usaremos directamente '__proto__'
+    Planeta.prototype.toCSV = function(){
+        return `${this.nombre},${this.estrella},${this.radio}`
+    }
+    //Tambien podemos añadir identidad al prototipo, aunque no sirva de mucho en condiciones normales
+    //Planeta.prototype.anillo = false
+
+    let planeta1 = new Planeta("Tierra","Sol",6400)
+    let planeta2 = new Planeta("Marte","Sol",3400)
+    let planeta3 = new Planeta("Jupiter","Sol",74000)
+
+    console.log(planeta1)
+    console.log(planeta2)
+    console.log(planeta3)    
+    console.log(planeta1.toCSV())
+    console.log(planeta2.toCSV())
+    console.log(planeta3.toCSV())
+
+    //Esto está mal:
+    //console.log(planeta1.__proto__.toCSV())
+    //Esto directamente falla:
+    //console.log(planeta1.prototype.toCSV())
 
 </script>
 

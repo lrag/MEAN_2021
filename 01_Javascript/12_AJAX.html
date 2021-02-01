@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+
+window.onload = function(){
+    btnListarUsuariosSincrono.onclick = enviarPeticionSincrona
+    btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
+    btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
+    //btnListarUsuariosFuncionGenerica.onclick = enviarPeticionGenerica
+}
+
+</script>
+
+
+<body>
+    
+    <h1>13_AJAX</h1>
+
+    <p align="center">
+        <button id="btnListarUsuariosSincrono">Listar Síncrono</button>
+        <button id="btnListarUsuariosAsincrono">Listar Asíncrono</button>
+        <button id="btnListarUsuariosMillenial">Listar Millenial</button>
+        <button id="btnListarUsuariosFuncionGenerica">Listar Funcion Genérica</button>
+    </p>
+
+    <input type="text"/>
+
+    <div id="respuesta"></div>
+
+    <h1 align="center" id="mensaje"></h1>
+
+    <table align="center" border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Correo E</th>
+            <th>Afoto</th>
+        </tr>
+        <tbody id="tablaUsuarios"></tbody>
+    </table>
+    
+</body>
+</html>
+
+
+
