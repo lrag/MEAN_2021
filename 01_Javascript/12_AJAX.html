@@ -9,11 +9,68 @@
 
 <script type="application/javascript">
 
+//El objeto XMLHttpRequest
+//----------------------------------------------
+//Identidad
+//-responseText. guarda el contenido del body de la respuesta. por defecto ""
+//
+//Funcionalidad
+//-open(metodo, url, asincrono)
+//-send(xXx)
+
+function enviarPeticionSincrona(){
+
+    //Para enviar una petición ajax primero necesitamos un objeto XMLHttpRequest
+    let xhr = new XMLHttpRequest()
+
+    //Open sirve para inicializar el objeto XMLHttpRequest. Recibe tres parámetros
+    //-Método HTTP
+    //-Url
+    //-Sincrono/asincrono false/true. Por defecto es true
+    xhr.open("GET","https://reqres.in/api/users?delay=10",false)
+
+    //Cuando la petición es síncrona el hilo de ejecución se queda detenido en la llamada 
+    //a 'send' hasta que se recibe la respuesta
+    console.log("Antes  :"+xhr.responseText)
+    //Esto no...no se refresca los que ve el usuario hasta que se termine de ejecutar
+    //todo el código JS
+    document.getElementById("mensaje").innerHTML = "Espere por favor"
+    
+    xhr.send(null)
+
+    console.log("Despues:"+xhr.responseText)
+    document.getElementById("mensaje").innerHTML = ""
+
+    //En responseText tenemos el contenido del body de la respuesta
+    let json = xhr.responseText
+    let respuesta = JSON.parse(json)
+    /*
+    {
+            page: 1, 
+            per_page: 6, 
+            total: 12, 
+            total_pages: 2, 
+            data: [ usr1, usr2, usr3, usr4, usr5, usr6 ]
+    }
+    */
+    console.log(respuesta)
+    console.log(respuesta.data)
+    rellenarTabla(respuesta.data)
+
+}
+
+function rellenarTabla(usuarios){
+
+    
+
+
+}
+
 
 window.onload = function(){
     btnListarUsuariosSincrono.onclick = enviarPeticionSincrona
-    btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
-    btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
+    //btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
+    //btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
     //btnListarUsuariosFuncionGenerica.onclick = enviarPeticionGenerica
 }
 
@@ -21,8 +78,10 @@ window.onload = function(){
 
 
 <body>
-    
-    <h1>13_AJAX</h1>
+
+    <h1>12_AJAX</h1>
+
+    <hr/>
 
     <p align="center">
         <button id="btnListarUsuariosSincrono">Listar Síncrono</button>
@@ -33,7 +92,7 @@ window.onload = function(){
 
     <input type="text"/>
 
-    <div id="respuesta"></div>
+    <div id="mensaje"></div>
 
     <h1 align="center" id="mensaje"></h1>
 
