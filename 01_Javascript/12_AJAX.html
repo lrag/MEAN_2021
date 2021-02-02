@@ -12,12 +12,21 @@
 //El objeto XMLHttpRequest
 //----------------------------------------------
 //Identidad
-//-responseText. guarda el contenido del body de la respuesta. por defecto ""
+//-responseText: guarda el contenido del body de la respuesta. por defecto ""
+//-responseXML: si la respuesta incluia un XML nos dan el árbol DOM del documento XML
+//-status: código de respuesta HTTP
+//-readyState: estado del objeto xhr
 //
 //Funcionalidad
-//-open(metodo, url, asincrono)
+//-open(metodo, url, asincrono=true)
 //-send(xXx)
+//-onreadystatechange: por defecto null
+//-onload
+//-onerror
 
+//////////////////////////
+// Peticiones SÍNCRONAS //
+//////////////////////////
 function enviarPeticionSincrona(){
 
     //Para enviar una petición ajax primero necesitamos un objeto XMLHttpRequest
@@ -36,13 +45,22 @@ function enviarPeticionSincrona(){
     //todo el código JS
     document.getElementById("mensaje").innerHTML = "Espere por favor"
     
-    xhr.send(null)
+    //Si queremos adjuntar algo al body de la petición se lo pasamos a 'send'
+    xhr.send(null) //Como la petición es sincrona el hijo de ejecución se queda 'clavado' aqui
 
     console.log("Despues:"+xhr.responseText)
     document.getElementById("mensaje").innerHTML = ""
 
     //En responseText tenemos el contenido del body de la respuesta
     let json = xhr.responseText
+     //El código HTTP de la respuesta
+     //1XX - Infromativos 
+     //2XX - Todo fue bien
+     //3XX - Vámonos
+     //4XX - Te has equivocado tu
+     //5XX - Nos hemos equivocado
+     let status = xhr.status
+
     let respuesta = JSON.parse(json)
     /*
     {
@@ -59,18 +77,97 @@ function enviarPeticionSincrona(){
 
 }
 
-function rellenarTabla(usuarios){
+///////////////////////////
+// Peticiones ASINCRONAS //
+///////////////////////////
+function enviarPeticionAsincrona(){
 
+    let xhr = new XMLHttpRequest()
+
+    //xhr.readyState
+    //---------------------------
+    //0-UNSENT
+    //1-OPEN
+    //2-HEADERS_RECEIVED
+    //3-LOADING
+    //4-DONE
+    xhr.onreadystatechange = function(){
+        console.log("STATUS:"+this.readyState)
+        if(this.readyState == 4){
+
+            if(this.status != 200){
+                console.log("ERROR!!!!!")
+                return
+            }
+
+            //let respuestaJson = xhr.responseText
+            //let respuestaObjeto = JSON.parse(respuestaJson)
+            //let usuarios = respuestaObjeto.data
+            //rellenarTabla(usuarios)
+
+            rellenarTabla(JSON.parse(this.responseText).data)
+        }
+    }
     
+    xhr.open("GET", "https://reqres.in/api/users?delay=5", true)
+    
+    xhr.send() 
+    //COmo la petición es asíncrona NO TENEMOS LA RESPUESTA EN LA SIGUIENTE LÍNEA!!!!
+    console.log("Despues:"+xhr.responseText)
+    
+}
 
+//////////////////////
+// onload y onerror //
+//////////////////////
+function enviarPeticionMillenial(){
+    
+    let xhr = new XMLHttpRequest()
+    
+    xhr.open("GET", "https://reqres.in/api/users?delay=5",true) 
+
+    //On load se invoca cuando:
+    //-readyState = 4
+    //-status     = 2XX
+    xhr.onload = function(){
+        rellenarTabla(JSON.parse(this.responseText).data)        
+    }
+
+    //On error se invoca cuando:
+    //-readyState = 4
+    //-status     = 4XX | 5XX    
+    xhr.onerror = function(){
+        console.log("ERROR!!!")
+    }
+
+    xhr.send()
 
 }
 
+//Las funciones que procesan las respuestas reciben ya los datos convertidos
+function rellenarTabla(usuarios){
+
+    let html = ""
+
+    for(let usuario of usuarios){
+        html += `
+            <tr>
+                <td>${usuario.first_name}</td>
+                <td>${usuario.last_name}</td>
+                <td>${usuario.email}</td>
+                <td>
+                    <img src="${usuario.avatar}"/>
+                </td>
+            </tr>`
+    }
+
+    document.getElementById("tablaUsuarios").innerHTML = html
+}
 
 window.onload = function(){
     btnListarUsuariosSincrono.onclick = enviarPeticionSincrona
-    //btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
-    //btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
+    btnListarUsuariosAsincrono.onclick = enviarPeticionAsincrona
+    btnListarUsuariosMillenial.onclick = enviarPeticionMillenial
     //btnListarUsuariosFuncionGenerica.onclick = enviarPeticionGenerica
 }
 
@@ -87,7 +184,9 @@ window.onload = function(){
         <button id="btnListarUsuariosSincrono">Listar Síncrono</button>
         <button id="btnListarUsuariosAsincrono">Listar Asíncrono</button>
         <button id="btnListarUsuariosMillenial">Listar Millenial</button>
+        <!--
         <button id="btnListarUsuariosFuncionGenerica">Listar Funcion Genérica</button>
+        -->
     </p>
 
     <input type="text"/>
@@ -108,6 +207,7 @@ window.onload = function(){
     
 </body>
 </html>
+
 
 
 
