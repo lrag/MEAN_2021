@@ -66,11 +66,11 @@ function rellenarTabla(){
     tablaPersonas.innerHTML = ""
 
     for(let persona of personas){
-        let tr = document.createElement("tr")
-        let td1 = document.createElement("td")
-        let td2 = document.createElement("td")
-        let td3 = document.createElement("td")
-        let td4 = document.createElement("td")
+        let tr   = document.createElement("tr")
+        let td1  = document.createElement("td")
+        let td2  = document.createElement("td")
+        let td3  = document.createElement("td")
+        let td4  = document.createElement("td")
         let txt1 = document.createTextNode(persona.nombre)
         let txt2 = document.createTextNode(persona.direccion)
         let txt3 = document.createTextNode(persona.telefono)
@@ -118,11 +118,11 @@ function rellenarTabla2(){
             <td>${persona.correoE}</td>
         </tr>`
 
-        let table = document.createElement("tbody")
-        table.innerHTML = trHtml
-        //let tr = table.childNodes[0]
-        let tr = table.firstElementChild
+        let tbody = document.createElement("tbody")
+        tbody.innerHTML = trHtml
 
+        //let tr = tbody.childNodes[0]
+        let tr = tbody.firstElementChild
         tr.onclick = function(){
             rellenarFormulario(persona)
         }
