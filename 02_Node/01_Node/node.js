@@ -58,6 +58,7 @@ function crearHTML(){
                 <meta charset="UTF-8">
                 <title>Nuestra primera web chispas</title>
             </head>
+            <script>
             <body>
                 <h2 align="center">
                     <font color="lightGreen">
@@ -70,6 +71,20 @@ function crearHTML(){
                         <th>Titulo</th>
                         <th>Director</th>
                     </tr>`;
+
+    let peliculas = listarPeliculas()
+    for(let pelicula of peliculas){
+        html += `
+            <tr>
+                <td>${pelicula.titulo}</td>
+                <td>${pelicula.director}</td>
+            </tr>
+        `
+    }
+
+    html += `   </table>
+            </body>
+        </html>`
 
     return html
 
