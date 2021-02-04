@@ -1,6 +1,8 @@
 const http = require("http")
 const fs   = require("fs")
 
+const zlib = require("zlib")
+
 //Variables globales
 let statusCodes = {
     400 : "Petición icorrecta",
@@ -9,10 +11,12 @@ let statusCodes = {
 }
 
 let contentTypes = {
-    html : "text/html",
-    css  : "text/css",
-    js   : "application/javascript",
-    ico  : "image/x-icon"
+    html : { contentType : "text/html"             , funcion : lectorTexto }, 
+    css  : { contentType : "text/css"              , funcion : lectorTexto },
+    js   : { contentType : "application/javascript", funcion : lectorTexto },
+    ico  : { contentType : "image/x-icon"          , funcion : lectorBinario },
+    jpg  : { contentType : "image/jpeg"            , funcion : lectorBinario },
+    
 }
 
 //Definimos el servidor HTTP y lo arrancamos
@@ -44,11 +48,17 @@ function procesarPeticion(request, response){
 //Leera el fichero y lo colocará en el body de la respuesta con response.end(contenido del fichero)
 function leerFichero(ruta, response){
 
-    let url = "./recursos"+ruta
+    ruta = "./recursos"+ruta
     console.log("Buscando el recurso:"+ruta)
-    let extension = url.split(".").pop() //Ya no hay stop
+    let extension = ruta.split(".").pop() //Ya no hay stop
 
-    fs.readFile(url, function(err, contenidoBuffer){
+    let contentType = contentTypes[extension]
+    contentType.funcion(ruta, contentType.contentType, response)
+}
+
+function lectorTexto(ruta, contentType, response){
+
+    fs.readFile(ruta, function(err, contenidoBuffer){
         if(err){
             //Para simplificar supondremos que hay un error es porque el fichero no existe
             //404
@@ -57,11 +67,30 @@ function leerFichero(ruta, response){
         }
 
         let contenido = contenidoBuffer.toString()
-        console.log(contenido)
-        response.setHeader("content-type", contentTypes[extension])
+        response.setHeader("content-type", contentType)
         response.end(contenido)
     })
 
+}
+
+//Leera el fichero y lo colocará en el body de la respuesta con response.end(contenido del fichero)
+function lectorBinario(ruta, contentType, response){
+
+    fs.readFile(ruta, /*{encoding: 'base64'},*/ function(err, contenidoBuffer){
+        if(err){
+            //Para simplificar supondremos que hay un error es porque el fichero no existe
+            //404
+            devolverError(404,response)
+            return
+        }
+
+        zlib.gzip(contenidoBuffer, function (err, result) {  
+            //console.log(result)
+            response.setHeader("Content-Type", contentType.toString())
+            response.setHeader("Content-Encoding", "gzip")
+            response.end(result)
+        });
+    })
 }
 
 function devolverError(statusCode, response){

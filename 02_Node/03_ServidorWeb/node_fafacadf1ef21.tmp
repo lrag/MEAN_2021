@@ -57,6 +57,7 @@ function leerFichero(ruta, response){
         }
 
         let contenido = contenidoBuffer.toString()
+        console.log(contenido)
         response.setHeader("content-type", contentTypes[extension])
         response.end(contenido)
     })
