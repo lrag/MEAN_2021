@@ -26,10 +26,10 @@ MÉTODOS HTTP
 Métodos relacionados directamente con los recursos
 
 GET	Solicita al servidor que entregue los recursos identificados por la ruta. No tiene body. Es idempotente
-POST
-PUT
-PATCH
-DELETE
+POST    Solicita al servidor que añada un recurso en una carpeta. El recurso irá en el body de la petición
+PUT     Solicita al servidor que sustituya el recurso identificado por la ruta por el que va adjunto en el body
+PATCH   Solicita al servidor que modifique el recurso identificado por la ruta con los datos contenidos en el body
+DELETE  Solicita al servidor que elimine el recurso o recursos identificados por la ruta. No tiene body
 --------------------------------------------------
 Otros métodos para otras historas
 
