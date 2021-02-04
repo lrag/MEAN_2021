@@ -1,0 +1,71 @@
+
+//////////
+// HTTP //
+//////////
+
+El protocolo http consiste en...
+
+En un servidor remoto hay una serie de recursos organizados en carpetas reales o imaginarias
+Los clientes envian peticiones para trabar con dichos recursos
+
+Las peticiones consisten en una ruta que identifique una carpeta o unos recursos y un método que le indique
+al servidor la operación que debe realizar 
+
+Una ruta puede identificar
+-una carpeta: todos los recursos contenidos en ella
+-un recurso concreto
+-un subconjunto de los recursos contenidos en una carpeta
+
+
+
+METODO + URL/RUTA
+
+MÉTODOS HTTP
+
+--------------------------------------------------
+Métodos relacionados directamente con los recursos
+
+GET	Solicita al servidor que entregue los recursos identificados por la ruta. No tiene body. Es idempotente
+POST
+PUT
+PATCH
+DELETE
+--------------------------------------------------
+Otros métodos para otras historas
+
+HEAD
+OPTIONS
+
+///////
+//GET//
+///////
+
+RECURSOS
+
+	pagina1.html
+	pagina2.html
+	
+	MOVIDAS
+		
+		pagina3.html
+		pagina4.html
+
+
+Petición
+
+GET /movidas/pagina3.html
+
+Respuesta
+
+200 OK
+Content-type: text/html
+----------------------------
+<html>
+
+
+GET /movidas
+
+
+
+
+
