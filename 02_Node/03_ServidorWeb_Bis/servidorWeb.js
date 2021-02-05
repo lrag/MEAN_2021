@@ -1,13 +1,15 @@
 const http = require("http")
 const fs   = require("fs")
 
+//Este módulo viene con Node.JS
 const zlib = require("zlib")
 
 //Variables globales
 let statusCodes = {
     400 : "Petición icorrecta",
     404 : "El recurso solicitado no existe",
-    405 : "Método HTTP no admitido"
+    405 : "Método HTTP no admitido",
+    500 : "Error interno en el servidor"
 }
 
 let contentTypes = {
@@ -15,8 +17,7 @@ let contentTypes = {
     css  : { contentType : "text/css"              , funcion : lectorTexto },
     js   : { contentType : "application/javascript", funcion : lectorTexto },
     ico  : { contentType : "image/x-icon"          , funcion : lectorBinario },
-    jpg  : { contentType : "image/jpeg"            , funcion : lectorBinario },
-    
+    jpg  : { contentType : "image/jpeg"            , funcion : lectorBinario }    
 }
 
 //Definimos el servidor HTTP y lo arrancamos
@@ -70,13 +71,12 @@ function lectorTexto(ruta, contentType, response){
         response.setHeader("content-type", contentType)
         response.end(contenido)
     })
-
 }
 
 //Leera el fichero y lo colocará en el body de la respuesta con response.end(contenido del fichero)
 function lectorBinario(ruta, contentType, response){
 
-    fs.readFile(ruta, /*{encoding: 'base64'},*/ function(err, contenidoBuffer){
+    fs.readFile(ruta, function(err, contenidoBuffer){
         if(err){
             //Para simplificar supondremos que hay un error es porque el fichero no existe
             //404
@@ -85,6 +85,11 @@ function lectorBinario(ruta, contentType, response){
         }
 
         zlib.gzip(contenidoBuffer, function (err, result) {  
+            if(err){
+                console.log(err)
+                devolverError(500, response)
+                return
+            }
             //console.log(result)
             response.setHeader("Content-Type", contentType.toString())
             response.setHeader("Content-Encoding", "gzip")

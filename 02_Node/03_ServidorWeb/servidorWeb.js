@@ -11,8 +11,7 @@ let statusCodes = {
 let contentTypes = {
     html : "text/html",
     css  : "text/css",
-    js   : "application/javascript",
-    ico  : "image/x-icon"
+    js   : "application/javascript"
 }
 
 //Definimos el servidor HTTP y lo arrancamos
@@ -57,7 +56,6 @@ function leerFichero(ruta, response){
         }
 
         let contenido = contenidoBuffer.toString()
-        console.log(contenido)
         response.setHeader("content-type", contentTypes[extension])
         response.end(contenido)
     })
