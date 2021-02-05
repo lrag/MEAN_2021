@@ -8,8 +8,8 @@ El protocolo http consiste en...
 En un servidor remoto hay una serie de recursos organizados en carpetas reales o imaginarias
 Los clientes envian peticiones para trabar con dichos recursos
 
-Las peticiones consisten en una ruta que identifique una carpeta o unos recursos y un m�todo que le indique
-al servidor la operaci�n que debe realizar 
+Las peticiones consisten en una ruta que identifique a uno o varios recursos y un método que le indique
+al servidor la operación que debe realizar 
 
 Una ruta puede identificar
 -una carpeta: todos los recursos contenidos en ella
@@ -20,25 +20,25 @@ Una ruta puede identificar
 
 METODO + URL/RUTA
 
-M�TODOS HTTP
+MÉTODOS HTTP
 
 --------------------------------------------------
-M�todos relacionados directamente con los recursos
+Métodos relacionados directamente con los recursos
 
 GET	Solicita al servidor que entregue los recursos identificados por la ruta. No tiene body. Es idempotente
-POST    Solicita al servidor que a�ada un recurso en una carpeta. El recurso ir� en el body de la petici�n
+POST    Solicita al servidor que añada un recurso en una carpeta. El recurso irá en el body de la petición
 PUT     Solicita al servidor que sustituya el recurso identificado por la ruta por el que va adjunto en el body
 PATCH   Solicita al servidor que modifique el recurso identificado por la ruta con los datos contenidos en el body
 DELETE  Solicita al servidor que elimine el recurso o recursos identificados por la ruta. No tiene body
 --------------------------------------------------
-Otros m�todos para otras historas
+Otros métodos para otras historas
 
 HEAD
 OPTIONS
 
-///////
-//GET//
-///////
+/////////////////////////
+//GET, RECURSOS FISICOS//
+/////////////////////////
 
 RECURSOS
 
@@ -51,7 +51,7 @@ RECURSOS
 		pagina4.html
 
 
-Petici�n
+Petición
 
 GET /movidas/pagina3.html
 
@@ -64,6 +64,321 @@ Content-type: text/html
 
 
 GET /movidas
+
+
+////////////////////////
+//                    //
+//        REST        //
+//                    //
+////////////////////////
+
+Diseñando un API REST
+
+Representational State Transfer
+
+
+-Identificar los recursos. Los recursos serán representaciones de las entidades que afectan al servicio
+-Definir la representación de los recursos
+-Definir las carpetas para los recursos
+-Definir cuales peticiones conforman el API
+
+
+
+
+/clientes
+
+	cli-0001
+	cli-0002
+	cli-0004
+
+
+/////////
+
+// GET //
+/////////
+
+Las rutas asociadas a peticiones GET pueden acabar en un recurso concreto o en una carpeta
+
+
+Peticion:
+
+GET /clientes/cli-0002 -> dame el cliente cli-0002
+
+Respuesta
+
+200 OK
+Content-Type: app/json
+----------------------
+{ cliente }
+
+
+Petición:
+
+GET /clientes/cli-0003
+
+Respuesta
+
+404 Not found
+Content-Type: app/json
+----------------------
+{ codigo:404, mensaje:"El cliente no existe" }
+
+
+Peticion:
+
+GET /clientes
+
+Respuesta
+
+200 OK
+Content-Type: app/json
+----------------------
+[ { cli1 }, { cli2 }, { cli3 }... ]
+
+
+//////////
+// POST //
+//////////
+
+Las rutas asociadas a las peticiones POST acaban siempre en carpeta
+
+POST /clientes
+CT: app/json
+------------------------
+{ cliente }
+
+
+201 Created
+CT: app/json
+------------------------
+{ id : 67 }
+
+ó
+
+{ cliente }
+
+
+
+/////////
+// PUT //
+/////////
+
+Las rutas asociadas a peticiones PUT pueden acabar en un recurso concreto o en una carpeta (mucho cuidado con los 'bulk update')
+
+
+Tenemos este cliente en el servidor (en la bb.dd)
+
+{
+	id        : 42
+	nombre    : "Fulanito",
+	direccion : "C/Falsa, 123",
+	telefono  : "123 456 789",
+	correoE   : "a@b.c"
+}
+
+Petición:
+
+PUT /clientes/42  <--Es obligatorio que el id esté en la ruta
+CT: app/json
+------------------------
+{
+	id        : 42 <--Esta propiedad es opcional porque ya está en la ruta. En el servidor debe ser ignorada ACTIVAMENTE
+	nombre    : "Fulanito",
+	direccion : "C/Falsa, 123",
+	telefono  : "555 555 555", <-----
+	correoE   : "a@b.c"
+}
+
+El cliente quedaría así:
+
+{
+	id        : 42
+	nombre    : "Fulanito",
+	direccion : "C/Falsa, 123",
+	telefono  : "555 555 555",
+	correoE   : "a@b.c"
+}
+
+
+Peticion:
+
+PUT /clientes/42  
+CT: app/json
+------------------------
+{
+	telefono  : "555 555 555"
+}
+
+El cliente quedaría así:
+
+{
+	id        : 42
+	nombre    : null, <--F
+	direccion : null, <--F
+	telefono  : "555 555 555",
+	correoE   : null  <--F
+}
+
+
+///////////
+// PATCH //
+///////////
+
+Las rutas asociadas a peticiones PATHC pueden acabar en un recurso concreto o en una carpeta (mucho cuidado con los 'bulk update')
+
+
+Tenemos este cliente en el servidor (en la bb.dd)
+
+{
+	id        : 42
+	nombre    : "Fulanita",
+	direccion : "C/Falsa, 123",
+	telefono  : "123 456 789",
+	correoE   : "a@b.c"
+}
+
+Petición:
+
+PATCH /clientes/42  <--Es obligatorio que el id esté en la ruta
+CT: app/json
+------------------------
+{
+	id        : 42 <--Esta propiedad es opcional porque ya está en la ruta. En el servidor debe ser ignorada ACTIVAMENTE
+	nombre    : "Fulanita",
+	direccion : "C/Falsa, 123",
+	telefono  : "555 555 555", <-----
+	correoE   : "a@b.c"
+}
+
+El cliente quedaría así:
+
+{
+	id        : 42
+	nombre    : "Fulanita",
+	direccion : "C/Falsa, 123",
+	telefono  : "555 555 555",
+	correoE   : "a@b.c"
+}
+
+
+Peticion:
+
+PUT /clientes/42  
+CT: app/json
+------------------------
+{
+	telefono  : "555 555 555"
+}
+
+El cliente quedaría así:
+
+{
+	id        : 42
+	nombre    : "Fulanita",
+	direccion : "C/Falsa, 123",
+	telefono  : "555 555 555",
+	correoE   : "a@b.c"
+}
+
+
+Se puede definir una petición que no incuya el identificador del recurso, pero es muy peligroso
+
+PATCH /clientes
+CT: app/json
+--------------------------
+{ estado : "activo" }
+
+
+
+////////////
+// DELETE //
+////////////
+
+Las rutas asociadas a peticiones DELETE pueden acabar en un recurso concreto o en una carpeta (mucho cuidado con los 'bulk delete')
+
+
+Petición
+
+DELETE /clientes/87  -> borra el cliente 87
+
+Respuesta
+
+200 OK
+CT: app/json
+-------------------------
+{ mensaje : "El cliente se ha borrado" }
+
+
+Petición:
+
+DELETE /clientes -> Borra todos los clientes!
+
+Respuesta
+
+200 OK
+CT: app/json
+--------------------------
+{ mensaje : "Estarás contento..." }
+
+O MEJOR:
+
+404 Not found
+CT: app/json
+--------------------------
+{ mensaje : "Funcionalidad no implementada" }
+
+
+
+
+
+//API REST para la AGENDA
+
+MÉTODO	URL				BODY	FUNCIONALIDAD
+
+GET		/personas		-		listar las personas
+GET		/personas/{id}  -		buscar a una persona por su id
+POST	/personas		{json}	insertar la persona
+PUT 	/personas/{id}  {json}  modificar la persona
+DELETE  /personas/{id}  -	    borrar una persona
+
+
+/////////////////////////////////////////////////
+// FILTRADO DE RESULTADOS CON LOS QUERY PARAMS //
+/////////////////////////////////////////////////
+
+
+GET /clientes
+
+Opciones:
+-devolver los 15.000.000 de clientes
+-devolver los, p.e., los 50 primeros
+-paginar el resultado
+-404: No atendender dicha petición
+
+Los query parameters se adjuntan a la url después de una'?'
+Son pares clave-valor y la sintaxis es:
+
+GET /recursos?param1=valor1&param2=valor2&param3=valor3
+
+Pueden admitir varios valores
+
+param=valor1,valor2,valor3
+
+Tambien es legal un parámetro sin valor
+
+
+
+GET /clientes
+CT: form-data
+---------------------------
+ciudad=Chinchón
+             
+
+
+
+
+
+
 
 
 
