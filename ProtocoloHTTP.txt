@@ -83,8 +83,6 @@ Representational State Transfer
 -Definir cuales peticiones conforman el API
 
 
-
-
 /clientes
 
 	cli-0001
@@ -333,19 +331,185 @@ CT: app/json
 
 //API REST para la AGENDA
 
-MÉTODO	URL				BODY	FUNCIONALIDAD
+MÉTODO	URL			BODY	FUNCIONALIDAD
 
-GET		/personas		-		listar las personas
-GET		/personas/{id}  -		buscar a una persona por su id
+GET	/personas		-	listar las personas
+GET	/personas/{id}  	-	buscar a una persona por su id
 POST	/personas		{json}	insertar la persona
-PUT 	/personas/{id}  {json}  modificar la persona
-DELETE  /personas/{id}  -	    borrar una persona
+PUT 	/personas/{id}  	{json}  modificar la persona
+DELETE  /personas/{id}  	-	borrar una persona
+
+
+
+///////////////////////////////
+// RELACIONES ENTRE RECURSOS //
+///////////////////////////////
+
+-Cardinalidad de las relaciones:
+
+//
+//UNO A UNO
+//
+
+1..1       : paciente - historial médico
+
+
+//
+//UNO A MUCHOS
+//
+
+1..n, 1..* : cliente - factura
+
+
+Uno a muchos, la factura no tiene la relación con el cliente
+
+Cliente						Factura
+{						{
+	id        :					id        :
+	nombre    :					codigo    :
+	direccion :					fecha     :
+	telefono  :					formaPago :
+	facturas  : [ fra1, fra2... ]		}
+}									
+
+Uno a muchos, el cliente no tiene el array de facturas (la más común)
+
+Cliente						Factura
+{						{
+	id        :					id        :
+	nombre    :					codigo    :
+	direccion :					fecha     :
+	telefono  :					formaPago :
+}							cliente   : { id }
+						}
+
+Uno a muchos, BIDIRECCIONAL								
+
+Cliente						Factura
+{						{
+	id        :					id        :
+	nombre    :					codigo    :
+	direccion :					fecha     :
+	telefono  :					formaPago :
+	facturas  : [ fra1, fra2... ]			cliente   : { id }
+}						}
+
+
+//
+//MUCHOS A MUCHOS. Normalmente no se usan
+//
+
+n..m, *..* : pelicula - actor
+             pedido - producto
+
+Pelicula				Actor
+{					{
+	id       :				id :
+	titulo   :				nombre :
+	director :				fechaNac :
+	genero   :				pais
+	year     :				peliculas : [ p1, p2, p3 ]
+	actores  : [ a1, a2, a3 ]	}
+}
+
+//
+//Entidad intermedia (muchos a muchos)
+//
+
+Necesitamos una entidad intermedia y al final tenemos 
+
+Pelicula --1..n-- Actuación --n..1-- Actor
+
+Pelicula				Actuación 			Actor
+{					{				{
+	id          :				id       :			id          :
+	titulo      :				papel    :			nombre      :
+	director    :				premio   :			fechaNac    :
+	genero      :				pelicula : { id }		pais        :
+	year        :				actor    : { id }		actuaciones : [ a1, a2, a3 ]
+	actuaciones : [ a1, a2, a3 ]	}				}
+}
+
+
+
+/clientes
+
+	cli-0001
+	cli-0002
+	cli-0004
+
+
+/facturas 
+	
+	fra-1
+	fra-2
+	fra-3
+	fra-4
+	fra-5
+	fra-6
+	fra-7
+
+
+////////////////////////////////////////////////////////////////
+
+
+/clientes
+
+	/cli-0001
+		cli-0001
+		/facturas
+			fra-1
+			fra-3
+			fra-5
+		/pedidos
+			ped-0
+			ped-1
+		/incidencias
+			inc-1
+			
+
+	/cli-0002
+		cli-0002
+		/facturas
+			fra-2
+			fra-5
+
+	/cli-0003
+		cli-0003
+		/facturas
+			fra-4
+			fra-7
+
+
+GET /clientes		  -> dame todos los clientes
+GET /clientes/2		  -> dame el cliente 2
+GET /clientes/2/facturas  -> dame las facturas del cliente 2
+
+
+Esto está mal. El método afecta a lo que haya al final de la ruta:
+//...
+GET /facturas/clientes/2  
+
+
+Dame las peliculas del director 50
+
+GET /directores/50/peliculas
+
+
+A las relaciones 1..n no se les puede 'dar la vuelta':
+GET /clientes/5/facturas 
+GET /facturas/5/clientes :(  
+
+Pero a las relaciones de n..m si:
+
+GET /peliculas/50/actores
+GET /actores/50/peliculas - ámbia el sentido, pero sigue teniendolo
+
 
 
 /////////////////////////////////////////////////
 // FILTRADO DE RESULTADOS CON LOS QUERY PARAMS //
 /////////////////////////////////////////////////
-
 
 GET /clientes
 
@@ -367,18 +531,27 @@ param=valor1,valor2,valor3
 Tambien es legal un parámetro sin valor
 
 
-
-GET /clientes
-CT: form-data
----------------------------
-ciudad=Chinchón
-             
+Dame los clientes de chinchon:
+	     |
+GET /clientes?ciudad=Chinchón
+             |
 
 
+Dame las facturas del cliente 47:
+
+GET /clientes/47/facturas
+Es equivalente a: GET /facturas?idCliente=47 <----
+
+
+Dame las peliculas del director 50:
+
+GET /peliculas?idDirector=50
 
 
 
 
+//
+//Otro día seguimos...
 
 
 
