@@ -10,7 +10,8 @@ Película:
     titulo   : "",
     director : "",
     genero   : "",
-    year     : 0
+    year     : 0,
+    sinopsis : ""
 }
 
 MÉTODO	URL			        BODY	FUNCIONALIDAD
@@ -35,13 +36,13 @@ function procesarPeticion(request, response){
 
     if( metodo=="GET" && url=="/peliculas"){
         listarPeliculas(request, response)
-    } else if( metodo=="GET" && url.match("^/peliculas/[0-9]+$") ) {
+    } else if( metodo=="GET" && url.match("^/peliculas/[0-9a-fA-F]{25}$") ) {
         buscarPelicula(request, response)
     } else if( metodo="POST" && url=="/peliculas"){
         insertarPelicula(request, response)
-    } else if( metodo="PUT" && url.match("^/peliculas/[0-9]+$") ){
+    } else if( metodo="PUT" && url.match("^/peliculas/[0-9a-fA-F]{25}$") ){
         modificarPelicula(request, response)
-    } else if( metodo="DELETE" && url.match("^/peliculas/[0-9]+$") ){
+    } else if( metodo="DELETE" && url.match("^/peliculas/[0-9a-fA-F]{25}$") ){
         borrarPelicula(reques, response)
     } else {
         //404 
@@ -73,14 +74,20 @@ function procesarPeticion(request, response){
 
 //GET /peliculas
 function listarPeliculas(request, response){
-    //Aqui haría falta un criterio de búsqueda (lo ignoramos)
     console.log("Listar películas")
+    //Aqui haría falta un criterio de búsqueda (lo ignoramos)
+    negocioPeliculas.listarPeliculas()
 }
 
 //GET /peliculas/:id
 function buscarPelicula(request, response){
-    //aqui hace falta el id de la pelicula
     console.log("Buscar película")
+
+    //aqui hace falta el id de la pelicula
+    //let id = request.url.substring(11)
+    //let id = request.url.split("/")[2] 
+    let id = request.url.split("/").pop() //Esto mejor
+    negocioPeliculas.buscarPelicula(id)
 }
 
 //POST /peliculas
@@ -88,8 +95,18 @@ function buscarPelicula(request, response){
 //-------------------------------
 //{ pelicula }
 function insertarPelicula(request, response){
-    //aqui hace falta la peli
-    console.log("Insertar película")
+    console.log("Insertar película (LC)")    
+    //aqui hace falta la peli, que viene en el body
+    //Por defecto no se lee el body porque puede ser enorme
+    //Somos nosotros los que decidimos si se lee o no
+    //Con 'request.on("data", callback)' ordenamos su lectura
+    //'request.on' es una función ASINCRONA
+    request.on("data", function(contenidoBody){
+        let pelicula = JSON.parse(contenidoBody)
+        negocioPeliculas.insertarPelicula(pelicula)
+
+    })
+
 }
 
 //PUT /peliculas/:id
@@ -97,14 +114,21 @@ function insertarPelicula(request, response){
 //-------------------------------
 //{ pelicula }
 function modificarPelicula(request, response){
+    console.log("Modificar película (LC)")
     //aqui hace falta la peli y el id
-    console.log("Modificar película")
+    request.on("data", function(contenidoBody){
+        let pelicula = JSON.parse(contenidoBody)
+        negocioPeliculas.modificarPelicula(pelicula)
+
+    })    
 }
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){
-    //aqui hace falta el id de la pelicula
     console.log("Borrar película")
+    //aqui hace falta el id de la pelicula
+    let id = request.url.split("/").pop() 
+    negocioPeliculas.borrarPelicula(id)    
 }
 
 
