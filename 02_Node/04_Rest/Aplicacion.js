@@ -1,9 +1,7 @@
-
 const http = require("http")
-
+const negocioPeliculas = require("./negocioPeliculas.js")
 
 /*API REST 
-
 
 Película:
 
@@ -14,7 +12,6 @@ Película:
     genero   : "",
     year     : 0
 }
-
 
 MÉTODO	URL			        BODY	FUNCIONALIDAD
 ------------------------------------------------------------------
@@ -66,7 +63,8 @@ function procesarPeticion(request, response){
 // -un JSON en el body (o cualquier otro formato)
 // -cualquier combinación de lo anterior
 //
-//-Invocar la función con la lógica de negocio
+//-Invocar la función con la lógica de negocio. 
+//
 //
 //-Si la lógica de negocio ha devuelto algo que le interesde al cliente configurar
 // la respuesta para entregarlo
@@ -83,9 +81,6 @@ function listarPeliculas(request, response){
 function buscarPelicula(request, response){
     //aqui hace falta el id de la pelicula
     console.log("Buscar película")
-
-
-
 }
 
 //POST /peliculas
