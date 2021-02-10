@@ -4,15 +4,19 @@
 //
 //Jamás envieremos aqui el request o el reponse
 //
-
-exports.dato = 100
+//const mongoDB = require("mongodb")
+const mongoDBUtil = require("./mongoDBUtil")
 
 exports.listarPeliculas = function(){
-    //find
+    let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
 }
 
 exports.buscarPelicula = function(idPelicula){
-    //find
+    let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
+    //Cuidado que _id tiene como valor ObjectId
+    //return coleccionPeliculas.findOne( { _id : idPelicula })
+    return coleccionPeliculas.findOne( { _id : new mongoDBUtil.ObjectId(idPelicula) })
+
 }
 
 exports.insertarPelicula = function(pelicula){

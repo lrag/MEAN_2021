@@ -17,13 +17,21 @@ const mongoDB = require("mongoDB")
 //Obtener una conexión a MongoDB//
 //////////////////////////////////
 
+/*
+Pasos:
+-conectar y obtener el objeto que representa al servidor de bases de datos (dbs)
+-a dbs le pedimos el esquema
+-al equema le pedimos la colección
+-a la colección le pedimos que busque, inserte, modifique...
+*/
+
 const url = "mongodb://localhost:27017"
 
 //La función connect es asíncrona
 //Nos dan un objeto que representa al servidor de bases de datos
 console.log("Conectando a mongo db...")
-mongoDB.connect(url, { useUnifiedTopology : true }, function(err, dbs){
 
+mongoDB.connect(url, { useUnifiedTopology : true }, function(err, dbs){
     if(err){
         console.log(err)
         return
@@ -42,22 +50,32 @@ mongoDB.connect(url, { useUnifiedTopology : true }, function(err, dbs){
     /////////////
     //insertOne//
     /////////////
-    coleccionPeliculas
-        .insertOne( { titulo : "2001", director : "Stanley Kubrik", year : 1968 },
-        function(err, result){
+    coleccionPeliculas.insertOne({ titulo : "2001", director : "Stanley Kubrik", year : 1968 }, function(err, result){
+        if(err){
+            console.log(err)
+            return
+        }
+        
+        console.log("Pelicula insertada")
+        //console.log(result)
+
+        coleccionPeliculas.findOne({ titulo : "2001" }, function(err, pelicula){
             if(err){
                 console.log(err)
                 return
             }
 
-            console.log("Pelicula insertada")
-            //console.log(result)
-        } )
+            console.log("Pelicula:",pelicula)
 
-        
-    //coleccionPeliculas.findOne()
-
-
+            dbs.close(function(err){
+                if(err){
+                    console.log(err)
+                    return
+                }
+                console.log("Desconectado...")
+            })                    
+        })
+    })
 })
 
 
