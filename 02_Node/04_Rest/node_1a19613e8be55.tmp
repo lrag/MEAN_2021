@@ -199,7 +199,7 @@ function modificarPelicula(request, response){
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){
-    console.log("Borrar película (LC)")
+    console.log("Borrar película")
     //aqui hace falta el id de la pelicula
     let id = request.url.split("/").pop() 
     negocioPeliculas
@@ -207,8 +207,6 @@ function borrarPelicula(request, response){
         .then(function(result){
 
             //if 404
-
-            
 
             response.end("OK")
 

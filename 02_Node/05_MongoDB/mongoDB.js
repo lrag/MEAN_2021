@@ -25,7 +25,12 @@ Pasos:
 -a la colección le pedimos que busque, inserte, modifique...
 */
 
-const url = "mongodb://localhost:27017"
+
+//const url = "mongodb://localhost:27017"
+
+//MongoDB Atlas
+//const uri = "mongodb+srv://root:<password>@cluster0.kzos4.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const url = "mongodb+srv://root:root@cluster0.kzos4.mongodb.net?retryWrites=true&w=majority";
 
 //La función connect es asíncrona
 //Nos dan un objeto que representa al servidor de bases de datos
