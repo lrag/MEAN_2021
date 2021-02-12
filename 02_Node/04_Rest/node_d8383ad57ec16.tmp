@@ -35,8 +35,7 @@ function procesarPeticion(request, response){
         borrarPelicula(request, response)
     } else {
         //404 
-        console.log("???")
-        response.end("???")
+        restUtil.devolverError(response, 404, "Esto no lo trabajamos")
     }
 }
 
@@ -66,7 +65,16 @@ function procesarPeticion(request, response){
 function listarPeliculas(request, response){
     console.log("Listar películas")
     //Aqui haría falta un criterio de búsqueda (lo ignoramos)
-    negocioPeliculas.listarPeliculas()
+    negocioPeliculas
+        .listarPeliculas()
+        .then(function(peliculas){
+            response.setHeader('Content-Type', 'application/json')
+            response.end(JSON.stringify(peliculas))
+        })
+        .catch(function(err){
+            console.log(err)
+            restUtil.devolverError(response, 500, "Error al listar las películas")
+        })
 }
 
 //GET /peliculas/:id
@@ -173,7 +181,15 @@ function modificarPelicula(request, response){
     let id = request.url.split("/").pop()
 
     request.on("data", function(contenidoBody){
-        let pelicula = JSON.parse(contenidoBody)
+        
+        let pelicula = null
+        
+        try {
+            pelicula = JSON.parse(contenidoBody)
+        } catch(error){
+            console.log("No es un JSON!")
+            restUtil.devolverError(response, 400, "Formato incorrecto: no es un json")
+        }
 
         //Nos aseguramos de que la película que venía en el body tenga el id 
         //que venía en la ruta
@@ -182,34 +198,31 @@ function modificarPelicula(request, response){
         negocioPeliculas
         .modificarPelicula(pelicula)
         .then(function(result){
-                
-                if(result.ok == 0){
+                //if(result.value == null){
+                if(!result.value){
                     restUtil.devolverError(response,404,"No existe la película")
                     return
                 }
-                response.end("OK")
-
+                response.setHeader('Content-Type', 'application/json')
+                response.end(JSON.stringify(result.value))
             })
-            .catch(function(err){
-                console.log(err)
-                restUtil.devolverError(response, 500, "Error al modificar la película") 
-            })
+        .catch(function(err){
+            console.log(err)
+            restUtil.devolverError(response, 500, "Error al modificar la película") 
+        })
     })    
 }
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){
-    console.log("Borrar película")
+    console.log("Borrar película (LC)")
     //aqui hace falta el id de la pelicula
     let id = request.url.split("/").pop() 
     negocioPeliculas
         .borrarPelicula(id) 
         .then(function(result){
-
             //if 404
-
             response.end("OK")
-
         })
         .catch(function(err){
             restUtil.devolverError(response, 500, "Error al borrar la película") 
