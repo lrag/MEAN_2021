@@ -8,6 +8,109 @@
 
 <script type="text/javascript">
 
+
+$(pruebas)
+function pruebas(){
+
+    $("h2")             //Todos los h2
+    $("h2[id]")         //Todos los h2 que tengan id
+    $("h2[id^=color-]") //Todos los h2 que tengan un id que comience por 'color-'
+
+    /*
+    $("h2[id^=color-]").html("HOLA")
+    $("h2[id^=color-]").val("HOLA") //No tiene sentido porque los H2 no tienen value
+    $("h2[id^=color-]").css('color', 'green')
+    //Se pueden concatenar las llamadas
+    $("h2[id^=color-]")
+        .html("TOCOTÓ")
+        .css('color', 'red')
+    */
+
+    /*Sin la función 'each'
+    let nodos = $("h2[id^=color-]")
+    for(let nodo of nodos){
+        //Aqui ponemos el código necesario para hacer la operación no contemplada por la gentuza
+        //de jQuery
+        nodo.innerHTML = 'PRUEBA'
+        nodo.style.color = 'lightGreen'
+    }*/
+
+    ////////////////
+    //Función EACH//
+    ////////////////
+
+    //
+    //Ejecuta la función que recibe por parámetro por cada uno de los nodos contenidos en el array
+    //
+    $("h2[id^=color-]").each(function(pos, nodo){
+        //Dentro de esta función 'this' es cada uno de los nodos
+        //console.log(this)
+        //console.log(nodo)
+    })
+
+    //
+    //Tambien nos sirve cuando estamos generando nodos
+    //
+    $("<p>Vamos</p><p>que</p><p>nos</p><p>vamos</p>").each( function(){
+        //console.log(this)
+    })
+
+    //
+    //
+    /*
+    $("h2[id^=color-]").each(function(pos, nodo){
+        
+        let nombreColor = nodo.innerHTML
+        switch(nombreColor){
+            case 'Rojo' : 
+                //Cuidado que esto es un nodo del árbol DOM y no tiene las funciones
+                //fancy de jQuery:
+                //nodo.css('color', 'red')
+                
+                //Podemos hacerlo directamente con javascript a secas
+                //nodo.style.color = 'red'
+
+                //Pero tambien podemo hacer esto:
+                $(nodo).css('color', 'red')
+                break
+            case 'Verde' : 
+                $(nodo).css('color', 'green')
+                break
+            case 'Azul' : 
+                $(nodo).css('color', 'blue')
+                break
+            case 'Amarillo' : 
+                $(nodo).css('color', 'yellow')
+                break
+            case 'Fabada' : 
+                $(nodo).css('color', '#FABADA')
+                break
+            case 'Cocido' : 
+                $(nodo).css('color', '#C0C1D0')
+                break
+        }
+    })
+    */
+
+    let colores = {
+        Rojo     : 'red',
+        Verde    : 'green',
+        Azul     : 'blue',
+        Amarillo : 'yellow',
+        Fabada   : '#FABADA',
+        Cocido   : '#C0C1D0'
+    }
+
+    $("h2[id^=color-]").each(function(pos, nodo){
+        let nombreColor = nodo.innerHTML
+        //nodo.style.color = colores[nombreColor]
+        $(nodo).css('color', colores[nombreColor])
+    })    
+
+}
+
+
+
 </script>
 
 <body>

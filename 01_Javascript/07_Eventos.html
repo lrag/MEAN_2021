@@ -163,6 +163,29 @@ function inicializar(){
         }
     }
 
+    //
+    //Cancelando un evento en una cadena de manejadores
+    //
+    function f1(){
+        console.log("F1")
+    }
+    function f2(e){
+        console.log("F2")
+        e.stopImmediatePropagation()
+
+    }
+    function f3(){
+        console.log("F3")
+    }
+
+    document.getElementById("botoncillo").addEventListener('click', f1)
+    document.getElementById("botoncillo").addEventListener('click', f2)
+    document.getElementById("botoncillo").addEventListener('click', f3)
+
+
+
+
+
     //RESUMEN
     //
     //Si cuando se pulsa un botón queremos que se ejecute una función que no recibe parametros 
