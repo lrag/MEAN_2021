@@ -7,6 +7,49 @@
 
 <script type="text/javascript">
 
+function validar(evento){
+    //if(dato.value.trim().length==0){
+    //if(document.getElementById("dato").value.trim().length==0){
+    
+    if($("#dato").val().trim().length == 0){
+        alert("Dato es obligatorio")
+
+        evento.preventDefault()
+    }
+
+}
+
+
+function dale(){
+    console.log("=======================")
+    console.log("Dale don dale")
+    console.log(arguments)
+}
+
+
+$(pruebas)
+function pruebas(){
+
+    //Así no:
+    //let nodos = $("#DALE")  
+    //nodos[0].onclick = dale 
+
+    $("#DALE").click(dale) 
+    $("#DALE").click(dale) //Se ejecuta dos veces porque jQuery añade los eventos al estilo de 'addEventListener'
+
+    //Añade el mismo manejador a todos los input
+    //$("input").click(dale)
+
+
+    $("#enviar").click(validar)
+
+
+
+}
+
+function otraFuncion(){
+    console.log("OTRA FUNCION")
+}
 
 </script>
 
@@ -20,7 +63,7 @@
 
     <form action="XXX">
         <input type="text" id="dato" name="dato" value=""/>
-        <input type="submit" id="enviar" value="Enviar"/>
+        <input type="submit" id="enviar" value="Enviar" />
     </form>
 
 </body>
