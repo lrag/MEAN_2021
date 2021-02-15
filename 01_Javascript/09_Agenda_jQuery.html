@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script src="./jquery.js" type="application/javascript"></script>
+    <script src="./09_Libreria.js" type="application/javascript"></script>
+
 </head>
 
 <script type="application/javascript">
@@ -18,14 +22,18 @@ let trSeleccionado = null
 
 function insertarPersona(){
 
-    //Creamos una persona con los datos del formulario
+    /*Creamos una persona con los datos del formulario
     let persona = {
-        id        : Math.round(Math.random()*10000),
-        nombre    : document.getElementById("nombre").value,
-        direccion : document.getElementById("direccion").value,
-        telefono  : document.getElementById("telefono").value,
-        correoE   : document.getElementById("correoE").value,
+        id        : Math.round(Math.random()*10000)
+        nombre    : $("#nombre").val(),
+        direccion : $("#direccion").val(),
+        telefono  : $("#telefono").val(),
+        correoE   : $("#correoE").val()
     }
+    */
+    
+    let persona = crearObjeto("formulario")
+    persona.id = Math.round(Math.random()*10000),
 
     //La añadimos al array
     personas.push(persona)
@@ -241,38 +249,39 @@ window.onload = inicializar
 
     <br/>
 
-    <form id="formulario">
+    <div id="formulario">
         <table align="center">
             <tr>
                 <td>Nombre</td>
                 <td>
-                    <input type="text" name="nombre" id="nombre"/>
+                    <input type="text" id="nombre"/>
                 </td>  
                 <td id="msj_nombre"></td>              
             </tr>
             <tr>
                 <td>Dirección</td>
                 <td>
-                    <input type="text" name="direccion" id="direccion"/>
+                    <!--<input type="text" name="direccion" id="direccion"/>-->
+                    <textarea id="direccion"></textarea>
                 </td>                
                 <td id="msj_direccion"></td>              
             </tr>
             <tr>
                 <td>Telefono</td>
                 <td>
-                    <input type="text" name="telefono" id="telefono"/>
+                    <input type="text" id="telefono"/>
                 </td> 
                 <td id="msj_telefono"></td>              
             </tr>
             <tr>
                 <td>Correo E</td>
                 <td>
-                    <input type="text" name="correoE" id="correoE"/>
+                    <input type="text" id="correoE"/>
                 </td>                
                 <td id="msj_correoE"></td>              
             </tr>
         </table>        
-    </form>
+    </div>
 
     <br/>
 
