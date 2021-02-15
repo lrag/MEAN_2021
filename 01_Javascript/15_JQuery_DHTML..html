@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!--
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    -->
+    <script type="text/javascript" src="./jquery.js"></script>
+</head>
+
+<script type="text/javascript">
+
+$(pruebas)
+
+function pruebas(){
+
+    //////////////
+    //Inner HTML//
+    //Inner TEXT//
+    //////////////
+
+    $("#span1").html('<h1> <font color="orange"> HOLA </font> </h1>')
+    $("#span2").text('<h1> <font color="orange"> HOLA </font> </h1>') //Crea un nodo de texto con el string
+
+    //Lo mismo con dry stick javascript
+    //document.getElementById("span2").innerText = '<h1> <font color="orange"> HOLA </font> </h1>'
+
+    /////////////////
+    //Creando nodos//
+    /////////////////
+    //si le pasamos una cadena de texto con html la funcion jQuery devuelve
+    //un objeto jQuery con la jerarquía nodos generados
+
+    //Crea cuatro nodos y el array tiene una posición
+    let objJQuery = $("<table border='1'><tr><td>LUNES</td></tr></table>")
+    console.log(objJQuery)
+    
+    //Crea 10 nodos y el array tiene 5 posiciones
+    objJQuery = $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+    console.log(objJQuery)
+
+    //Lo mismo con javascript a palo seco
+    //let html = "<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>"
+    //let div = document.createElement("div")
+    //div.innerHTML = html
+    //nodos = div.childNodes
+
+    //Añadiendo los nodos creados al árbol
+
+    //Estos dos ejemplos funcionan, pero con jquery lo haríamos mucho mejor:
+    //let nodos = $("<table border='1'><tr><td>PRUEBA</td></tr></table>")
+    //document.getElementById("span3").append(nodos[0])
+
+    //nodos = $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+    //for(let nodo of nodos){
+    //    document.getElementById("span3").append(nodo)
+    //}
+
+    $("<table border='1'><tr><td>PRUEBA</td></tr></table>")
+        .appendTo("#span3")
+
+    $("<h2>Siete</h2><h2>caballos</h2><h2>vienen</h2><h2>de</h2><h2>Bonanza</h2>")
+        .appendTo("#span4")
+
+
+    //Este ejemplo añade hijos a todos los espanes que haya
+    $("<h2><font color='lightBlue'>!Hola Rafaela¡</font></h2>")
+        .appendTo("span")
+
+    //
+    //Añadiendo nodos a posiciones concretas
+    //
+    $("#lista").append("<li>List item 1</li>")
+    $("#lista").append("<li>List item 2</li>")
+    $("#lista").append("<li>List item 3</li>")
+    $("#lista").append("<li id='separador'>====================</li>")
+
+    //prepend y prependTo añaden al principio
+    $("#lista").prepend("<li>PRIMERO</li>")
+
+    //antes o despues de un node concreto
+    $("#separador").before("<li>ANTES</li>")
+    $("#separador").after("<li>DESPUES</li>")    
+
+}
+
+</script>
+
+<body>
+
+<h1>JQuery DHtml</h1>
+
+    <div id="div1">
+        <span id="span1">1</span>
+        <span id="span2">2</span>
+        <span id="span3">3</span>
+        <span id="span4">4</span>
+        <span id="span5">5</span>
+        <span id="span6" class="x">6</span>
+        <span id="span7">7</span>
+    </div>
+
+    <hr/>
+
+    <div id="div1">
+        <ul id="lista"></ul>        
+    </div>
+    
+</body>
+</html>
