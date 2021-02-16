@@ -75,7 +75,6 @@ function rellenarFormularioPersona(persona){
     //telefono.value = ""
     //correoE.value = ""
 
-    console.log("HOLO")
     //$("#nombre").val(persona.nombre)
     //$("#direccion").val(persona.direccion)
     //$("#telefono").val(persona.telefono)
@@ -130,6 +129,18 @@ function rellenarTabla(){
             })
             .appendTo("#tablaPersonas")
         })
+
+
+    //Y con la librería
+    tabla = generarTabla(
+        personas,
+        {
+            columnas    : [ "Nombre", "Dirección", "Teléfono", "Correo E"],
+            propiedades : [ "nombre", "direccion", "telefono", "correoE"],
+            onclick     : rellenarFormularioPersona
+        }
+    )
+    $("#tablaPersonas2").append(tabla)
 
 }
 
@@ -192,20 +203,6 @@ function modoSeleccion(){
 }
 
 function guardarDatos(){
-    //En el session/local storage solo podemos guardar cadenas de texto
-    //sessionStorage.setItem("clave","valor")
-    //sessionStorage.getItem("clave")
-    //sessionStorage.removeItem("clave")
-    //sessionStorage.clear()
-
-    //localStorage.setItem("clave","valor")
-    //localStorage.getItem("clave")
-    //localStorage.removeItem("clave")
-    //localStorage.clear()
-
-    //No podemos guardar directamente el array
-    //localStorage.setItem("personas", personas)
-
     localStorage.setItem("personas", JSON.stringify(personas))
 }
 
@@ -221,22 +218,17 @@ function cargarDatos(){
 
 }
 
+$(inicializar)
 function inicializar(){
-    //let nodo = document.getElementById("btnInsertar")
-    //nodo.onclick = insertarPersona
-    //Lo mismo en una línea
-    document.getElementById("btnInsertar").onclick  = insertarPersona
-    document.getElementById("btnVaciar").onclick    = vaciarFormularioPersona
-    document.getElementById("btnGuardar").onclick   = guardarDatos
-    document.getElementById("btnBorrar").onclick    = borrarPersona
-    document.getElementById("btnModificar").onclick = modificarPersona
+    $("#btnInsertar").click(insertarPersona)
+    $("#btnVaciar").click(vaciarFormularioPersona)
+    $("#btnGuardar").click(guardarDatos)
+    $("#btnBorrar").click(borrarPersona)
+    $("#btnModificar").click(modificarPersona)
 
     cargarDatos()
     modoInsercion()
 }
-
-window.onload = inicializar
-
 </script>
 
 <body>
@@ -302,6 +294,10 @@ window.onload = inicializar
         </tr>
         <tbody id="tablaPersonas"></tbody>
     </table>
+
+    <hr/>
+
+    <div id="tablaPersonas2"></div>
 
 </body>
 
