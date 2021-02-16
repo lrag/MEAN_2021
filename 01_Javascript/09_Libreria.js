@@ -8,8 +8,9 @@ function crearObjeto(idFormulario){
     //Creamos un objeto sin propiedades
     let objeto = {}
 
-    /*Nodos dentro de #formulario que sean input, select o textareas
-    let nodos = $("#"+idFormulario+" input,textarea,select")
+    /*Con JS a secas
+    Nodos dentro de #formulario que sean input, select o textareas
+    let nodos = document.querySelectorAll("#"+idFormulario+" input,textarea,select")
     //Le asignamos al objeto las propiedades necesarias
     for(let nodo of nodos){
         let id    = nodo.id
@@ -27,3 +28,27 @@ function crearObjeto(idFormulario){
     return objeto
 }
 
+//Vacía los campos de un formulario
+//Requisitos:
+//-Que el formulario tenga id
+//-Puede ser cualquier etiqueta
+function vaciarFormulario(idFormulario){
+    $(`#${idFormulario} input,textarea,select`)
+        .val("")
+}
+
+//Rellena los campos de un formulario con el objeto recibido
+//Requisitos:
+//-Los ids de los campos han de coincidir con las propiedades del objeto
+function rellenarFormulario(objeto){
+    for(let propiedad in objeto){
+        $(`#${propiedad}`).val(objeto[propiedad])
+    }
+}
+
+//
+//
+//
+function generarTabla(){
+
+}

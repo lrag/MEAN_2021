@@ -38,105 +38,98 @@ function insertarPersona(){
     //La añadimos al array
     personas.push(persona)
     //Vaciamos el formulario
-    vaciarFormulario()
+    vaciarFormularioPersona()
     //Actualizamos la tabla
     rellenarTabla()
 
     console.log(personas)
 }
 
-function vaciarFormulario(){
+function vaciarFormularioPersona(){
     //Vaciamos tambien la variable en la que guardamos el id de la persona seleccionada
     idPersonaSel = null;
-    document.getElementById("nombre").value    = ""
-    document.getElementById("direccion").value = ""
-    document.getElementById("telefono").value  = ""
-    document.getElementById("correoE").value   = ""
+    
+    //Vaciando directamente cada campo uno a uno
+    //$("#nombre").val("")
+    //$("#direccion").val("")
+    //$("#telefono").val("")
+    //$("#correoE").val("")
+
+    //Vaciando todos del tirón
+    //$("#formulario input,select,textarea").val("")
+
+    vaciarFormulario("formulario")
+
     if(trSeleccionado){
         trSeleccionado.style.background = "white"
     }
     modoInsercion()
 }
 
-function rellenarFormulario(persona){
+function rellenarFormularioPersona(persona){
     idPersonaSel = persona.id
-    document.getElementById("nombre").value    = persona.nombre
-    document.getElementById("direccion").value = persona.direccion
-    document.getElementById("telefono").value  = persona.telefono
-    document.getElementById("correoE").value   = persona.correoE
+
+    //Esto se puede hacer, aparentemente en todos los navegadores, pero no es JS estándard
+    //nombre.value = ""
+    //direccion.value = ""
+    //telefono.value = ""
+    //correoE.value = ""
+
+    console.log("HOLO")
+    //$("#nombre").val(persona.nombre)
+    //$("#direccion").val(persona.direccion)
+    //$("#telefono").val(persona.telefono)
+    //$("#correoE").val(persona.correoE)
+
+    rellenarFormulario(persona)
     modoSeleccion()
 }
 
 function rellenarTabla(){
 
-    let tablaPersonas = document.getElementById("tablaPersonas")
+    //Vaciamos la tabla antes de empezar
+    $("#tablaPersonas").html("")
 
-    tablaPersonas.innerHTML = ""
-
-    for(let persona of personas){
-        let tr   = document.createElement("tr")
-        let td1  = document.createElement("td")
-        let td2  = document.createElement("td")
-        let td3  = document.createElement("td")
-        let td4  = document.createElement("td")
-        let txt1 = document.createTextNode(persona.nombre)
-        let txt2 = document.createTextNode(persona.direccion)
-        let txt3 = document.createTextNode(persona.telefono)
-        let txt4 = document.createTextNode(persona.correoE)
-        td1.append(txt1)
-        td2.append(txt2)
-        td3.append(txt3)
-        td4.append(txt4)
-        tr.append(td1, td2, td3, td4)
-
-        //Esta funcion es una función anidada
-        //Ej JS las funciones anidadas son closures
-        //Cuando se declara una función anidada que utiliza una variable de la función nido
-        //la funcion anidada tendrá declarada de manera implícita dicha variable con el valor
-        //correspondiente es su contexto
-        tr.onclick = function(){
-            //La variable persona no está declarada aqui!
-            rellenarFormulario(persona)
-            tr.style.background = "#FABADA" 
-            if(trSeleccionado){
-                trSeleccionado.style.background = "white"
-            }
-            trSeleccionado = tr
-        }
-
-        tablaPersonas.append(tr)
-    }
-
-    //Para que se rellene la segunda tabla
-    rellenarTabla2()
-
-}
-
-function rellenarTabla2(){
-    
-    let tablaPersonas2 = document.getElementById("tablaPersonas2")
-    tablaPersonas2.innerHTML = ""
-
-    for(let persona of personas){
-        let trHtml = 
-        `<tr>
+    /*
+    for(let persona of personas){    
+        $(`<tr>
             <td>${persona.nombre}</td>
             <td>${persona.direccion}</td>
             <td>${persona.telefono}</td>
             <td>${persona.correoE}</td>
-        </tr>`
-
-        let tbody = document.createElement("tbody")
-        tbody.innerHTML = trHtml
-
-        //let tr = tbody.childNodes[0]
-        let tr = tbody.firstElementChild
-        tr.onclick = function(){
-            rellenarFormulario(persona)
-        }
-
-        tablaPersonas2.append(tr)
+           </tr>`)
+            .click(function() { 
+                this.style.background = "lightBlue"
+                if(trSeleccionado){
+                    trSeleccionado.style.background = "white"
+                }
+                trSeleccionado = this                
+                rellenarFormularioPersona(persona)
+            })
+            .appendTo("#tablaPersonas")
     }
+    */
+
+    //Tambien podemos usar jquery para recorrer arrays
+    $(personas)
+        .each( function(pos, persona){
+            //Dentro de esta funcion 'this' es cada una de las personas
+            $(`<tr>
+                    <td>${persona.nombre}</td>
+                    <td>${persona.direccion}</td>
+                    <td>${persona.telefono}</td>
+                    <td>${persona.correoE}</td>
+               </tr>`)
+            .click(function() { 
+                this.style.background = "lightBlue"
+                if(trSeleccionado){
+                    trSeleccionado.style.background = "white"
+                }
+                trSeleccionado = this                
+                rellenarFormularioPersona(persona)
+            })
+            .appendTo("#tablaPersonas")
+        })
 
 }
 
@@ -150,37 +143,52 @@ function borrarPersona(){
     }
 
     rellenarTabla()
-    vaciarFormulario()
+    vaciarFormularioPersona()
 }
 
 function modificarPersona(){
 
+    /*
     for(let persona of personas){
         if(persona.id == idPersonaSel){
-            persona.nombre    = document.getElementById("nombre").value
-            persona.direccion = document.getElementById("direccion").value
-            persona.telefono  = document.getElementById("telefono").value
-            persona.correoE   = document.getElementById("correoE").value
+            persona.nombre    = $("#nombre").val()
+            persona.direccion = $("#direccion").val()
+            persona.telefono  = $("#telefono").val()
+            persona.correoE   = $("#correoE").val()
             break
+        }
+    }
+    */
+
+    let personaAux = crearObjeto("formulario")
+    personaAux.id = idPersonaSel
+    for(let a=0; a<personas.length; a++){
+        if(personas[a].id == idPersonaSel){
+            personas[a] = personaAux
         }
     }
 
     rellenarTabla()
-    vaciarFormulario()
+    vaciarFormularioPersona()
 }
 
 //Para cuando no hay nada seleccionado en la tabla
 function modoInsercion(){
-    document.getElementById("btnInsertar").disabled  = false
-    document.getElementById("btnModificar").disabled = true
-    document.getElementById("btnBorrar").disabled    = true
+    //$("#btnInsertar").attr('disabled', false)
+    //$("#btnModificar").attr('disabled', true)
+    //$("#btnBorrar").attr('disabled', true)
+
+    //Tambien con 'prop'
+    $("#btnInsertar").prop('disabled', false)
+    $("#btnModificar").prop('disabled', true)
+    $("#btnBorrar").prop('disabled', true)
 }
 
 //Para cuando el usuario selecciona una persona
 function modoSeleccion(){
-    document.getElementById("btnInsertar").disabled  = true
-    document.getElementById("btnModificar").disabled = false
-    document.getElementById("btnBorrar").disabled    = false
+    $("#btnInsertar").attr('disabled', true)
+    $("#btnModificar").attr('disabled', false)
+    $("#btnBorrar").attr('disabled', false)
 }
 
 function guardarDatos(){
@@ -218,7 +226,7 @@ function inicializar(){
     //nodo.onclick = insertarPersona
     //Lo mismo en una línea
     document.getElementById("btnInsertar").onclick  = insertarPersona
-    document.getElementById("btnVaciar").onclick    = vaciarFormulario
+    document.getElementById("btnVaciar").onclick    = vaciarFormularioPersona
     document.getElementById("btnGuardar").onclick   = guardarDatos
     document.getElementById("btnBorrar").onclick    = borrarPersona
     document.getElementById("btnModificar").onclick = modificarPersona
@@ -294,20 +302,11 @@ window.onload = inicializar
         </tr>
         <tbody id="tablaPersonas"></tbody>
     </table>
-    
-    <hr/>
-
-    <table align="center" border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>Dirección</th>
-            <th>Teléfono</th>
-            <th>Correo E</th>
-        </tr>
-        <tbody id="tablaPersonas2"></tbody>
-    </table>
 
 </body>
 
 </html>
+
+
+
 
