@@ -7,12 +7,11 @@
     <title>Document</title>
 
     <script src="./jquery.js" type="application/javascript"></script>    
+    <script src="./09_Libreria.js" type="application/javascript"></script>    
 
 </head>
 
-
 <script type="application/javascript">
-
 
 function obtenerListaUsuarios(){
 
@@ -36,6 +35,9 @@ function obtenerListaUsuarios(){
     */   
 
     //Manera antigua:
+    //JQUery invoca la función success pasando como primer parámetro
+    //el contenido del body de la respuesta
+    //Si ha sido Content-type:app/json hace el JSON.parse por nosotros    
     /*
     $.ajax({
         type  : 'GET', //Por defecto es GET
@@ -56,12 +58,39 @@ function obtenerListaUsuarios(){
     .done(rellenarTabla) //Solo se llama si ha sido un 200
     .fail(procesarError) 
     .always(movida)      //Siempre se invoca
+
+    //Tambien disponemos de las funciones
+    //$.get
+    //$.post
+    //$.put
+    //$.delete
+
+    //Para envíar una peticion POST con un JSON en el body
+    //usando jQuery:
+    /*
+    $.ajax( {
+            type        : 'POST', 
+            url         : '...',
+            contentType : 'application/json'
+            data        : JSON.stringify(objeto),
+        })
+        .done( f )
+        .fail( f )
+    */
     
 }
 
 function rellenarTabla(usuarios){
     console.log(arguments)
     console.log(usuarios)
+
+    let tabla = generarTabla(usuarios, {
+        columnas : [  "Nombre", "Teléfono", "Correo E" ],
+        propiedades : [ "name", "phone", "email" ],
+        idTabla : "tablaUsuarios"
+    })
+    $("#divTablaUsuarios").append(tabla)
+
 }
 
 function procesarError(error){
@@ -79,7 +108,6 @@ function inicializar(){
 
 </script>
 
-
 <body>
 
     <h1>18_JQuery_AJAX</h1>
@@ -92,16 +120,8 @@ function inicializar(){
 
     <div id="mensaje"></div>
 
-    <table align="center" border="1">
-        <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-            <th>Correo E</th>
-            <th>Afoto</th>
-        </tr>
-        <tbody id="tablaUsuarios"></tbody>
-    </table>
-    
+    <div id="divTablaUsuarios"></div>
+       
 </body>
 
 

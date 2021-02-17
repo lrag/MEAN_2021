@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acuario</title>
+
+    <script src="./jquery.js" type="application/javascript"></script>
+    <script src="./pagina.js" type="application/javascript"></script>
+
+</head>
+
+<body>
+
+    <h1 align="center">
+        <font color="#B22222">
+            Acuario
+        </font>
+    </h1>
+
+</br>
+
+<h2 align="center">
+    Peces
+</h2>
+
+</br>
+
+<div id="formulario">
+    <table align="center">
+        <tr>
+            <td>Nombre</td>
+            <td>
+                <input type="text" id="nombre"></iput>
+            </td>
+            <td id="msjNombre"></td>
+        </tr>
+        <tr>
+            <td>Nombre Científico</td>
+            <td>
+                <input type="text" id="nombreCientifico"></iput>
+            </td>
+            <td id="msjNombreCientifico"></td>
+        </tr>
+        <tr>
+            <td>Temperatura</td>
+            <td>
+                <input type="text" id="temperatura"></iput>
+            </td>
+            <td id="msjTemperatura"></td>
+        </tr>
+        <tr>
+            <td>Dureza del agua</td>
+            <td>
+                <input type="text" id="dureza"></iput>
+            </td>
+            <td id="msjDureza"></td>
+        </tr>
+        <tr>
+            <td>Tipo de agua</td>
+            <td>
+                <input type="radio" name= "tipoAgua" id="radioTropical" value ="Tropical">Tropical</input>
+                <input type="radio" name= "tipoAgua" id="radioContinental" value = "Continental">Continental</input>
+            </td>
+            <td id="msjTipoAgua"></td>
+        </tr>
+        <tr>
+            <td>Comida Preferida</td>
+            <td>
+                <input type="text" id="comida"></iput>
+            </td>
+            <td id="msjComida"></td>
+        </tr>
+        <tr>
+            <td>Nº mínimo de peces</td>
+            <td>
+                <select name = "numeroPeces" id="numeroPeces">
+                    <option value = "0" selected>Seleccione...</option>
+                    <option value = "1">1</option>
+                    <option value = "2">2</option>
+                    <option value = "3">3</option>
+                    <option value = "4">4</option>
+                    <option value = "5">5</option>
+                    <option value = "6">6</option>
+                    <option value = "7">7</option>
+                    <option value = "8">8</option>
+                    <option value = "9">9</option>
+                    <option value = "10">10</option>
+                </select>
+            </td>
+            <td id="msjNumero"></td>
+        </tr>
+        <tr>
+            <td>Comentarios:</td>
+            <td>
+                <textarea id="comentarios"></textarea> 
+            </td>
+            <td id = "msjComentario"></td>
+        </tr>
+
+    </table>
+</div>
+</br>
+<div id="botones" align = "center">
+    <input type="button" id ="btnInsertar" value="Insertar"/>
+    <input type="button" id ="btnModificr" value="Modificar"/>
+    <input type="button" id ="btnBorrar" value="Borrar"/>
+    <input type="button" id ="btnGuardar" value="Guardar"/>
+    <input type="button" id ="btnVaciar" value="Vaciar"/>
+</div>
+
+</br>
+
+<div id="divTabla" align ="center" >
+        <h2>Peces en el acuario</h2>
+        <table align = "center" border = "1" bgcolor ="#7fffd4" >
+            <tr>
+                <th>Nombre</th>
+                <th>Nombre Científico</th>
+                <th>Temperatura</th>
+                <th>Dureza del agua</th>
+                <th>Tipo de agua</th>
+                <th>Comida Preferida</th>
+                <th>Nº mínimo de peces</th>
+                <th>Comentarios</th>
+            </tr>
+            <tbody id = "tablaPeces"></tbody>
+        </table>
+    
+</div>
+
+</body>
+
+</html>
+
