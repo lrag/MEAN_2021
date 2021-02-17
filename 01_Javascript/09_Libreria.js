@@ -1,4 +1,3 @@
-
 //Crea un objeto a partir de los campos de un formulario
 //Requisitos:
 //-el formulario debe tener id
