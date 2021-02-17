@@ -23,6 +23,10 @@ function obtenerListaUsuarios(){
     let xhr = new XMLHttpRequest()
     xhr.open('GET', 'https://jsonplaceholder.typicode.com/users/12345')
     xhr.onload = function(){
+        if(this.status != 200)
+            console.log("NO HA SIDO UN 200!!!")
+            return
+        }
         rellenarTabla(JSON.parse(this.responseText))
     }
     xhr.onerror = function(){
@@ -42,19 +46,17 @@ function obtenerListaUsuarios(){
         complete : movida
     })
     */
-
-    /*
+    
     //Manera actual
     $.ajax({
         type  : 'GET', //Por defecto es GET
         url   : 'https://jsonplaceholder.typicode.com/users', //Por defecto es '/'
         async : true  //Por defecto es true
     })
-    .done(rellenarTabla)
-    .fail(procesarError)
-    .always(movida)
-    */
-
+    .done(rellenarTabla) //Solo se llama si ha sido un 200
+    .fail(procesarError) 
+    .always(movida)      //Siempre se invoca
+    
 }
 
 function rellenarTabla(usuarios){
@@ -72,11 +74,8 @@ function movida(){
 
 $(inicializar)
 function inicializar(){
-
     $("#btnListar").click(obtenerListaUsuarios)
-
 }
-
 
 </script>
 

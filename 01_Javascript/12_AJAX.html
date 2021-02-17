@@ -128,14 +128,19 @@ function enviarPeticionMillenial(){
 
     //On load se invoca cuando:
     //-readyState = 4
-    //-status     = 2XX
+    //-status     = CUALQUIERA
     xhr.onload = function(){
+        if(this.status != 200){
+            console.log("NO HA SIDO UN 200!!!")
+            return
+        }
         rellenarTabla(JSON.parse(this.responseText).data)        
     }
 
     //On error se invoca cuando:
     //-readyState = 4
-    //-status     = 4XX | 5XX    
+    //-status     = 4XX | 5XX  
+    //Solo se invoca si la petición ha fallado  
     xhr.onerror = function(){
         console.log("ERROR!!!")
     }
