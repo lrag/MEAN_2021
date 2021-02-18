@@ -61,7 +61,6 @@ function rellenarFormulario(pelicula){
 
 }
 
-
 $(inicializar)
 function inicializar(){
     $("#btnInsertar").click(insertarPelicula)
@@ -77,7 +76,6 @@ function inicializar(){
         let id = trozos[1].split("=")[1]
         obtenerPelicula(id)
     }
-
 }
 
 

@@ -2,9 +2,7 @@ let formularioPeliculas = {
 
     crearContenido : 
         function(){
-            $("body")
-            .append(    
-                `
+            return `
                 <div class="text-center page-header">
                     <h2 class="mt-4 mb-4">Aplicación de gestion de películas GestPeliculas 3000</h2>
                 </div>   
@@ -35,7 +33,7 @@ let formularioPeliculas = {
                     <button id="btnModificar" class="btn btn-primary mr-1">Modificar</button>
                     <button id="btnBorrar"    class="btn btn-danger  mr-1">Borrar</button>
                     <button id="btnVaciar"    class="btn btn-warning mr-1">Vaciar</button>
-                    <button id="btnVovler"    class="btn btn-warning mr-1">Volver</button>
+                    <button id="btnVolver"    class="btn btn-warning mr-1">Volver</button>
                 </div>
                 
                 <br/>
@@ -78,13 +76,75 @@ let formularioPeliculas = {
                         </div>
                     </div>    
                 </div>        
-                `
-                )
+                `                
         },
 
     inicializar : 
-        function (){
-            console.log("Inicializando!")
-        }
+        function (parametros){
+            console.log("Inicializando formularioPeliculas")
+            $("#btnInsertar").click(this.insertarPelicula)
+            //$("#btnModificar").click(this.mofidicarPelicula)
+            //$("#btnBorrar").click(this.borrarPelicula)
+            $("#btnVaciar").click(this.vaciarFormulario)
+            $("#btnVolver").click(this.verListado)
+        
+            //Averiguamos si nos han pasado un id de pelicula
+            //para rellenar el formulario
+            if(parametros){
+                this.obtenerPelicula(parametros.idPelicula)
+            }            
+        },
 
+    vaciarFormulario : function(){
+            $("#formulario input,select,textarea").val("")
+        },
+        
+    verListado : function(){
+            framework3000.navegar("listadoPeliculas")
+        },
+        
+    insertarPelicula : function(){
+        
+            //Validar...
+        
+            let pelicula = {
+                titulo   : $("#titulo").val(),
+                director : $("#director").val(),
+                genero   : $("#genero").val(),
+                year     : $("#year").val(),
+                sinopsis : $("#sinopsis").val()
+            }
+        
+            $.ajax({
+                type : "POST",
+                url  : "/peliculas",
+                contentType : 'application/json',
+                data : JSON.stringify(pelicula)
+            })
+            .done(this.verListado)
+            .fail(this.mostrarError)
+        },
+        
+    mostrarError : function(){
+            console.log("ERROR!")
+        },
+        
+    obtenerPelicula : function(idPelicula){
+            $.ajax({
+                url : '/peliculas/'+idPelicula
+            })
+            .done(this.rellenarFormulario)
+            .fail(this.mostrarError)
+        
+        },
+        
+    rellenarFormulario : function(pelicula){
+            with(pelicula){
+                $("#titulo").val(titulo)
+                $("#director").val(director)
+                $("#genero").val(genero)
+                $("#year").val(year)
+                $("#sinopsis").val(sinopsis)        
+            }        
+        }
 }
