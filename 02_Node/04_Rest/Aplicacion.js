@@ -23,6 +23,8 @@ function procesarPeticion(request, response){
 
     let metodo = request.method.toUpperCase()
     let url    = request.url
+    console.log("==================================")
+    console.log("Peticion recibida: "+metodo+" "+url)    
 
     if( metodo=="GET" && url=="/peliculas"){
         listarPeliculas(request, response)
@@ -107,8 +109,7 @@ function buscarPelicula(request, response){
                 return
             }            
             response.setHeader("Content-Type", "application/json")
-            response.end(JSON.stringify(pelicula))
-                     
+            response.end(JSON.stringify(pelicula))                     
         })
         .catch(function(err){
             console.log(err)

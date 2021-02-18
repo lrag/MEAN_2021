@@ -1,0 +1,7 @@
+
+
+let paginas = {
+        listadoPeliculas : 
+
+    }
+

@@ -26,8 +26,6 @@ exports.devolverContenidoEstatico = function(request, response){
 
     let metodo = request.method.toUpperCase()
     let url = request.url
-    console.log("==================================")
-    console.log("Peticion recibida: "+metodo+" "+url)
 
     //Solo admitiremos peticiones GET
     if(metodo != "GET"){
@@ -43,7 +41,11 @@ exports.devolverContenidoEstatico = function(request, response){
 //Leera el fichero y lo colocará en el body de la respuesta con response.end(contenido del fichero)
 function leerFichero(ruta, response){
 
+    //Retiramos los posibles parámetros para quedarnos con el nombre del recurso
+    ruta = ruta.split("?")[0]
+
     ruta = "./recursos"+ruta
+
     console.log("Buscando el recurso:"+ruta)
     let extension = ruta.split(".").pop()
 

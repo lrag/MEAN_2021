@@ -1,0 +1,6 @@
+
+function navegar(pagina){
+
+    
+
+}

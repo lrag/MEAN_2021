@@ -9,7 +9,6 @@ function obtenerPeliculas(){
 }
 
 function rellenarTablaPeliculas(peliculas){
-
     $("#tablaPeliculas").html('')
     $(peliculas).each(function(pos, pelicula){
         $(`
@@ -19,14 +18,21 @@ function rellenarTablaPeliculas(peliculas){
             <td>${pelicula.genero}</td>
             <td>${pelicula.year}</td>
         </tr>   
-        `).appendTo("#tablaPeliculas")
-    })    
-
+        `)
+        .click(function(){
+            seleccionarPelicula(pelicula._id)
+        })
+        .appendTo("#tablaPeliculas")
+    }) 
 }
 
 function mostrarError(){
     console.log("Error!")
     console.log(arguments)
+}
+
+function seleccionarPelicula(idPelicula){
+    window.location.href = '/formularioPeliculas.html?idPelicula='+idPelicula
 }
 
 function verFormulario(){
