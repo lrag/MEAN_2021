@@ -85,8 +85,8 @@ function rellenarTabla(usuarios){
     console.log(usuarios)
 
     let tabla = generarTabla(usuarios, {
-        columnas : [  "Nombre", "Teléfono", "Correo E" ],
-        propiedades : [ "name", "phone", "email" ],
+        columnas : [  "Nombre", "Teléfono", "Correo E", "Ciudad"],
+        propiedades : [ "name", "phone", "email", "address.city" ],
         idTabla : "tablaUsuarios"
     })
     $("#divTablaUsuarios").append(tabla)

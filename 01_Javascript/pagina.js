@@ -12,7 +12,6 @@ function inicializar(){
     $("#btnModificar").click(modificar)
 }
 
-
 function insertar(){
 
     let pez ={
@@ -21,7 +20,8 @@ function insertar(){
         nombreCientifico : $("#nombreCientifico").val(),
         temperatura      : $("#temperatura").val(),
         dureza           : $("#dureza").val(),
-        tipoAgua         : $("#tipoAgua").val(), // no funciona
+        //tipoAgua         : $("input:checked[name=tipoAgua]").val(), 
+        tipoAgua         : $("[name=tipoAgua]").filter("input:checked").val(), 
         comida           : $("#comida").val(),
         numero           : $("#numeroPeces").val(), 
         comentarios      : $("#comentarios").val() 

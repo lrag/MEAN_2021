@@ -107,7 +107,7 @@ function generarTabla(objetos, parametrosOpcionales){
         let tr = $("<tr>")
         //En este bucle recorremos las propiedades y creamos los td
         $(nombresPropiedades).each(function(pos, nombrePropiedad){
-            $(`<td>${obj[nombrePropiedad]}</td>`).appendTo(tr)
+            $("<td>"+eval(`obj.${nombrePropiedad}`)+"</td>").appendTo(tr)
         })
 
         //Si nos han pasado el onclick se lo asignamos al tr
