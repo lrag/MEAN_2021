@@ -1,4 +1,3 @@
-
 $(inicializar)
 
 function obtenerPeliculas(){
@@ -30,10 +29,16 @@ function mostrarError(){
     console.log(arguments)
 }
 
+function verFormulario(){
+    //Para cambiar desde JS la barra del navegador
+    window.location.href = "/formularioPeliculas.html"
+}
+
 function inicializar(){
     console.log("Inicializando!")
 
     $("#btnActualizar").click(obtenerPeliculas)
+    $("#btnNuevo").click(verFormulario)
 
     obtenerPeliculas()
 
