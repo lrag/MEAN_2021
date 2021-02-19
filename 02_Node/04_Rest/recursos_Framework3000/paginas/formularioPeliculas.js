@@ -144,7 +144,7 @@ let formularioPeliculas = {
             $("#director").val(pelicula.director)
             $("#genero").val(pelicula.genero)
             $("#year").val(pelicula.year)
-            $("#sinopsis").val(sinopsis)        
+            $("#sinopsis").val(pelicula.sinopsis)        
             formularioPeliculas.modoSeleccion()
             formularioPeliculas.idPeliculaSel = pelicula._id      
         },

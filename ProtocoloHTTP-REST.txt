@@ -505,8 +505,6 @@ Pero a las relaciones de n..m si:
 GET /peliculas/50/actores
 GET /actores/50/peliculas - ámbia el sentido, pero sigue teniendolo
 
-
-
 /////////////////////////////////////////////////
 // FILTRADO DE RESULTADOS CON LOS QUERY PARAMS //
 /////////////////////////////////////////////////

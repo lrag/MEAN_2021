@@ -206,8 +206,3 @@ function home(request, response){
     console.log(__dirname) 
     response.sendFile(__dirname+"/recursos/agenda.html")
 }
-
-//Quitando la 'publicidad'
-//Express añade por defecto a todas las respuestas el header 'X-Powered-By: Express'
-//Cuantas menos indicaciones demos a posibles atacantes MEJOR
-app.disable('x-powered-by')

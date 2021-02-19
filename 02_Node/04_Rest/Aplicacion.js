@@ -41,9 +41,9 @@ function procesarPeticion(request, response){
     }
 }
 
-//                                                              //
+//////////////////////////////////////////////////////////////////
 //Tareas a realizar por la lógica de control en un servicio REST//
-//                                                              //
+//////////////////////////////////////////////////////////////////
 
 //-Averiguar qué nos están pidiendo (esto ya lo hemos hecho arriba con los preciosos IF anidados)
 //
