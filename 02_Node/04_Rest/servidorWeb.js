@@ -45,6 +45,7 @@ function leerFichero(ruta, response){
     ruta = ruta.split("?")[0]
 
     ruta = "./recursos_Framework3000"+ruta
+    //ruta = "./recursos"+ruta
 
     console.log("Buscando el recurso:"+ruta)
     let extension = ruta.split(".").pop()

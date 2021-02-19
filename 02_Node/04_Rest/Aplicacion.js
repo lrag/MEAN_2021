@@ -228,7 +228,5 @@ function borrarPelicula(request, response){
         .catch(function(err){
             restUtil.devolverError(response, 500, "Error al borrar la película") 
         })
-    
-
 }
 

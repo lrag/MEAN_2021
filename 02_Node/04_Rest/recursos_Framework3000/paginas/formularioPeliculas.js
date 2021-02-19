@@ -83,17 +83,18 @@ let formularioPeliculas = {
         function (parametros){
             console.log("Inicializando formularioPeliculas")
             $("#btnInsertar").click(this.insertarPelicula)
-            //$("#btnModificar").click(this.mofidicarPelicula)
-            //$("#btnBorrar").click(this.borrarPelicula)
+            $("#btnModificar").click(this.modificarPelicula)
+            $("#btnBorrar").click(this.borrarPelicula)
             $("#btnVaciar").click(this.vaciarFormulario)
             $("#btnVolver").click(this.verListado)
         
-            //Averiguamos si nos han pasado un id de pelicula
-            //para rellenar el formulario
             if(parametros){
-                this.obtenerPelicula(parametros.idPelicula)
+                formularioPeliculas.obtenerPelicula(parametros.idPelicula)
             }            
         },
+
+    //El id de la pelicula seleccionada
+    idPeliculaSel : null,    
 
     vaciarFormulario : function(){
             $("#formulario input,select,textarea").val("")
@@ -121,8 +122,8 @@ let formularioPeliculas = {
                 contentType : 'application/json',
                 data : JSON.stringify(pelicula)
             })
-            .done(this.verListado)
-            .fail(this.mostrarError)
+            .done(formularioPeliculas.verListado)
+            .fail(formularioPeliculas.mostrarError)
         },
         
     mostrarError : function(){
@@ -133,18 +134,60 @@ let formularioPeliculas = {
             $.ajax({
                 url : '/peliculas/'+idPelicula
             })
-            .done(this.rellenarFormulario)
-            .fail(this.mostrarError)
+            .done(formularioPeliculas.rellenarFormulario)
+            .fail(formularioPeliculas.mostrarError)
         
         },
         
     rellenarFormulario : function(pelicula){
-            with(pelicula){
-                $("#titulo").val(titulo)
-                $("#director").val(director)
-                $("#genero").val(genero)
-                $("#year").val(year)
-                $("#sinopsis").val(sinopsis)        
-            }        
-        }
+            $("#titulo").val(pelicula.titulo)
+            $("#director").val(pelicula.director)
+            $("#genero").val(pelicula.genero)
+            $("#year").val(pelicula.year)
+            $("#sinopsis").val(sinopsis)        
+            formularioPeliculas.modoSeleccion()
+            formularioPeliculas.idPeliculaSel = pelicula._id      
+        },
+
+    modificarPelicula : function(){
+            let pelicula = {
+                titulo   : $("#titulo").val(),
+                director : $("#director").val(),
+                genero   : $("#genero").val(),
+                year     : $("#year").val(),
+                sinopsis : $("#sinopsis").val()
+            }
+            pelicula._id = formularioPeliculas.idPeliculaSel   
+            
+            $.ajax({
+                type        : "PUT",
+                url         : "/peliculas/"+formularioPeliculas.idPeliculaSel,
+                contentType : "application/json",
+                data        : JSON.stringify(pelicula)
+            })
+            .done(formularioPeliculas.verListado)
+            .fail(formularioPeliculas.mostrarError)    
+        },
+        
+    borrarPelicula : function(){    
+            $.ajax({
+                type : "DELETE",
+                url  : "/peliculas/"+formularioPeliculas.idPeliculaSel
+            })
+            .done(formularioPeliculas.verListado)
+            .fail(formularioPeliculas.mostrarError)
+        },
+        
+    modoInsercion : function(){
+            $("#btnInsertar").prop('disabled', false)
+            $("#btnModificar").prop('disabled', true)
+            $("#btnBorrar").prop('disabled', true)
+        },
+        
+        //Para cuando el usuario selecciona una película
+    modoSeleccion : function(){
+            $("#btnInsertar").prop('disabled', true)
+            $("#btnModificar").prop('disabled', false)
+            $("#btnBorrar").prop('disabled', false)
+        }        
 }
