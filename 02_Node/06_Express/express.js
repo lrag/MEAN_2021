@@ -155,7 +155,7 @@ function buscarCoche(request, response){
 //      de texto en request.body
 //
 //Se puede indicar más de un bodyParser y express usará el que corresponda dependiendo
-//del Content-type de la petición
+//del Content-Type de la petición
 
 //Tenemos que hacer el require. Este módulo está ya incluido en express, no hace falta descargarlo con NPM
 let bodyParser = require("body-parser") //Ya viene incluido cuando hacemos npm install express

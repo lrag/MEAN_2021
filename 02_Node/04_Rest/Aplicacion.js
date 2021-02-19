@@ -19,6 +19,19 @@ function arrancarServidor(){
     
 //En esta función haremos un triaje de la petición recibida
 //La responsabilidad de esta funcion es averiguar quien procesará la petición
+
+
+//API REST para las peliculas
+/*
+MÉTODO	URL			        BODY	FUNCIONALIDAD
+-------------------------------------------------------------------
+GET	    /peliculas		    -	    listar las películas
+GET	    /peliculas/{id}  	-	    buscar a una película por su id
+POST	/peliculas		    {json}	insertar la película
+PUT 	/peliculas/{id}  	{json}  modificar la película
+DELETE  /peliculas/{id}  	-	    borrar una película
+*/
+
 function procesarPeticion(request, response){
 
     let metodo = request.method.toUpperCase()
