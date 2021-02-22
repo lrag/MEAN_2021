@@ -51,15 +51,11 @@ function buscarPelicula(request, response){
     negocioPeliculas
         .buscarPelicula(id)
         .then(function(pelicula){
-            if(!pelicula){
-                restUtil.devolverError(response, 404, "La película solicitada no existe")
-                return
-            }            
             response.json(pelicula)                     
         })
         .catch(function(err){
-            console.log(err)
-            restUtil.devolverError(response, 500, "Error al buscar la película")
+            response.statusCode = err.codigo
+            response.json(err)
         })
 }
 

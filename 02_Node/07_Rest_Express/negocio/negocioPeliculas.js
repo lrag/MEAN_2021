@@ -17,7 +17,6 @@ exports.listarPeliculas = function(){
     //-Reject será la función que se le proporciona a la promesa con el 'catch'
     //-Esa función no tiene return
     return new Promise(function(resolve, reject){
-
         let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
         let cursor = coleccionPeliculas.find()
         cursor
@@ -27,15 +26,37 @@ exports.listarPeliculas = function(){
             })
             .catch(function(err){
                 console.log(err)
-                reject({ codigo:500 , mensaje:"Error al ejecutar la consulta"})
             })
     })
 
 }
 
 exports.buscarPelicula = function(idPelicula){
-    let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
-    return coleccionPeliculas.findOne( { _id : new ObjectId(idPelicula) })
+
+    return new Promise(function(resolve, reject){
+
+        let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
+        coleccionPeliculas
+            .findOne( { _id : new ObjectId(idPelicula) } )
+            .then(function(pelicula){
+                if(!pelicula){
+                    reject({ codigo:404, mensaje:"No existe una película con el id "+idPelicula })
+                    return
+                }
+                resolve(pelicula)
+            })
+            .catch(function(err){
+                console.log(err)
+                reject({ codigo:500 , mensaje:"Error al ejecutar la consulta"})
+            })
+
+    })
+        
+
+
+
+
+
 }
 
 exports.insertarPelicula = function(pelicula){
