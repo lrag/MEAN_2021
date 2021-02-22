@@ -31,7 +31,7 @@ exports.router = router
 //  transformarlo al formato adecuado y proporcionar la respuesta
 
 function listarPeliculas(request, response){
-    console.log("Listar películas")
+    console.log("Listar películas (LC)")
     //Aqui haría falta un criterio de búsqueda (lo ignoramos)
     negocioPeliculas
         .listarPeliculas()
@@ -46,14 +46,16 @@ function listarPeliculas(request, response){
 
 //GET /peliculas/:id
 function buscarPelicula(request, response){
-    console.log("Buscar película")
+    console.log("Buscar película (LC)")
     let id = request.params.id
+
     negocioPeliculas
         .buscarPelicula(id)
         .then(function(pelicula){
-            response.json(pelicula)                     
+            response.json(pelicula)
         })
         .catch(function(err){
+            console.log(err)
             response.statusCode = err.codigo
             response.json(err)
         })
@@ -70,19 +72,42 @@ function insertarPelicula(request, response){
     let pelicula = request.body
     negocioPeliculas
         .insertarPelicula(pelicula)
-        .then( function(result){
-            //Esta línea la dejamos porque response.json por defecto deja el statusCode 200
+        .then(function(peliculaInsertada){
             response.statusCode = 201
-            response.json(result.ops[0])
+            response.json(peliculaInsertada)
         })
         .catch(function(err){
-            console.log(err)
-            restUtil.devolverError(response, 500, "Error al buscar la película")
+            response.statusCode = err.codigo
+            response.json(err)
         })
 }
 
 //PUT /peliculas/:id
 //CT: app/json
+
+function modificarPelicula(request, response){
+    console.log("Modificar película (LC)")
+
+    //aqui hace falta la peli y el id
+    let id = request.params.id
+    let pelicula = request.body
+    //Nos aseguramos de que la película que venía en el body tenga el id 
+    //que venía en la ruta
+    pelicula._id = id
+    
+    negocioPeliculas
+        .modificarPelicula(pelicula)
+        .then(function(peliculaModificada){
+            response.json(peliculaModificada)
+        })
+        .catch(function(err){
+            response.statusCode = err.codigo
+            response.json(err)
+        })
+     
+}
+
+/*
 function modificarPelicula(request, response){
     console.log("Modificar película (LC)")
 
@@ -108,6 +133,7 @@ function modificarPelicula(request, response){
         restUtil.devolverError(response, 500, "Error al modificar la película") 
     }) 
 }
+*/
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){

@@ -14,6 +14,8 @@ function arrancarServidor(){
     app.use(jsonBodyParser)
     app.use(express.static("./recursos"))
 
+    
+
     app.use(peliculasRouter)  
     app.listen(5000, function(){
         console.log("Esperando peticiones en el puerto 5000")

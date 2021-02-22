@@ -17,15 +17,18 @@ exports.listarPeliculas = function(){
     //-Reject será la función que se le proporciona a la promesa con el 'catch'
     //-Esa función no tiene return
     return new Promise(function(resolve, reject){
+        console.log("listarPeliculas (LN)")
+
         let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
         let cursor = coleccionPeliculas.find()
         cursor
             .toArray()
             .then(function(peliculas){
-                resolve(peliculas)
+                resolve(peliculas)//Bien
             })
             .catch(function(err){
                 console.log(err)
+                reject({ codigo: 500, mensaje:"¡Error con la base de datos!"})//Mal
             })
     })
 
@@ -33,48 +36,61 @@ exports.listarPeliculas = function(){
 
 exports.buscarPelicula = function(idPelicula){
 
-    return new Promise(function(resolve, reject){
+    return new Promise(function(resolve, reject){        
+        console.log("buscarPelicula (LN):",idPelicula)
 
         let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
         coleccionPeliculas
-            .findOne( { _id : new ObjectId(idPelicula) } )
+            .findOne({ _id : new ObjectId(idPelicula) })
             .then(function(pelicula){
                 if(!pelicula){
-                    reject({ codigo:404, mensaje:"No existe una película con el id "+idPelicula })
+                    reject({ codigo:404, mensaje:'No existe una película con el id '+idPelicula}) //Mal
                     return
                 }
-                resolve(pelicula)
+                resolve(pelicula) //Bien
             })
             .catch(function(err){
-                console.log(err)
-                reject({ codigo:500 , mensaje:"Error al ejecutar la consulta"})
+                reject({ codigo: 500, mensaje:"¡Error con la base de datos!"})//Mal
             })
-
     })
-        
-
-
-
-
-
 }
 
 exports.insertarPelicula = function(pelicula){
-    console.log("insertarPelicula (LN):",pelicula)
+    
+    return new Promise(function(resolve, reject){
+        console.log("insertarPelicula (LN):",pelicula)
 
-    return mongoDBUtil
-        .esquemaPeliculas
-        .collection("peliculas") 
-        .insertOne( pelicula )  
+        //VALIDAR...
+
+        //Le quitamos el id a la pelicula por si alguien se está haciendo el listo
+        //Si no lo hicieramos desde fuera del servidor se podría decidir el valor de los ids
+        delete pelicula._id
+
+        let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
+        coleccionPeliculas
+            .insertOne(pelicula)
+            .then(function(resultado){
+                resolve(resultado.ops[0])//Bien
+            })
+            .catch(function(err){
+                console.log(err)
+                reject({ codigo:500, mensaje:"¡Error en la base de datos"})//Mal
+            })
+    })
 }
 
 exports.modificarPelicula = function(pelicula){
-    //Validar la película
 
-    return mongoDBUtil
-        .esquemaPeliculas
-        .collection("peliculas")
-        .findOneAndUpdate( { _id : new ObjectId(pelicula._id) },
+    return new Promise(function(resolve, reject){
+        console.log("imodificarPelicula (LN):",pelicula)    
+           
+        //Validar la película
+
+        mongoDBUtil
+            .esquemaPeliculas
+            .collection("peliculas")
+            .findOneAndUpdate( 
+                    { _id : new ObjectId(pelicula._id) },
                     {
                         $set : {
                             titulo   : pelicula.titulo,
@@ -83,11 +99,24 @@ exports.modificarPelicula = function(pelicula){
                             year     : pelicula.year,
                             sinopsis : pelicula.sinopsis,
                         }
-                    }
-                    ,
+                    },
                     {
                         returnOriginal : false,
                     })
+            .then(function(commandResult){
+                console.log(commandResult)
+                if(!commandResult.value){
+                    reject({ codigo:404, mensaje:"No existe una pelicula con el id "+pelicula._id})//Mal
+                    return
+                }
+                resolve(commandResult.value)//Bien
+            })
+            .catch(function(err){
+                console.log(err)
+                reject({ codigo:500, mensaje:"¡Error en la base de datos"})//Mal
+            })
+    })
+
 }
 
 exports.borrarPelicula = function(idPelicula){
