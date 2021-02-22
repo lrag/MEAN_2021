@@ -10,26 +10,17 @@ const mongoDBUtil = require("../util/mongoDBUtil")
 
 exports.listarPeliculas = function(){
     let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
-    //find es una función SINCRONA. Devuelve un cursor
-    //coleccionPeliculas.find( {} )
     let cursor = coleccionPeliculas.find()
-    //Cuando empecemos a recorrer el cursor entonces si que sera una función asincrona
-    //toArray recorre el cursor y crea un array con todos los objetos
     return cursor.toArray()
 }
 
 exports.buscarPelicula = function(idPelicula){
     let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
-    //Cuidado que _id tiene como valor ObjectId
-    //return coleccionPeliculas.findOne( { _id : idPelicula })
     return coleccionPeliculas.findOne( { _id : new ObjectId(idPelicula) })
 }
 
 exports.insertarPelicula = function(pelicula){
-    //insert
     console.log("insertarPelicula (LN):",pelicula)
-
-    //Validar que la película es correcta
 
     return mongoDBUtil
         .esquemaPeliculas

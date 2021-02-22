@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <title>Document</title>
+    
+    <script src="./jquery.js" type="application/javascript"></script>
+    <script src="./listadoPeliculas.js" type="application/javascript"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    
+    <div class="text-center page-header">
+        <h2 class="mt-4 mb-4">Aplicación de gestion de películas GestPeliculas 3000 (Express)</h2>
+    </div>   
+
+    <div class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Peliculas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Directores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Actores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Salir</a>
+            </li>
+        </ul>
+    </div> 
+
+    <h3 class="text-center mt-3 mb-3">
+        Listado de películas
+    </h3>
+
+    <div class="row">
+
+        <div class="col-sm-12 offset-sm-0 col-md-8 offset-md-2">
+
+            <div class="text-center">
+                <input type="button" id="btnNuevo"      class="btn btn-primary" value="Nuevo"/>
+                <input type="button" id="btnActualizar" class="btn btn-primary" value="Actualizar"/>
+            </div>
+
+            <br/>
+
+            <table class="table table-hover table-striped">    
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Director</th>
+                        <th>Género</th>
+                        <th>Año</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPeliculas"></tbody>
+            </table>            
+
+        </div>
+
+    </div>
+        
+</body>
+</html>
