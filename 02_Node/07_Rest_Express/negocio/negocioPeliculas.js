@@ -82,8 +82,8 @@ exports.insertarPelicula = function(pelicula){
 exports.modificarPelicula = function(pelicula){
 
     return new Promise(function(resolve, reject){
-        console.log("imodificarPelicula (LN):",pelicula)    
-           
+        console.log("modificarPelicula (LN):",pelicula)    
+
         //Validar la película
 
         mongoDBUtil
@@ -120,8 +120,26 @@ exports.modificarPelicula = function(pelicula){
 }
 
 exports.borrarPelicula = function(idPelicula){
-    return mongoDBUtil
-        .esquemaPeliculas
-        .collection("peliculas")
-        .deleteOne( { _id : new ObjectId(idPelicula) } )
+
+    return new Promise(function(resolve, reject){
+        console.log("borrarPelicula (LN):",idPelicula)          
+        
+        mongoDBUtil
+            .esquemaPeliculas
+            .collection("peliculas")
+            .deleteOne( { _id : new ObjectId(idPelicula) } )
+            .then( function(commandResult){                
+                if(commandResult.deletedCount==0){
+                    reject({ codigo:404, mensaje:"No existe una película con el id "+idPelicula})
+                    return 
+                }
+                resolve() //Bien!
+            })
+            .catch(function(err){
+                console.log(err)
+                reject({ codigo:500, mensaje:"¡Error en la base de datos"})//Mal
+            })
+
+    })
+
 }

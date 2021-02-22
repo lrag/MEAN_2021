@@ -103,37 +103,8 @@ function modificarPelicula(request, response){
         .catch(function(err){
             response.statusCode = err.codigo
             response.json(err)
-        })
-     
+        })     
 }
-
-/*
-function modificarPelicula(request, response){
-    console.log("Modificar película (LC)")
-
-    //aqui hace falta la peli y el id
-    let id = request.params.id
-    let pelicula = request.body
-    //Nos aseguramos de que la película que venía en el body tenga el id 
-    //que venía en la ruta
-    pelicula._id = id
-    
-    negocioPeliculas
-    .modificarPelicula(pelicula)
-    .then(function(result){
-            //if(result.value == null){
-            if(!result.value){
-                restUtil.devolverError(response,404,"No existe la película")
-                return
-            }
-            response.json(result.value)
-        })
-    .catch(function(err){
-        console.log(err)
-        restUtil.devolverError(response, 500, "Error al modificar la película") 
-    }) 
-}
-*/
 
 //DELETE /peliculas/:id
 function borrarPelicula(request, response){
@@ -142,12 +113,12 @@ function borrarPelicula(request, response){
     let id = request.params.id
     negocioPeliculas
         .borrarPelicula(id) 
-        .then(function(result){
-            //if 404
-            response.end("OK")
+        .then(function(){
+            response.json({ codigo:200, mensaje:"La película se ha borrado correctamente"})
         })
         .catch(function(err){
-            restUtil.devolverError(response, 500, "Error al borrar la película") 
+            response.statusCode = err.codigo
+            response.json(err)
         })
 }
 

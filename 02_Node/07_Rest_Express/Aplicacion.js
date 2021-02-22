@@ -14,7 +14,8 @@ function arrancarServidor(){
     app.use(jsonBodyParser)
     app.use(express.static("./recursos"))
 
-    
+    //X-POWERED-BY
+    app.disable('x-powered-by')
 
     app.use(peliculasRouter)  
     app.listen(5000, function(){
