@@ -39,8 +39,8 @@ function listarPeliculas(request, response){
             response.json(peliculas)
         })
         .catch(function(err){
-            console.log(err)
-            restUtil.devolverError(response, 500, "Error al listar las películas")
+            response.statusCode = err.codigo
+            response.json(err)
         })
 }
 

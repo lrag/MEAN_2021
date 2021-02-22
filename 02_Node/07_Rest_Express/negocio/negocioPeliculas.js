@@ -9,9 +9,28 @@ const ObjectId = require("mongodb").ObjectId
 const mongoDBUtil = require("../util/mongoDBUtil")
 
 exports.listarPeliculas = function(){
-    let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
-    let cursor = coleccionPeliculas.find()
-    return cursor.toArray()
+
+    //-Cuando creamos una promesa debemos proporcionarle una función dentro de la cual estárá
+    // el código que se va a ejectutar.
+    //-Esa función recibe por parámetro otras dos: resolve y reject 
+    //-Resolve será la función que se le proporciona a la promesa con el 'then'
+    //-Reject será la función que se le proporciona a la promesa con el 'catch'
+    //-Esa función no tiene return
+    return new Promise(function(resolve, reject){
+
+        let coleccionPeliculas = mongoDBUtil.esquemaPeliculas.collection("peliculas")
+        let cursor = coleccionPeliculas.find()
+        cursor
+            .toArray()
+            .then(function(peliculas){
+                resolve(peliculas)
+            })
+            .catch(function(err){
+                console.log(err)
+                reject({ codigo:500 , mensaje:"Error al ejecutar la consulta"})
+            })
+    })
+
 }
 
 exports.buscarPelicula = function(idPelicula){
@@ -34,14 +53,8 @@ exports.modificarPelicula = function(pelicula){
     return mongoDBUtil
         .esquemaPeliculas
         .collection("peliculas")
-        //.updateOne( { _id : new ObjectId(pelicula._id) },
-        //findOneAndUpdate incluye en el objeto 'commandResult' el documento que había antes en la colección
-        //Si queremos que devuelva el objeto tal cual ha quedado hay que añadir un parámetro extra a la consulta
         .findOneAndUpdate( { _id : new ObjectId(pelicula._id) },
                     {
-                        //Le asignamos estas propiedades al documento
-                        //Si el documento ya las tiene, se cambará el valor (si es distinto)
-                        //Si el documento no las tiene se las añade returnOriginal : false
                         $set : {
                             titulo   : pelicula.titulo,
                             director : pelicula.director,
@@ -49,16 +62,10 @@ exports.modificarPelicula = function(pelicula){
                             year     : pelicula.year,
                             sinopsis : pelicula.sinopsis,
                         }
-                        //Con $unset le eliminamos propiedades:
-                        //$unset : { movida : 1 }
                     }
                     ,
                     {
                         returnOriginal : false,
-                        //Con la opcion upsert a true si el criterio de búsqueda no ha dado
-                        //resultado se insertará un nuevo documento con los valores disponibles
-                        //Es decir, convertimos la consulta en un 'modificar o insertar'
-                        //upsert : true
                     })
 }
 
