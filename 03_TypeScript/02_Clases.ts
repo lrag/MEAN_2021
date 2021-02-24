@@ -291,22 +291,44 @@ class Pedido {
     ){       
     }
 
+    public getTotal():number{
+        return this.total
+    }
 
+    public addDetalle(producto:Producto, cantidad:number, precio:number):void{
+        //mirar si hay un detalle con ese producto
+        //-si no, se añade el detalle
+        //-si existe, se suma al existente
+
+        //Recalcular el total
+        this.recalcularTotal()
+    }
+    
+    public borrarDetalle(producto:Producto){
+        //Buscar el detalle que tiene ese producto y eliminarlo
+        
+        //recalcular el total
+        this.recalcularTotal()
+    }
+
+    private recalcularTotal():void{
+        //recorrer los detalles multiplcando cantidad y precio y sumando...
+    }
 
 }
 
-/*
-let pedido:Pedido = new Pedido()
 
+let pedido:Pedido = new Pedido()
 
 let detalle:DetallePedido = new DetallePedido()
 detalle.cantidad = 5
 detalle.precio = 5
 
-pedido.detalles = []
-pedido.detalles.push(detalle)
-pedido.total = 99.99
-*/
+//pedido.detalles = []
+//pedido.detalles.push(detalle)
+//pedido.total = 99.99
+
+
 
 
 
