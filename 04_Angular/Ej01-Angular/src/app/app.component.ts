@@ -23,6 +23,10 @@ export class AppComponent {
   //Declaramos un array aqui para los discos. No es el lugar correcto
   public discos:Disco[] = []
   
+  //Esta propiedad esta unida al estilo de una etiqueta de la plantilla
+  public estilo:string = "normal"
+
+
   public insertarDisco():void{
     console.log("Insertar disco:",this.disco)
     this.discos.push(this.disco)
@@ -46,6 +50,16 @@ export class AppComponent {
     //Podemos poner un disco nuevo y lo lo hacemos del tirón
     this.disco = new Disco()
   }
+
+  //////////////////////////////////////////
+  public estiloNormal():void{
+    this.estilo = "normal"
+  }
+
+  public estiloError():void{
+    this.estilo = "error"
+  }
+
 
 }
 

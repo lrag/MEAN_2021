@@ -47,7 +47,6 @@ También se podrán declarar en la propia plantilla
 Eventos:
 
 (nombre_evento)="llamada_a_la_función()"
-
 -->
 <div>
   <button (click)="insertarDisco()">Insertar</button>
@@ -110,7 +109,13 @@ Eventos:
 
 <hr/>
 
+<button (click)="estiloNormal()">Normal</button>
+<button (click)="estiloError()">Error</button>
 
-<h1 class="normal">HOLA</h1>
+<!--
+Si queremos que el 'class' de una etiqueta dependa de una propiedad del componente
+utilizamos [ngClass]="propiedad"
+-->
+<h1 [ngClass]="estilo">HOLA</h1>
 
 
