@@ -51,13 +51,19 @@ Eventos:
 -->
 <div>
   <button (click)="insertarDisco()">Insertar</button>
-  <button>Vaciar</button>
+  <button (click)="vaciarFormulario()">Vaciar</button>
 </div>
 
 <table>
   <tr>
     <td>Título</td>
     <td>
+      <!--
+      Con [(ngModel)] asociamos el value de un elemento
+      de la plantilla con una propiedad del componente
+      Para que funcione debemos dar de alta el FormsModule
+      en el AppModule.ts
+      -->
       <input type="text" [(ngModel)]="disco.titulo"/>
     </td>
   </tr>
@@ -81,6 +87,30 @@ Eventos:
     <th>Grupo</th>
     <th>Año</th>
   </tr>
+  <!--
+  *ngFor repite una etiqueta tantas veces como elmentos haya en un array
+  El array será una propiedad del componente
+  -->
+  <tr *ngFor="let d of discos">
+    <td>{{d.titulo}}</td>
+    <td>{{d.grupo}}</td>
+    <td>{{d.year}}</td>
+  </tr>
+
+  <!--
+  la etiqueta que incluya *ngIf aparecerá o no dependiendo
+  del resultado de evaluar la expresión booleana
+  -->
+  <tr *ngIf="discos.length==0">
+    <td colspan="3">
+      No hay discos en la tabla
+    </td>
+  </tr>
 </table>
+
+<hr/>
+
+
+<h1 class="normal">HOLA</h1>
 
 
