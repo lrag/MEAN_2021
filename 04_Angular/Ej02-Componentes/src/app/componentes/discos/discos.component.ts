@@ -11,11 +11,15 @@ export class DiscosComponent implements OnInit {
   public disco :Disco   //Para el bidirectional binding del formulario
   public discos:Disco[] //Para la tabla
 
-  constructor() { }
+  public constructor(){
+    console.log("Creando una instancia de DiscosComponent")
+    //
+}
 
   ngOnInit(): void {
   }
 
+  //
   public insertarDisco():void{
   }
 
@@ -25,10 +29,12 @@ export class DiscosComponent implements OnInit {
   public borrarDisco():void{
   }
 
+  //
   public vaciarFormulario():void{
   }
 
-  public seleccionarDisco():void{
+  //
+  public seleccionarDisco(XXX):void{
   }
 
 }

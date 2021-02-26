@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   
+  public constructor(){
+    console.log("Creando una instancia de AppComponent")
+  }
+
 }
