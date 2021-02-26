@@ -3,49 +3,57 @@
     Discos
 </h3>
 
-<div class="text-center">
-    <button class="btn btn-primary mr-1">Insertar</button>
-    <button class="btn btn-primary mr-1">Modificar</button>
-    <button class="btn btn-danger  mr-1">Borrar</button>
-    <button class="btn btn-warning mr-1">Vaciar</button>
+<div class="text-center"> 
+    <button class="btn btn-primary mr-1" (click)="insertarDisco()">Insertar</button>
+    <button class="btn btn-primary mr-1" (click)="modificarDisco()">Modificar</button>
+    <button class="btn btn-danger  mr-1" (click)="borrarDisco()">Borrar</button>
+    <button class="btn btn-warning mr-1" (click)="vaciarFormulario()">Vaciar</button>
 </div>
 
 <br/>
+
+<div *ngIf="error" class="alert alert-danger">
+    <strong>¡Error!</strong> {{error}}
+</div>
+<div *ngIf="mensaje"class="alert alert-success alert-dismissible fade show">
+    {{mensaje}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
 
 <div class="row">
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="titulo">Título</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
-        <input id="titulo" class="form-control"/>
+        <input id="titulo" [(ngModel)]="disco.titulo" class="form-control"/>
     </div>
     
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="grupo">Grupo</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
-        <input id="grupo" class="form-control"/>
+        <input id="grupo" [(ngModel)]="disco.grupo" class="form-control"/>
     </div>                 
     
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="year">Año</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
-        <input id="year" class="form-control"/>
+        <input id="year" [(ngModel)]="disco.year" class="form-control"/>
     </div>
     
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="genero">Género</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
-        <input id="genero" class="form-control"/>
+        <input id="genero" [(ngModel)]="disco.genero" class="form-control"/>
     </div>
 
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="escort">Notas</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
-        <textarea id="escort" class="form-control"></textarea>
+        <textarea id="escort" [(ngModel)]="disco.notas" class="form-control"></textarea>
     </div>
 </div>    
 
@@ -56,10 +64,22 @@
         <tr>
             <th>Título</th>
             <th>Grupo</th>
-            <th>Género</th>
             <th>Año</th>
+            <th>Género</th>
         </tr>
     </thead>
-    <tbody id="tablaPeliculas"></tbody>
+    <tbody>
+        <tr *ngFor="let d of discos" (click)="seleccionarDisco(d.id)">
+            <td>{{d.titulo}}</td>
+            <td>{{d.grupo}}</td>
+            <td>{{d.year}}</td>
+            <td>{{d.genero}}</td>
+        </tr>
+        <tr *ngIf="discos.length == 0">
+            <td colspan="4">
+                No hay discos en la tabla.
+            </td>
+        </tr>
+    </tbody>
 </table>  
 

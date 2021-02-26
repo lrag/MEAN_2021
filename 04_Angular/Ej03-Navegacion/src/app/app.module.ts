@@ -1,24 +1,22 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CabeceraComponent } from './componentes/cabecera/cabecera.component';
+import { Componente1Component } from './componentes/componente1/componente1.component';
+import { Componente2Component } from './componentes/componente2/componente2.component';
 import { MenuComponent } from './componentes/menu/menu.component';
-import { PieComponent } from './componentes/pie/pie.component';
-import { DiscosComponent } from './componentes/discos/discos.component';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PieComponent,
-    MenuComponent,
-    DiscosComponent,
-    CabeceraComponent
+    CabeceraComponent,
+    Componente1Component,
+    Componente2Component,
+    MenuComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule
+    BrowserModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -11,12 +11,10 @@ export class Disco  {
             public notas :string = null,
         ){
         if(!id){
-            this.id = Math.round(Math.random()*10000)
+            //this.id = Math.round(Math.random()*10000)
+            this.id = Date.now()
+            console.log(this.id)
         }
     }    
 
 }
-
-
-
-
