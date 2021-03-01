@@ -1,0 +1,58 @@
+<h3 class="text-center mt-3 mb-3">
+    Formulario de Discos
+</h3>
+
+<div class="text-center"> 
+    <button class="btn btn-primary mr-1" (click)="insertarDisco()">Insertar</button>
+    <button class="btn btn-primary mr-1" (click)="modificarDisco()">Modificar</button>
+    <button class="btn btn-danger  mr-1" (click)="borrarDisco()">Borrar</button>
+    <button class="btn btn-warning mr-1" (click)="vaciarFormulario()">Vaciar</button>
+    <button class="btn btn-warning mr-1" >Volver</button>
+</div>
+
+<br/>
+
+<div *ngIf="error" class="alert alert-danger">
+    <strong>¡Error!</strong> {{error}}
+</div>
+<div *ngIf="mensaje"class="alert alert-success alert-dismissible fade show">
+    {{mensaje}}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-2 mt-1">
+        <label for="titulo">Título</label>
+    </div>
+    <div class="col-sm-12 col-md-10 mt-1">
+        <input id="titulo" [(ngModel)]="disco.titulo" class="form-control"/>
+    </div>
+    
+    <div class="col-sm-12 col-md-2 mt-1">
+        <label for="grupo">Grupo</label>
+    </div>
+    <div class="col-sm-12 col-md-10 mt-1">
+        <input id="grupo" [(ngModel)]="disco.grupo" class="form-control"/>
+    </div>                 
+    
+    <div class="col-sm-12 col-md-2 mt-1">
+        <label for="year">Año</label>
+    </div>
+    <div class="col-sm-12 col-md-10 mt-1">
+        <input id="year" [(ngModel)]="disco.year" class="form-control"/>
+    </div>
+    
+    <div class="col-sm-12 col-md-2 mt-1">
+        <label for="genero">Género</label>
+    </div>
+    <div class="col-sm-12 col-md-10 mt-1">
+        <input id="genero" [(ngModel)]="disco.genero" class="form-control"/>
+    </div>
+
+    <div class="col-sm-12 col-md-2 mt-1">
+        <label for="escort">Notas</label>
+    </div>
+    <div class="col-sm-12 col-md-10 mt-1">
+        <textarea id="escort" [(ngModel)]="disco.notas" class="form-control"></textarea>
+    </div>
+</div>  

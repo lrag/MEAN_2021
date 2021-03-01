@@ -1,6 +1,6 @@
 
 let paginas = {
-    listadoPeliculas   : listadoPeliculas,
+    listadoPeliculas    : listadoPeliculas,
     formularioPeliculas : formularioPeliculas
 }
 
