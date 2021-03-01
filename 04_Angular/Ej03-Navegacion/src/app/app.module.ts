@@ -8,6 +8,22 @@ import { Componente2Component } from './componentes/componente2/componente2.comp
 import { MenuComponent } from './componentes/menu/menu.component';
 import { RouterModule } from '@angular/router';
 
+/*
+Para indicar a Angular qué queremos colocar en un <router-outlet> usaremos
+la barra del navegador
+
+Se definirán una serie de 'reglas de navegacion' o rutas que asocien una ruta a un componente
+que se colocará en el <router-outlet>
+
+las rutas son así:
+
+{
+ path      : '/movida, //Se admiten rutas absolutas y relativas
+ component : Componente
+}
+
+Las rutas estarán en un bonito array
+*/
 
 let rutas = [
   {
@@ -16,6 +32,10 @@ let rutas = [
   },
   {
     path : 'componente2',
+    component : Componente2Component
+  },
+  {
+    path : 'componente2/:dato1/:dato2',
     component : Componente2Component
   }
 ]
