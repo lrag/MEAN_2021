@@ -4,7 +4,7 @@ import { DiscosService } from './servicios/discos.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [ DiscosService ]
+  //providers: [ DiscosService ]
 })
 export class AppComponent {
 

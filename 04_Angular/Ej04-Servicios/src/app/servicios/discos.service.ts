@@ -5,7 +5,7 @@ import { Disco } from "../entidades/disco";
 //
 //Los servicios deben ser registrados para que puedan inyectarse
 
-@Injectable( /*{ providedIn : 'root' }*/ )
+@Injectable( { providedIn : 'root' } )
 export class DiscosService {
 
     private discos:Disco[] = []
@@ -49,7 +49,7 @@ export class DiscosService {
     public borrarDisco(disco:Disco):void{
         for(let a=0; a<this.discos.length; a++){
             if(this.discos[a].id == disco.id){
-                this.discos.slice(a,1)
+                this.discos.splice(a,1)
                 return
             }
         }

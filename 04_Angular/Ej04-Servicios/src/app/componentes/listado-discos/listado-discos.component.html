@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let d of discos" (click)="seleccionarDisco(d.id)">
+        <tr *ngFor="let d of discos" [routerLink]="['/formularioDiscos', d.id ]">
             <td>{{d.titulo}}</td>
             <td>{{d.grupo}}</td>
             <td>{{d.year}}</td>

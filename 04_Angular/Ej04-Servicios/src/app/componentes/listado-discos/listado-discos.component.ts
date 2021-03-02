@@ -5,7 +5,6 @@ import { DiscosService } from 'src/app/servicios/discos.service';
 @Component({
   selector: 'app-listado-discos',
   templateUrl: './listado-discos.component.html',
-  
   //providers: [ DiscosService ]
 })
 export class ListadoDiscosComponent implements OnInit {
