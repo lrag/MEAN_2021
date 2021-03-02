@@ -9,6 +9,7 @@ import { ListadoDiscosComponent } from './componentes/listado-discos/listado-dis
 import { FormularioDiscosComponent } from './componentes/formulario-discos/formulario-discos.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { DiscosService } from './servicios/discos.service';
 
 let rutas:Routes = [
   {
@@ -39,7 +40,7 @@ let rutas:Routes = [
     FormsModule,
     RouterModule.forRoot(rutas)
   ],
-  providers: [],
+  providers: [ /*DiscosService*/ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

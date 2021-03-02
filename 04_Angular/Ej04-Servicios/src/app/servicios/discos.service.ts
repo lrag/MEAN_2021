@@ -5,14 +5,14 @@ import { Disco } from "../entidades/disco";
 //
 //Los servicios deben ser registrados para que puedan inyectarse
 
-@Injectable( /*{ providedIn : root }*/ )
+@Injectable( /*{ providedIn : 'root' }*/ )
 export class DiscosService {
 
     private discos:Disco[] = []
 
     //En el constructor de un servicio tambien podemos solicitar la inyección de dependencias
     public constructor(){
-        console.log("Creando DiscosService")
+        console.log("Creando una instancia de DiscosService")
     }
 
     public listarDiscos():Disco[]{

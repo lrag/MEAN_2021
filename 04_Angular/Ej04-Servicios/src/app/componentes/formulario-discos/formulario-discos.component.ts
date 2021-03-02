@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Disco } from 'src/app/entidades/disco';
+import { DiscosService } from 'src/app/servicios/discos.service';
 
 @Component({
   selector: 'app-formulario-discos',
-  templateUrl: './formulario-discos.component.html'
+  templateUrl: './formulario-discos.component.html',
+
+  //providers: [ DiscosService ]  
+
 })
 export class FormularioDiscosComponent implements OnInit {
 
@@ -12,13 +17,25 @@ export class FormularioDiscosComponent implements OnInit {
 
   public disco:Disco //undefined
 
-  constructor() { }
+  constructor(private router:Router,
+              private discosService:DiscosService) { 
+    console.log("Creando una instancia de FormularioDiscosComponent")
+    this.disco = new Disco()
+  }
 
   ngOnInit(): void {
   }
 
   public insertarDisco():void{
-    
+    //Validar...
+    if(!this.disco.titulo || this.disco.titulo.trim()==''){
+      this.error = "El título es obligatorio"
+      return
+    }
+
+    this.discosService.insertarDisco(this.disco)
+    //navegar al listado
+    this.router.navigateByUrl("/listadoDiscos")
   }
 
   public modificarDisco():void{

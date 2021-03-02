@@ -13,7 +13,6 @@ export class Disco  {
         if(!id){
             //this.id = Math.round(Math.random()*10000)
             this.id = Date.now()
-            console.log(this.id)
         }
     }    
 
