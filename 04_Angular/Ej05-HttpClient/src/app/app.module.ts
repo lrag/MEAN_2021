@@ -18,6 +18,7 @@ import { HttpClientModule } from '@Angular/common/http';
   ],
   imports: [
     BrowserModule,
+    //Si no importamos este módulo no nos podrán inyectar el objeto HttpClient
     HttpClientModule
   ],
   providers: [],

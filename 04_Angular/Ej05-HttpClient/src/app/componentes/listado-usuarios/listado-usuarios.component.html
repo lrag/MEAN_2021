@@ -1,25 +1,29 @@
-<p>listado-usuarios works!</p>
+
+<br/>
+<br/>
 
 <div class="text-center">
     <button class="btn btn-primary" (click)="listarUsuarios()">Listar</button>
 </div>
 
+<br/>
+<br/>
 
 <table class="table table-hover table-striped">    
     <thead>
         <tr>
             <th>Nombre</th>
             <th>Apellidos</th>
-            <th></th>
-            <th></th>
+            <th class="text-center">Afoto</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let u of usuarios">
             <td>{{u.first_name}}</td>
             <td>{{u.last_name}}</td>
-            <td></td>
-            <td></td>
+            <td class="text-center">
+                <img [src]="u.avatar"/>
+            </td>
         </tr>
         <tr *ngIf="usuarios.length == 0">
             <td colspan="4">
@@ -28,4 +32,17 @@
         </tr>
     </tbody>
 </table>  
+
+<hr/>
+
+<div class="text-center">
+    <button class="btn btn-primary mr-2" (click)="imagen1()">Le comandant</button>
+    <button class="btn btn-primary" (click)="imagen2()">Programadora java</button>
+</div>
+
+<div class="text-center mt-2">
+    <img class="mr-2" src="{{rutaImagen}}"/>    
+    <img [src]="rutaImagen"/>    
+</div>
+
 

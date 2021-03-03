@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+//Las funciones lambda se llaman 'funciones flecha' en JS
+
+//-Una función flecha no tiene la palabra reservada 'function', pero define una función
+//-Si el cuerpo de la función flecha solo tiene una línea se pueden obviar las llaves
+//-Parámetros:
+//  -si no recibe parámetros hay que poner los parentesis
+//  -si recibe solo un parámetro se pueden obviar
+//  -si recibe más de uno los parentesis son obligatorios
+//-Si la función flecha no tiene las llaves incluirá un return implícito
+
+
+//Función que no recibe parámetros y no devuelve nada
+//-parentesis obligatorios
+//-llaves opcionales porque solo tiene una línea
+let f1_a = function(){ 
+    console.log("F1_A") 
+}
+
+let f1_b = () => console.log("F1_B")
+
+f1_a()
+f1_b()
+
+//Funcion que recibe un parámetro
+//-parentesis opcionales
+//-llaves opcionales porque solo tiene una línea
+let f2_a = function(numero){
+    console.log(numero*numero)
+}
+
+let f2_b = numero => console.log(numero*numero)
+
+f2_a(25)
+f2_b(25)
+
+//Función que recibe más de un parámetro
+//-parentesis obligatorios
+//-llaves opcionales porque solo tiene una línea
+let f3_a = function(n1,n2,n3){
+    console.log(n1+n2+n3)
+}
+
+let f3_b = (n1,n2,n3) => console.log(n1+n2+n3)
+
+f3_a(10,20,30)
+f3_b(10,20,30)
+
+//Función que devuelve un valor
+//-parentesis obligatorios por no ter unicamente un parámetro
+//-cuerpo de una sola línea: podemos qutar las llaves y el return será implícito
+let f4_a = function (s1, s2) {
+    return s1+s2
+}
+
+let f4_b = (s1, s2) => s1+s2 
+
+let rs1 = f4_a(10,30)
+let rs2 = f4_b(10,30)
+console.log(rs1)
+console.log(rs2)
+
+//Función que tiene más de una línea
+
+let f5_a = function(){
+    console.log("UNO")
+    console.log("DOS")
+    console.log("Y TRES")
+}
+
+let f5_b = () => {
+    console.log("CUATRO")
+    console.log("CINCO")
+    console.log("Y SEIS")
+}
+
+f5_a()
+f5_b()
+
+//THIS dentro de una función flecha
+let avion = {
+    fabricante : "McDonell Douglas",
+    modelo     : "F-4 Phantom",
+    toString   : function(){
+        
+        //Declaramos unas funciones anidadas 
+        let that = this
+        let f1 = function(){
+            //Aqui this no es el mismo avion, porque esta funcion no se le está asigando
+            console.log("F1:"+this.fabricante)
+            console.log("F1:"+that.fabricante) //Podemos usar esta ñapilla
+        }
+        f1()
+
+        //En una función flecha, this es el mismo que en la función que la declara
+        let f2 = () => console.log("F2:"+this.fabricante)
+        f2()
+        
+        return this.fabricante+" "+this.modelo
+    },
+
+    toCSV : () =>  this.fabricante+", "+this.modelo
+}
+
+console.log(avion.toString())
+
+</script>
+
+<body>
+    
+    <h1>22. Funciones flecha</h1>
+
+</body>
+</html>
