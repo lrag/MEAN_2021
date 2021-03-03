@@ -6,23 +6,30 @@ import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
 import { AceptacionTerminosComponent } from './componentes/usuarios/aceptacion-terminos/aceptacion-terminos.component';
 import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
+
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
 import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
+    PieComponent,
     AppComponent,
-    LoginComponent,
-    RegistroComponent,
-    AceptacionTerminosComponent,
-    PerfilComponent,
-    CabeceraComponent,
     MenuComponent,
-    PieComponent
+    LoginComponent,
+    PerfilComponent,
+    RegistroComponent,
+    CabeceraComponent,
+    AceptacionTerminosComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,             //Para el [(ngModel)]
+    HttpClientModule,        //Para las peticiones ajax con el objeto HttpClient
+    RouterModule.forRoot([]) //Para los router outlet
   ],
   providers: [],
   bootstrap: [AppComponent]

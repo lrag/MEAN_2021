@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-cabecera',
-  templateUrl: './cabecera.component.html',
-  styleUrls: ['./cabecera.component.css']
+    selector : "app-cabecera",
+    templateUrl : "./cabecera.component.html"
 })
-export class CabeceraComponent implements OnInit {
+export class CabeceraComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+    public constructor(){
+        console.log("Creando una instancia de CabeceraComponent")
+    }
 
 }
+
