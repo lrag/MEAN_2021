@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@Angular/common/http';
 import { Observable } from 'rxjs';
+import { UsuariosService } from 'src/app/servicios/usuariosService';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -8,9 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class ListadoUsuariosComponent implements OnInit {
 
+  public error:string
   public usuarios:any[] = []
 
- constructor(private httpClient:HttpClient) { }
+  constructor(/*private httpClient:HttpClient,*/
+              private usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
   }
@@ -40,13 +43,25 @@ export class ListadoUsuariosComponent implements OnInit {
     */
 
     //Con función flecha (más sucinto)
+    /*
     let obs:Observable<any> = this.httpClient.get("https://reqres.in/api/users?delay=3")
     obs.subscribe(
       resultado => this.usuarios = resultado.data,
       error     => console.log(error)
     )
-    
+    */
+
+    //Lo suyo es que las peticiones AJAX se hagan en un servicio
+    this
+      .usuariosService
+      .listarUsuarios()
+      .subscribe(
+        resultado => this.usuarios = resultado.data,
+        error => this.error = "Fallo al listar los usuarios"
+      )    
   }
+
+
 
   //Experimento de [src]
   //------------------------------------

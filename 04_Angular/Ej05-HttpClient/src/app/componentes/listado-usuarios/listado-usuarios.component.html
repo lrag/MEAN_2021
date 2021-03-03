@@ -9,6 +9,14 @@
 <br/>
 <br/>
 
+<div *ngIf="error">    
+    <div class="alert alert-danger">
+        <strong>¡Error!</strong> {{error}}
+    </div>    
+    <br/>
+    <br/>
+</div>
+
 <table class="table table-hover table-striped">    
     <thead>
         <tr>
