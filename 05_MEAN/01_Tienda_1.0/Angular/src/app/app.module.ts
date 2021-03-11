@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
 import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacion-tienda/maquetacion-tienda.component';
-import { PerfilUsuarioComponent } from './componentes/usuarios/perfil-usuario/perfil-usuario.component';
 
 let rutasMaquetacionLogin = [
   {
@@ -35,7 +34,7 @@ let rutasMaquetacionLogin = [
 let rutasMaquetacionTienda = [
   {
     path      : 'perfil',
-    component : PerfilUsuarioComponent
+    component : PerfilComponent
   },
   /*{
     path      : 'catalgo',
@@ -66,7 +65,6 @@ let rutasPrimerRouterOutlet = [
     }
 ]
 
-
 @NgModule({
   declarations: [
     PieComponent,
@@ -78,8 +76,7 @@ let rutasPrimerRouterOutlet = [
     CabeceraComponent,
     AceptacionTerminosComponent,
     MaquetacionLoginComponent,
-    MaquetacionTiendaComponent,
-    PerfilUsuarioComponent
+    MaquetacionTiendaComponent
   ],
   imports: [
     BrowserModule,

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-maquetacion-login',
-  templateUrl: './maquetacion-login.component.html',
-  styleUrls: ['./maquetacion-login.component.css']
+  templateUrl: './maquetacion-login.component.html'
 })
 export class MaquetacionLoginComponent implements OnInit {
 
