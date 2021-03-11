@@ -15,6 +15,57 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
 import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacion-tienda/maquetacion-tienda.component';
+import { PerfilUsuarioComponent } from './componentes/usuarios/perfil-usuario/perfil-usuario.component';
+
+let rutasMaquetacionLogin = [
+  {
+    path      : '',
+    component : LoginComponent
+  },
+  {
+    path      : 'registro',
+    component : RegistroComponent
+  },
+  {
+    path      : 'aceptacion',
+    component : AceptacionTerminosComponent
+  }
+]
+
+let rutasMaquetacionTienda = [
+  {
+    path      : 'perfil',
+    component : PerfilUsuarioComponent
+  },
+  /*{
+    path      : 'catalgo',
+    component : CatalogoComponent
+  },
+  {
+    path      : 'cesta',
+    component : CestaComponent
+  }  */
+]
+
+//Estas rutas son para la primera carpeta de la url
+let rutasPrimerRouterOutlet = [
+    {
+      path      : '',
+      component : MaquetacionLoginComponent,
+      children  : rutasMaquetacionLogin
+    },
+    {
+      path      : 'login',
+      component : MaquetacionLoginComponent,
+      children  : rutasMaquetacionLogin
+    },
+    {
+      path      : 'tienda',
+      component : MaquetacionTiendaComponent,
+      children  : rutasMaquetacionTienda
+    }
+]
+
 
 @NgModule({
   declarations: [
@@ -27,13 +78,14 @@ import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacio
     CabeceraComponent,
     AceptacionTerminosComponent,
     MaquetacionLoginComponent,
-    MaquetacionTiendaComponent
+    MaquetacionTiendaComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,             //Para el [(ngModel)]
     HttpClientModule,        //Para las peticiones ajax con el objeto HttpClient
-    RouterModule.forRoot([]) //Para los router outlet
+    RouterModule.forRoot(rutasPrimerRouterOutlet) //Para los router outlet
   ],
   providers: [],
   bootstrap: [AppComponent]
