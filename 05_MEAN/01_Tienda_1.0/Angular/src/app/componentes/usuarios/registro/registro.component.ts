@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
+import { SessionService } from 'src/app/servicios/sessionService';
 
 @Component({
   selector: 'app-registro',
@@ -9,13 +11,22 @@ export class RegistroComponent implements OnInit {
 
   //mensaje?
   public usuario:Usuario
-  
+  public confirmacionPw:string
 
-  constructor() { 
+  constructor(private router:Router,
+              private sessionService:SessionService) { 
     this.usuario = new Usuario()
   }
 
   ngOnInit(): void {
+  }
+
+  public siguiente():void{
+    
+    this.sessionService.setItem("usuario",this.usuario)
+
+    //Navega
+    this.router.navigateByUrl("/login/aceptacion")
   }
 
 }
