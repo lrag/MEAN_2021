@@ -13,6 +13,8 @@ import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
+import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacion-tienda/maquetacion-tienda.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { RouterModule } from '@angular/router';
     PerfilComponent,
     RegistroComponent,
     CabeceraComponent,
-    AceptacionTerminosComponent
+    AceptacionTerminosComponent,
+    MaquetacionLoginComponent,
+    MaquetacionTiendaComponent
   ],
   imports: [
     BrowserModule,

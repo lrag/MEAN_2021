@@ -12,7 +12,7 @@ export class ListadoUsuariosComponent implements OnInit {
   public error:string
   public usuarios:any[] = []
 
-  constructor(/*private httpClient:HttpClient,*/
+  constructor(private httpClient:HttpClient,
               private usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
@@ -25,8 +25,9 @@ export class ListadoUsuariosComponent implements OnInit {
     //
     //this.httpCliente.post("USR", body?, headers?):Observable
 
-    /*
+    
     //Sin función flecha
+    /*
     let that = this
     let obs:Observable<any> = this.httpClient.get("https://reqres.in/api/users?delay=3")
     obs.subscribe(
@@ -41,6 +42,7 @@ export class ListadoUsuariosComponent implements OnInit {
       }
     )
     */
+    
 
     //Con función flecha (más sucinto)
     /*
@@ -58,10 +60,8 @@ export class ListadoUsuariosComponent implements OnInit {
       .subscribe(
         resultado => this.usuarios = resultado.data,
         error => this.error = "Fallo al listar los usuarios"
-      )    
+      ) 
   }
-
-
 
   //Experimento de [src]
   //------------------------------------
@@ -74,6 +74,5 @@ export class ListadoUsuariosComponent implements OnInit {
   public imagen2():void{
     this.rutaImagen = "https://reqres.in/img/faces/2-image.jpg"
   }
-
 
 }
