@@ -1,0 +1,147 @@
+
+
+///////////////////
+//FUNCIONALIDADES//
+///////////////////
+
+USUARIOS
+
+
+Buscar usuario por login y pw -> 'login'
+-anonimo
+
+Existe un usuario con este login? -> si/no
+-anonimo
+
+Alta usuario  
+-anonimo
+
+Modificar usuario
+-hay que estar autenticado
+-cliente: solo se puede modificar a si mismo
+-admin:puede modificar a cualquiera
+
+Baja usuario
+-hay que estar autenticado
+-cliente: solo se puede borrar a si mismo
+-admin:puede borrar a cualquiera
+
+Listar usuarios
+-hay que estar autenticado
+-solo admin
+
+
+////////
+//APIS//
+////////
+
+
+Autenticacion
+
+POST   /login
+-------------
+{
+  login : aaa
+  pw    : bbb
+}  
+
+Api REST de usuarios
+
+Metodo	Ruta	          Body    Respuesta Funcionalidad 
+
+GET     /usuarios                 {json}    listar usuarios
+GET     /usuarios/:id             {json}    buscar usuario
+
+
+GET	/usuarios?login=X -       {si/no}   login repetido
+POST	/usuarios         {json}  {json}    alta de usuario
+PUT     /usuarios/:id     {json}  {json}    modificar usuario
+DELETE  /usuarios/:id     -	  -         baja usuario
+ 
+
+
+/////////////////
+//BASE DE DATOS//
+/////////////////
+
+
+usuarios
+productos
+pedidos
+facturas
+
+
+Usuarios
+[{
+	_id       :
+	nombre    : 
+	login     :
+	pw        :
+	direccion :
+	telefono  : 
+	correoE   :
+	spm       :
+	...
+}]
+
+Productos
+[{
+	_id
+	nombre
+	fabricante
+	descripcion
+	imagen
+	precio
+	existencias
+}]
+
+Pedidos
+[{
+	_id      : 
+	codigo   :
+	fecha    :
+	estado   :
+	
+	usuario  : {
+		todo menos el PW
+	}
+	
+	total    : 150
+	
+	detalles : [
+		{
+			cantidad : 0
+			precio   : 0
+			
+			Opción #1 solo el id (adios rendimiento)
+			producto : _id
+
+			Opcion #2 empotrar un documento con un subconjunto de las propiedades del producto
+			producto : {
+				_id
+				nombre
+			}
+			
+			Opcion #3 empotrar el documento producto entero
+			producto : {
+				_id	    :
+				nombre      :
+				fabricante  :
+				descripcion :
+				imagen      :
+				precio      :
+				existencias :			
+			}
+		
+		}	
+	]
+}]
+
+
+
+
+
+
+
+
+
