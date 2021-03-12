@@ -158,11 +158,14 @@ function buscarCoche(request, response){
 //del Content-Type de la petición
 
 //Tenemos que hacer el require. Este módulo está ya incluido en express, no hace falta descargarlo con NPM
-let bodyParser = require("body-parser") //Ya viene incluido cuando hacemos npm install express
+//let bodyParser = require("body-parser") //Ya viene incluido cuando hacemos npm install express
 //invocamos json()
-let jsonBodyParser = bodyParser.json()
+//let jsonBodyParser = bodyParser.json()
 //Registramos el body parser
-app.use(jsonBodyParser)
+//app.use(jsonBodyParser)
+
+//Desde la versión 4 de express se hace así:
+app.use(express.json());
 
 app.put("/aviones/:id", modificarAvion)
 function modificarAvion(request, response){
