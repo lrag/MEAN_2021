@@ -1,13 +1,31 @@
 const express = require("express")
+const { ClientRequest } = require("node:http")
 const negocioUsuarios = require("../negocio/negocioUsuarios")
 
 let router = express.Router()
+
+
+//Esto no es rest
+router.get('/comprobarLogin',comprobarLogin)
 
 router.post("/usuarios", altaUsuario)
 router.delete("/usuarios/:id", bajaUsuario)
 router.put("/usuarios/:id", modificarUsuario)
 
 exports.router = router
+
+function comprobarLogin(request, response){
+    let login = request.query.login
+    negocioUsuarios.comprobarLogin(login)
+    .then( existe => {
+        response.json({ existe : existe }) 
+    })
+    .catch( error => {
+        response.statusCode = error.codigo
+        response.json(error)
+    })
+
+}
 
 function altaUsuario(request, response){
 
