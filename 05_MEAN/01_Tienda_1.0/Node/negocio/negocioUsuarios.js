@@ -45,12 +45,11 @@ exports.altaUsuario = function(usuario){
         }
 
         let coleccionUsuarios = mongoDBUtil.esquema.collection('usuarios')
-
-        coleccionUsuarios.findOne( { login : usuario.login })
-        .then( usr => {
-            if(usr){
+        exports.comprobarLogin(usuario.login)
+        .then( existe => {
+            if(existe){
                 reject( { codigo:400, mensaje:'Ya existe un usuario con el mismo login' })
-                return 
+                return
             }
             return coleccionUsuarios.insertOne(usuario)
         })
