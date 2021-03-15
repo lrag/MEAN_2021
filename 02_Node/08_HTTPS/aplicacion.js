@@ -32,7 +32,7 @@ servidorHttps.listen(443, function(){
 }) 
 
 http.createServer(function(request, response){
-    //response.end("POR FAVOR, HAZME LA PETICION A 'HTTPS://localhost:443/inicio'")
+    response.end("POR FAVOR, HAZME LA PETICION A 'HTTPS://localhost:443/inicio'")
     response.writeHead(301, {
         Location : 'https://localhost:443/'+request.url
       });

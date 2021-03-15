@@ -9,6 +9,11 @@ let reglasUsrInsercion = {
     correoE : 'required|email',
 }
 
+
+exports.buscarPorLoginYPw = function(login, pw){
+
+}
+
 exports.comprobarLogin = function(login){
     return new Promise(function(resolve, reject){
         mongoDBUtil.esquema.collection("usuarios").findOne({ login : login })

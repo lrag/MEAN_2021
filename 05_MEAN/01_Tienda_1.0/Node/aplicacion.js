@@ -28,15 +28,5 @@ function arrancarServidor(){
     https.createServer(cert, app).listen(6001, function(){
         console.log("Esperando peticiones https en el puerto 6001")
     })
-
-    //Abrimos el puerto 80 para redirigir a https
-    http.createServer(function(request, response){
-        response.writeHead(301, {
-            Location : 'https://localhost:6001/'+request.url
-          });
-        response.end();    
-    }).listen(80, function(){
-        console.log("Esperando peticiones http en el puerto 80")
-    })    
-
+  
 }
