@@ -3,7 +3,7 @@ const express = require('express')
 const mongoDBUtil = require('./util/MongoDBUtil')
 const usuariosRouter = require('./rest/usuariosRest').router
 
-mongoDBUtil.conectarBBDD(arrancarServidor)
+mongoDBUtil.conectarBBDD()
 .then((arrancarServidor))
 .catch( function(error){
     console.log(error)

@@ -2,7 +2,7 @@ const mongodb = require('mongodb')
 
 exports.esquema = null
 
-exports.conectarBBDD = function(callback){
+exports.conectarBBDD = function(){
 
     return new Promise(function(resolve, reject){
         console.log("Conectando con la BBDD...")

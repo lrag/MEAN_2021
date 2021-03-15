@@ -1,19 +1,23 @@
 const express = require("express")
-const { ClientRequest } = require("node:http")
 const negocioUsuarios = require("../negocio/negocioUsuarios")
 
 let router = express.Router()
 
-
 //Esto no es rest
 router.get('/comprobarLogin',comprobarLogin)
 
+//Api REST de usuarios
 router.post("/usuarios", altaUsuario)
 router.delete("/usuarios/:id", bajaUsuario)
 router.put("/usuarios/:id", modificarUsuario)
 
 exports.router = router
 
+//////////////////////////////////////
+//Funciones con la lógica de control//
+//////////////////////////////////////
+
+//GET /comprobarLogin?login=valor
 function comprobarLogin(request, response){
     let login = request.query.login
     negocioUsuarios.comprobarLogin(login)
@@ -24,9 +28,12 @@ function comprobarLogin(request, response){
         response.statusCode = error.codigo
         response.json(error)
     })
-
 }
 
+//POST /usuarios
+//CT:app/json
+//--------------
+//{json}
 function altaUsuario(request, response){
 
     let usuario = request.body

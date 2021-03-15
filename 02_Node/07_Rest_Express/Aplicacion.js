@@ -3,7 +3,6 @@ const bodyParser = require("body-parser") //Ya viene incluido cuando hacemos npm
 const mongoDBUtil = require("./util/mongoDBUtil")
 const peliculasRouter = require("./rest/restPeliculas").router
 
-
 mongoDBUtil.conectar(arrancarServidor)
 
 function arrancarServidor(){    
