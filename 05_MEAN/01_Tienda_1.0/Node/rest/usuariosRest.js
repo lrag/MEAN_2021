@@ -3,12 +3,17 @@ const negocioUsuarios = require("../negocio/negocioUsuarios")
 
 let router = express.Router()
 
-//Esto no es rest
-router.get('/comprobarLogin',comprobarLogin)
+
+//Anónimo
+router.get('/comprobarLogin',comprobarLogin) //Esto no es rest
 
 //Api REST de usuarios
+
+//Anónimo
 router.post("/usuarios", altaUsuario)
+//Autenticado 
 router.delete("/usuarios/:id", bajaUsuario)
+//Autenticado
 router.put("/usuarios/:id", modificarUsuario)
 
 exports.router = router
@@ -49,7 +54,22 @@ function altaUsuario(request, response){
 }
 
 function bajaUsuario(request, response){
+    //LC BAJA USR
 }
 
 function modificarUsuario(request, response){
+    
+    
+    response.end("USUARIO MODIFICADO")
+    //LC MODIF USR
 }
+
+function listarProductos(request, response){
+    //LC LP
+}
+
+function insertarProducto(request, response){
+    //LC IP
+}
+
+

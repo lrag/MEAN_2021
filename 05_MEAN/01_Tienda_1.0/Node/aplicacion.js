@@ -5,6 +5,8 @@ const express = require('express')
 const mongoDBUtil = require('./util/MongoDBUtil')
 const authRouter = require('./autenticacion/authRouter').router
 const usuariosRouter = require('./rest/usuariosRest').router
+const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
+
 
 mongoDBUtil.conectarBBDD()
 .then((arrancarServidor))
@@ -17,8 +19,11 @@ function arrancarServidor(){
     //Configuramos express
     let app = express()   
     app.use(express.json());
-    app.use(authRouter)
+
+    app.use(interceptorJWT)
+
     app.use(usuariosRouter)
+    app.use(authRouter)
 
     console.log("Arrancando el servidor...")
     //Creamos el server utilizando el módulo 'https' y le proporcionamos
