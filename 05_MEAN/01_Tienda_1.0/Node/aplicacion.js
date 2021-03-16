@@ -3,6 +3,7 @@ const http = require('http')
 const fs = require('fs')
 const express = require('express')
 const mongoDBUtil = require('./util/MongoDBUtil')
+const authRouter = require('./autenticacion/authRouter').router
 const usuariosRouter = require('./rest/usuariosRest').router
 
 mongoDBUtil.conectarBBDD()
@@ -16,6 +17,7 @@ function arrancarServidor(){
     //Configuramos express
     let app = express()   
     app.use(express.json());
+    app.use(authRouter)
     app.use(usuariosRouter)
 
     console.log("Arrancando el servidor...")

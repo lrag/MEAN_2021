@@ -12,6 +12,25 @@ let reglasUsrInsercion = {
 
 exports.buscarPorLoginYPw = function(login, pw){
 
+    return new Promise(function(resolve, reject){
+        let criterio = {
+            login : login,
+            pw    : pw
+        }
+
+        mongoDBUtil.esquema.collection("usuarios").findOne( criterio )
+        .then( usuario => {
+            if(!usuario){
+                reject({ codigo:404, mensaje:'No existe un usuario con esas credenciales'})
+                return
+            }
+            resolve(usuario)
+        })
+        .catch( error => {
+            console.log(error)
+            reject({ codigo:500, mensaje:'¡Error en la base de datos!'})
+        })
+    })
 }
 
 exports.comprobarLogin = function(login){
