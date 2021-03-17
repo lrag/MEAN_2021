@@ -24,9 +24,9 @@ function autenticarUsuario(request, response){
 
         let token = jwt.sign(
             { 
-                _id   : usuario._id, 
-                login : usuario.login, 
-                rol   : usuario.rol,
+                _id    : usuario._id, 
+                login  : usuario.login, 
+                rol    : usuario.rol,
                 movida : "ABCDEF"
             }, 
             JWTUtil.getClave(), 

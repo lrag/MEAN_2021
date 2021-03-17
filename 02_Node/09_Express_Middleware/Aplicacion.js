@@ -6,8 +6,12 @@ let app = express()
 //Funciones interceptoras: se van a ejecutar independientemente de la petición recibida
 //
 //Si se las damos a app las regristramos para todas las peticiones entrantes
-app.use(escribirLog)
-app.use(comprobarJWT)
+//app.use(escribirLog)
+//app.use(comprobarJWT)
+
+app.use(interceptor1)
+app.use(interceptor2)
+app.use(interceptor3)
 
 app.get("/peliculas", listarPeliculas)
 app.get("/peliculas/:id", buscarPelicula)
@@ -42,6 +46,22 @@ function comprobarJWT(request, response, next){
     next()
 }
 
+function interceptor1(reques,response,next){
+    console.log("Interceptor 1 ANTES")
+    next()
+    console.log("Interceptor 1 DESPUES")
+}
+function interceptor2(reques,response,next){
+    console.log("Interceptor 2 ANTES")
+    next()
+    console.log("Interceptor 2 DESPUES")
+}
+function interceptor3(reques,response,next){
+    console.log("Interceptor 3 ANTES")
+    next()
+    console.log("Interceptor 3 DESPUES")
+}
+
 app.listen(7000, function(){
     console.log("Esperando peticiones en el puerto 7000")
 })
@@ -51,6 +71,7 @@ app.listen(7000, function(){
 ////////////////////////
 
 function listarPeliculas(request, response){
+    console.log("Listando las películas")
     response.end("listado de peliculas...")
 }
 
@@ -69,22 +90,6 @@ function modificarPelicula(request, response){
 function borrarPelicula(request, response){
     response.end("Pelicula borrada")
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

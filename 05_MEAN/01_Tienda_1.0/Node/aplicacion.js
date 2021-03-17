@@ -20,10 +20,21 @@ function arrancarServidor(){
     let app = express()   
     app.use(express.json());
 
+    //Interceptor LOG
+    app.use(function(request,response,next){
+        console.log("==========================================")
+        console.log(`Peticion recibida: ${request.method} ${request.url}`)
+        next()
+    })
+
+    //Interceptor que comprueba que venga un JWT
     app.use(interceptorJWT)
 
-    app.use(usuariosRouter)
     app.use(authRouter)
+    app.use(usuariosRouter)
+
+    //Quitamos la publicidad
+    app.disable('x-powered-by')
 
     console.log("Arrancando el servidor...")
     //Creamos el server utilizando el módulo 'https' y le proporcionamos

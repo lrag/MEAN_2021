@@ -55,11 +55,10 @@ function altaUsuario(request, response){
 
 function bajaUsuario(request, response){
     //LC BAJA USR
+    response.end("USUARIO BORRADO")
 }
 
-function modificarUsuario(request, response){
-    
-    
+function modificarUsuario(request, response){   
     response.end("USUARIO MODIFICADO")
     //LC MODIF USR
 }

@@ -15,6 +15,9 @@ export class AceptacionTerminosComponent implements OnInit {
 
   public registrar():void{
 
+    if()
+
+
     //let usuario:Usuario = JSON.parse(sessionStorage.getItem("usuario"))
     let usuario:Usuario = this.sessionService.getItem("usuario")
     console.log(usuario)

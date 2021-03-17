@@ -3,11 +3,13 @@ const JWTUtil = require("../util/JWTUtil")
 
 exports.interceptorJWT = function(request, response, next){
 
-    console.log("---------------------------------------------------")
+    console.log("------------------------------------------")
     console.log("Interceptor autenticacion")
 
     //Temporal
-    if(request.url == "/login" || (request.method.toUpperCase()=="POST" && request.url == "/usuarios")){
+    if((request.method.toUpperCase()=="POST" && request.url == "/login") || 
+       (request.method.toUpperCase()=="POST" && request.url == "/usuarios") ||
+       (request.method.toUpperCase()=="GET"  && request.url == "/comprobarLogin")){
         next()
         return
     }
@@ -48,7 +50,5 @@ exports.interceptorJWT = function(request, response, next){
     //
     //
     next()
-
-
 
 }
