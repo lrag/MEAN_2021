@@ -6,6 +6,7 @@ const mongoDBUtil = require('./util/MongoDBUtil')
 const authRouter = require('./autenticacion/authRouter').router
 const usuariosRouter = require('./rest/usuariosRest').router
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
+const { response } = require('express')
 
 
 mongoDBUtil.conectarBBDD()
@@ -24,6 +25,26 @@ function arrancarServidor(){
     app.use(function(request,response,next){
         console.log("==========================================")
         console.log(`Peticion recibida: ${request.method} ${request.url}`)
+        next()
+    })
+
+    app.use(function(request, response, next){
+        console.log("------------------------------------------")
+        console.log("Interceptor CORS")
+
+        if(request.method.toUpperCase() == 'OPTIONS'){
+            console.log("preflight detectado")
+
+            response.header("Access-Control-Allow-Origin", "*")
+            response.header('Access-Control-Allow-Methods', 
+                            'GET,PUT,POST,DELETE,PATCH,OPTIONS')
+            response.header("Access-Control-Allow-Headers", 
+                            "Origin, X-Requested-With, Content-Type, Accept, Authorization")  
+        
+            response.end()
+            return
+        }
+
         next()
     })
 
