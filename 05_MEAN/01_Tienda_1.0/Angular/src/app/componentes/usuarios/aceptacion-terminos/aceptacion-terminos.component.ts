@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
 import { SessionService } from 'src/app/servicios/sessionService';
 import { UsuariosService } from 'src/app/servicios/usuariosService';
@@ -12,7 +13,8 @@ export class AceptacionTerminosComponent implements OnInit {
   public acepta:boolean
   public mensaje:string = ""
 
-  constructor(private sessionService:SessionService,
+  constructor(private router:Router,
+              private sessionService:SessionService,
               private usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
@@ -31,8 +33,8 @@ export class AceptacionTerminosComponent implements OnInit {
 
     this.usuariosService.altaUsuario(usuario)
     .subscribe(
-      usuarioInsertado => console.log(usuarioInsertado),
-      error =>console.log(error)
+      usuarioInsertado => this.router.navigateByUrl("/login"),
+      error => this.mensaje = "No se pudo registrar"
     )
   }
 

@@ -16,54 +16,6 @@ import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
 import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacion-tienda/maquetacion-tienda.component';
 
-let rutasMaquetacionLogin = [
-  {
-    path      : '',
-    component : LoginComponent
-  },
-  {
-    path      : 'registro',
-    component : RegistroComponent
-  },
-  {
-    path      : 'aceptacion',
-    component : AceptacionTerminosComponent
-  }
-]
-
-let rutasMaquetacionTienda = [
-  {
-    path      : 'perfil',
-    component : PerfilComponent
-  },
-  /*{
-    path      : 'catalgo',
-    component : CatalogoComponent
-  },
-  {
-    path      : 'cesta',
-    component : CestaComponent
-  }  */
-]
-
-//Estas rutas son para la primera carpeta de la url
-let rutasPrimerRouterOutlet = [
-    {
-      path      : '',
-      component : MaquetacionLoginComponent,
-      children  : rutasMaquetacionLogin
-    },
-    {
-      path      : 'login',
-      component : MaquetacionLoginComponent,
-      children  : rutasMaquetacionLogin
-    },
-    {
-      path      : 'tienda',
-      component : MaquetacionTiendaComponent,
-      children  : rutasMaquetacionTienda
-    }
-]
 
 @NgModule({
   declarations: [
@@ -74,17 +26,69 @@ let rutasPrimerRouterOutlet = [
     PerfilComponent,
     RegistroComponent,
     CabeceraComponent,
-    AceptacionTerminosComponent,
     MaquetacionLoginComponent,
-    MaquetacionTiendaComponent
+    MaquetacionTiendaComponent,
+    AceptacionTerminosComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,             //Para el [(ngModel)]
     HttpClientModule,        //Para las peticiones ajax con el objeto HttpClient
-    RouterModule.forRoot(rutasPrimerRouterOutlet) //Para los router outlet
+    RouterModule.forRoot(AppModule.rutasPrimerRouterOutlet) //Para los router outlet
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  public static rutasMaquetacionLogin = [
+    {
+      path      : '',
+      component : LoginComponent
+    },
+    {
+      path      : 'registro',
+      component : RegistroComponent
+    },
+    {
+      path      : 'aceptacion',
+      component : AceptacionTerminosComponent
+    }
+  ]
+  
+  public static rutasMaquetacionTienda = [
+    {
+      path      : 'perfil',
+      component : PerfilComponent
+    },
+    /*{
+      path      : 'catalago',
+      component : CatalogoComponent
+    },
+    {
+      path      : 'cesta',
+      component : CestaComponent
+    }  */
+  ]
+  
+  //Estas rutas son para la primera carpeta de la url
+  public static rutasPrimerRouterOutlet = [
+      {
+        path      : '',
+        component : MaquetacionLoginComponent,
+        children  : AppModule.rutasMaquetacionLogin
+      },
+      {
+        path      : 'login',
+        component : MaquetacionLoginComponent,
+        children  : AppModule.rutasMaquetacionLogin
+      },
+      {
+        path      : 'tienda',
+        component : MaquetacionTiendaComponent,
+        children  : AppModule.rutasMaquetacionTienda
+      }
+  ]
+  
+
+}

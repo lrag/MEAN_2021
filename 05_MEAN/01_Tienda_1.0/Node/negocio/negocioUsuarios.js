@@ -50,6 +50,8 @@ exports.comprobarLogin = function(login){
     })
 }
 
+//Alta usuario solo sirve para usuarios con el rol 'CLIENTE'
+//Los emnpleados se darían de alta siguiendo otro proceso
 exports.altaUsuario = function(usuario){
 
     return new Promise(function(resolve, reject){
@@ -67,6 +69,9 @@ exports.altaUsuario = function(usuario){
                       errores: validador.errors.errors } ) //Mal
             return
         }
+
+        //Le asignamos el rol al usuario
+        usuario.rol = 'CLIENTE'
 
         let coleccionUsuarios = mongoDBUtil.esquema.collection('usuarios')
         exports.comprobarLogin(usuario.login)
