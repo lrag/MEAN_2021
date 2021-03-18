@@ -33,6 +33,7 @@ export class DiscosService {
     }
 
     public insertarDisco(disco:Disco):void{
+        disco.id = Date.now()
         this.discos.push(disco)
     }
 

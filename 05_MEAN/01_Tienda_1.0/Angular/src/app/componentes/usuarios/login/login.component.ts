@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouteReuseStrategy } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
+import { AutenticacionService } from 'src/app/servicios/autenticacionService';
+import { SessionService } from 'src/app/servicios/sessionService';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,9 @@ export class LoginComponent implements OnInit {
   public usuario:Usuario
   public mensaje:string
 
-  constructor() { 
+  constructor(private autenticacionService:AutenticacionService,
+              private router:Router,
+              private sessionService:SessionService) { 
     this.usuario = new Usuario()
   }
 
@@ -18,7 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   public entrar():void{
-
+    this.autenticacionService.login(this.usuario)
+    .subscribe(
+      data => {
+        this.router.navigateByUrl("/tienda/perfil")
+      },
+      error => {
+        console.log(error)
+        this.mensaje = "Credenciales incorrectas"
+      }
+    )
   }
 
 }
