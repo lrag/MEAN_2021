@@ -10,7 +10,7 @@ import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component'
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
 import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
@@ -33,6 +33,7 @@ import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacio
   imports: [
     BrowserModule,
     FormsModule,             //Para el [(ngModel)]
+    ReactiveFormsModule,
     HttpClientModule,        //Para las peticiones ajax con el objeto HttpClient
     RouterModule.forRoot(AppModule.rutasPrimerRouterOutlet) //Para los router outlet
   ],

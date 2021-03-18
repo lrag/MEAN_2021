@@ -29,4 +29,31 @@ export class RegistroComponent implements OnInit {
     this.router.navigateByUrl("/login/aceptacion")
   }
 
+
+  private idTimer
+
+  public programarTemporizador():void{
+    console.log(this.usuario.login)
+
+    if(this.idTimer){
+      clearTimeout(this.idTimer)
+    }
+    this.idTimer = setTimeout(this.comprobarLogin, 300)
+
+  }
+
+  public comprobarLogin():void{
+
+
+    /*
+    if(this.usuario.login.length < 5){
+      return
+    }
+    */
+
+    console.log("Comprobar login (AJAX)")
+    console.log(this.usuario.login)
+
+  }
+
 }
