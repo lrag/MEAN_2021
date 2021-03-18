@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   public entrar():void{
     this.autenticacionService.login(this.usuario)
     .subscribe(
-      data => {
+      () => {
         this.router.navigateByUrl("/tienda/perfil")
       },
       error => {

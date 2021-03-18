@@ -94,26 +94,78 @@ observable3.subscribe(
 
 //
 
-const http = require("http")
+const https = require("https")
 
 
-var options = {
-    host: 'jsonplaceholder.typicode.com',
-    path: '/users',
-    port: '80',
-    method: 'GET'
+function enviarPeticionPromesa(){
+
+    return new Promise(function(resolve, reject){
+        var options = {
+            host: 'jsonplaceholder.typicode.com',
+            path: '/users',
+            port: '443',
+            method: 'GET'
+        }
+
+        let req = https.request(options, function(respuesta){
+            console.log("Respuesta recibida")
+            respuesta.on("data", function(body){
+                console.log(body.toString())
+                resolve(body.toString())
+            })
+        })
+        req.on("error", function(error){
+            console.log(error)
+            reject(error)
+        })
+        req.end()
+    })
 }
 
-http.request(options, function(respuesta){
+function enviarPeticionObservable(){
 
-    console.log(arguments)
+    return new Observable(function(subscriber){
+        let options = {
+            host: 'jsonplaceholder.typicode.com',
+            path: '/users',
+            port: '443',
+            method: 'GET'
+        }
 
-    console.log("Respuesta recibida")
-    response.on("data", function(body){
-        console.log(body)
+        let req = https.request(options, function(respuesta){
+            console.log("Respuesta recibida")
+            respuesta.on("data", function(body){
+                //console.log(body.toString())
+                subscriber.next(body.toString())
+                subscriber.complete()
+            })
+        })
+        req.on("error", function(error){
+            console.log(error)
+            subscriber.error(error)
+            subscriber.complete()
+        })
+        req.end()
     })
-})
+
+}
 
 
+enviarPeticionObservable()
+.subscribe(
+    usuarios => {
+        console.log(usuarios.length)
+        console.log(usuarios)
+    },
+    error => console.log(error)
+)
 
 
+enviarPeticionPromesa()
+.then(respuesta => console.log(respuesta))
+.catch(error => console.log(error))
+
+
+setTimeout(function(){
+    console.log("FIN")
+},3000)
