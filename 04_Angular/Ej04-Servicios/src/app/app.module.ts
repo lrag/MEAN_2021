@@ -41,8 +41,8 @@ let rutas:Routes = [
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    RouterModule.forRoot(rutas)
+    FormsModule,  //Para el [(ngModel)]
+    RouterModule.forRoot(rutas) //PAra los router-outlets
   ],
   providers: [ /*DiscosService*/ ],
   bootstrap: [AppComponent]

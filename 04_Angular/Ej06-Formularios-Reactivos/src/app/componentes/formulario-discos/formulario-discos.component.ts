@@ -11,10 +11,9 @@ import { DiscosService } from 'src/app/servicios/discos.service';
 })
 export class FormularioDiscosComponent implements OnInit {
 
+  //En lugar de tener un disco para unirlo al formulario con [(ngModel)]
+  //tenemos un objeto del tipo FormGroup
   public formulario:FormGroup
-
-  public mensaje:string
-  public error:string
 
   constructor(private formBuilder:FormBuilder,
               private router:Router,
@@ -22,8 +21,9 @@ export class FormularioDiscosComponent implements OnInit {
               private activatedRoute:ActivatedRoute) { 
 
     this.formulario = formBuilder.group({
-      id     : formBuilder.control('', [ Validators.required ]),
-      titulo : formBuilder.control(null, [ Validators.required ]),
+      //Id no aparece en el formulario, pero los discos lo necesitan
+      id     : formBuilder.control(''),
+      titulo : formBuilder.control('', [ Validators.required ]),
       grupo  : formBuilder.control('', [ Validators.required ]),
       year   : formBuilder.control('', [ Validators.required, Validators.pattern('^[0-9]*$') ]),
       genero : formBuilder.control(''),
@@ -33,7 +33,7 @@ export class FormularioDiscosComponent implements OnInit {
     let idDiscoSel = activatedRoute.snapshot.params.id
     if(idDiscoSel){
       this.formulario.setValue(discosService.buscarDisco(idDiscoSel))
-    } 
+    }
 
   }
 
@@ -41,16 +41,7 @@ export class FormularioDiscosComponent implements OnInit {
   }
 
   public insertarDisco():void{
-    //Validar...
-    /*
-    if(!this.disco.titulo || this.disco.titulo.trim()==''){
-      this.error = "El título es obligatorio"
-      return
-    }
-    */
-    
     this.formulario.markAllAsTouched()
-
     if(this.formulario.invalid){
       return
     }
@@ -61,13 +52,10 @@ export class FormularioDiscosComponent implements OnInit {
   }
 
   public modificarDisco():void{
-    //Validar...
-    /*
-    if(!this.disco.titulo || this.disco.titulo.trim()==''){
-      this.error = "El título es obligatorio"
+    this.formulario.markAllAsTouched()
+    if(this.formulario.invalid){
       return
     }
-    */
 
     this.discosService.modificarDisco(this.formulario.value)
     //navegar al listado

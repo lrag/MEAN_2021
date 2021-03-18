@@ -12,24 +12,24 @@
 
 <br/>
 
-<div *ngIf="error" class="alert alert-danger">
-    <strong>¡Error!</strong> {{error}}
-</div>
-<div *ngIf="mensaje"class="alert alert-success alert-dismissible fade show">
-    {{mensaje}}
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-</div>
+<!-- 
+Para utilizar los formularios reactivos necesitamos una etiqueta 'form' 
+Este form jamás hará un submit
 
+Unimos el formulario con el formGroup del componente con [formGroup]
+-->
 <form class="row" [formGroup]="formulario">
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="titulo">Título</label>
     </div>
     <div class="col-sm-12 col-md-10 mt-1">
+        <!--
+        Los elementos del formulario que queramos unir al objeto formGroup los marcamos con 'formControlName'
+        -->
         <input id="titulo" formControlName="titulo" class="form-control"/>
         
         <div *ngIf="(formulario.get('titulo').dirty || formulario.get('titulo').touched)">
-            <small class="text-danger"
-                *ngIf="formulario.get('titulo').hasError('required')">
+            <small *ngIf="formulario.get('titulo').hasError('required')" class="text-danger">
                 Campo obligatorio.
             </small>
         </div>
