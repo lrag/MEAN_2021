@@ -38,22 +38,20 @@ export class RegistroComponent implements OnInit {
     if(this.idTimer){
       clearTimeout(this.idTimer)
     }
-    this.idTimer = setTimeout(this.comprobarLogin, 300)
+    this.idTimer = setTimeout(this.comprobarLogin, 500)
 
   }
 
   public comprobarLogin():void{
+    console.log("===========================")
+    console.log(this)
 
-
-    /*
     if(this.usuario.login.length < 5){
       return
     }
-    */
 
     console.log("Comprobar login (AJAX)")
     console.log(this.usuario.login)
-
   }
 
 }

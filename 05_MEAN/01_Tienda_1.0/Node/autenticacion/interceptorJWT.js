@@ -6,10 +6,10 @@ exports.interceptorJWT = function(request, response, next){
     console.log("------------------------------------------")
     console.log("Interceptor autenticacion")
 
-    //Temporal
-    if((request.method.toUpperCase()=="POST" && request.url == "/login") || 
-       (request.method.toUpperCase()=="POST" && request.url == "/usuarios") ||
-       (request.method.toUpperCase()=="GET"  && request.url == "/comprobarLogin")){
+    let urlSinParametros = request.url.split("?")[0]
+    if((request.method.toUpperCase()=="POST" && urlSinParametros == "/login") || 
+       (request.method.toUpperCase()=="POST" && urlSinParametros == "/usuarios") ||
+       (request.method.toUpperCase()=="GET"  && urlSinParametros == "/comprobarLogin")){
         next()
         return
     }

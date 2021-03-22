@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+
+var idTimer = null;
+var sugSeleccionada = -1;
+var numSugerencias = 0;
+
+//Solicitamos las ciudades que comiencen por lo que hay escrito 
+//en la caja de texto 'ciudad'
+function enviarPeticion(){
+	
+	let xmlHttp = new XMLHttpRequest();
+	
+	var valor = document.getElementById("ciudad").value;
+	if(valor.length <1)
+		return;	
+	
+	xmlHttp.open("GET","municipios?nombre="+valor, true);
+	xmlHttp.onreadystatechange = function () {
+		if( this.readyState == 4){
+			rellenarSugerencias(JSON.parse(this.responseText));
+		}		
+	}	
+	xmlHttp.send(null);
+}
+
+//Creamos los divs con las sugerencias
+function rellenarSugerencias(ciudades){
+	
+	//Localizamos el div de sugerencias
+	var divSugerencias = document.getElementById("sugerencias");
+	//Lo vaciamos
+	divSugerencias.innerHTML = "";
+	//Guardamos el numero de sugerencias recibidas
+	numSugerencias = ciudades.length;
+	//Vaciamos la seleccion
+	sugSeleccionada = -1;
+	
+	for(var a=0; a<ciudades.length; a++){
+
+		var div   = document.createElement("div");
+		var texto = document.createTextNode(ciudades[a].nombre);
+		var id    = document.createAttribute("id");
+		id.value = "sug"+a;
+		
+		div.appendChild(texto);
+		div.setAttributeNode(id);
+		
+		div.onmouseover = function() {
+			if(sugSeleccionada != -1)
+				document.getElementById("sug"+sugSeleccionada).style.backgroundColor = "white";
+			this.style.backgroundColor = "lightGreen";
+			sugSeleccionada = this.id.substring(3);
+		}
+		div.onmouseout = function() {
+			this.style.backgroundColor = "white";
+		}
+		div.onclick = function() {
+			document.getElementById("ciudad").value = this.innerHTML;
+			vaciarSugerencias();
+		}
+		
+		divSugerencias.appendChild(div);
+		
+	}
+	
+}
+
+//Programamos un temporizador para enviar la petición medio segundo
+//después de que se suelte la tecla. Si durante ese tiempo se pulsa otra
+//cancelamos el primer temporizador e iniciamos otros
+function programarTemporizador(){
+	if(idTimer != null)
+		clearTimeout(idTimer);
+	idTimer = setTimeout(enviarPeticion,500);	
+}
+
+function vaciarSugerencias(){
+	var divSugerencias = document.getElementById("sugerencias");
+	divSugerencias.innerHTML = "";
+	sugSeleccionada = -1;
+}
+
+function leerTeclado(evento){
+	
+	if(evento.keyCode == 40) { //Pabajo
+		if(sugSeleccionada!=-1)
+			document.getElementById("sug"+sugSeleccionada).style.backgroundColor = 'white';
+		if(sugSeleccionada < numSugerencias-1) //La primera sugerencia es la cero
+			sugSeleccionada++;
+		document.getElementById("sug"+sugSeleccionada).style.backgroundColor = 'lightGreen';
+	} else if(evento.keyCode == 38){
+
+		document.getElementById("sug"+sugSeleccionada).style.backgroundColor = 'white';
+		if(sugSeleccionada > 0)
+			sugSeleccionada--;
+		document.getElementById("sug"+sugSeleccionada).style.backgroundColor = 'lightGreen';		
+	} else if(evento.keyCode == 13){
+		
+		if(sugSeleccionada != -1){
+			campo = document.getElementById("ciudad");
+			ciudad.value = document.getElementById("sug"+sugSeleccionada).innerHTML;
+			vaciarSugerencias();			
+		}	
+	
+	} else {
+		programarTemporizador();
+	} 
+
+}
+
+window.onload = function (){
+	document.getElementById("ciudad").onkeyup = leerTeclado;
+}
+
+</script>
+
+<body>
+
+	<marquee>
+		<h2>
+			<font color="green">
+				Retención de envíos 
+			</font>
+		</h2>
+	</marquee>
+
+	Ciudad
+	<input type="text" name="ciudad" id="ciudad" size="50"/>
+	<div id="sugerencias"></div>
+
+</body>
+
+</html>

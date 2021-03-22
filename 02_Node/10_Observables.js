@@ -96,7 +96,6 @@ observable3.subscribe(
 
 const https = require("https")
 
-
 function enviarPeticionPromesa(){
 
     return new Promise(function(resolve, reject){
@@ -149,7 +148,6 @@ function enviarPeticionObservable(){
     })
 
 }
-
 
 enviarPeticionObservable()
 .subscribe(
