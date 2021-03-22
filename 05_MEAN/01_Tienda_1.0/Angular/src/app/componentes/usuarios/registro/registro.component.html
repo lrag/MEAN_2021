@@ -23,7 +23,11 @@
              [(ngModel)]="usuario.login"
              (keyup)="programarTemporizador()"/>
     </div>
+    <div *ngIf="errorLoginRepetido">
+      <span class="text-danger">{{errorLoginRepetido}}</span>
+    </div>
   </div>
+  
   <div class="form-group">
     <label class="control-label col-xs-2" for="pw" >Password</label>
     <div class="col-xs-8">

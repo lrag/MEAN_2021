@@ -10,6 +10,10 @@ export class UsuariosService {
     public constructor(private httpClient:HttpClient){
     }
 
+    public comprobarLogin(login:string):Observable<any>{
+        return this.httpClient.get(ConfiguracionUtil.urlServidor+"/comprobarLogin?login="+login)
+    }
+
     public altaUsuario(usuario:Usuario):Observable<any>{
         return this.httpClient.post(ConfiguracionUtil.urlServidor+"/usuarios", usuario)
     }
