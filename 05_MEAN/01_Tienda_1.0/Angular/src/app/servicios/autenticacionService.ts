@@ -4,12 +4,22 @@ import { Observable } from "rxjs";
 import { Usuario } from "../entidades/usuario";
 import { ConfiguracionUtil } from "../util/configuracionUtil";
 import { SessionService } from "./sessionService";
+import { UsuariosService } from "./usuariosService";
 
 @Injectable({ providedIn : 'root' })
 export class AutenticacionService {
 
     public constructor(private httpClient:HttpClient,
-                       private sessionService:SessionService){
+                       private sessionService:SessionService,
+                       private usuariosService:UsuariosService){
+    }
+
+    public getUsuario():Usuario{
+        return this.sessionService.getItem("usuario")
+    }
+
+    public getJWT():string{
+        return this.sessionService.getItem("JWT")
     }
 
     public login(usuario:Usuario):Observable<any>{
@@ -29,6 +39,29 @@ export class AutenticacionService {
                 }
             )
         })
+    }
+
+    public modificarUsuario(usuario:Usuario):Observable<any>{
+
+        //Hay que hacer dos cosas:
+        //-enviar un put /usuarios/:id. Esto lo sabe hacer 'usuariosService'
+        //-guardar el usuario con los datos nuevos en el session service. Esto se sabe aqui
+
+        return new Observable( subscriber => {
+            this.usuariosService.modificarUsuario(usuario)
+            .subscribe(
+                data => {
+                    this.sessionService.setItem("usuario", usuario)
+                    subscriber.next()
+                    subscriber.complete()
+                },
+                error => {
+                    subscriber.error(error)
+                    subscriber.complete()
+                }
+            )
+        })
+
     }
 
 }

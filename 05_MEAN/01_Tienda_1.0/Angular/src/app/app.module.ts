@@ -33,7 +33,7 @@ import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacio
   imports: [
     BrowserModule,
     FormsModule,             //Para el [(ngModel)]
-    ReactiveFormsModule,
+    ReactiveFormsModule,     //Para los formularios reactivos y las validaciones que tanto nos gustan y tanto nos entretienen
     HttpClientModule,        //Para las peticiones ajax con el objeto HttpClient
     RouterModule.forRoot(AppModule.rutasPrimerRouterOutlet) //Para los router outlet
   ],

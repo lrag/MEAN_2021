@@ -18,8 +18,8 @@ export class UsuariosService {
         return this.httpClient.post(ConfiguracionUtil.urlServidor+"/usuarios", usuario)
     }
 
-    public modificarUsuario(){
-
+    public modificarUsuario(usuario:Usuario):Observable<any>{
+        return this.httpClient.put(ConfiguracionUtil.urlServidor+"/usuarios/"+usuario._id, usuario)
     }
 
     public bajaUsuario(){
