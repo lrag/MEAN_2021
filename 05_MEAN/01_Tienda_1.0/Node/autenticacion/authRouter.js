@@ -44,7 +44,7 @@ function autenticarUsuario(request, response){
         delete usuario.pw 
         let respuesta = {
             usuario : usuario,
-            jwt     : token
+            JWT     : token
         }
 
         response.json(respuesta)

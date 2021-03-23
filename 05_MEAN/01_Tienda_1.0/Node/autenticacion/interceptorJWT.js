@@ -38,6 +38,7 @@ exports.interceptorJWT = function(request, response, next){
         console.log(token)  
     } catch(e){
         console.log(e)
+        response.statusCode = 400
         let error = {
             codigo : 400,
             descripcion : "Error con el JWT: "+e.message

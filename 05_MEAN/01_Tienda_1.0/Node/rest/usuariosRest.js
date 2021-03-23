@@ -58,17 +58,47 @@ function bajaUsuario(request, response){
     response.end("USUARIO BORRADO")
 }
 
-function modificarUsuario(request, response){   
-    response.end("USUARIO MODIFICADO")
-    //LC MODIF USR
+/*
+usuarios [
+{
+    _id : 100,
+    nombre : "Fulanita"
+    rol : 'ADMIN'
+},
+{
+    _id : 101,
+    nombre : "Fulanito",
+    rol : 'CLIENTE'
+}
+]
+
+PUT /usuarios/:101
+CT:app/json
+Auth: Bearer fhfgyrw7.{ _id : 101, rol: ADMIN }.fhdhfjdshf
+----------------------------
+{ 
+  _id       :  100
+  nombre    : 'fulanito'
+  direccion : 'otra direccion'
+  ...    
+}
+*/
+function modificarUsuario(request, response){
+    
+    let idUsuario = request.params.id
+    let usuario = request.body
+    usuario._id = 
+    
+    negocioUsuarios.modificarUsuario(usuario)
+    .then( (usuarioModifica) => {
+        response.json(usuarioModifica)
+    })
+    .catch( error => {
+        response.statusCode = error.codigo
+        response.json(error)
+    })
 }
 
-function listarProductos(request, response){
-    //LC LP
-}
 
-function insertarProducto(request, response){
-    //LC IP
-}
 
 
