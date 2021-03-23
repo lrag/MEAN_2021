@@ -100,6 +100,7 @@ exports.altaUsuario = function(usuario){
     })
 }
 
+//Esto podría estar en 'ValidatorjsUtil.js'
 function validarObjeto(objeto, reglas, funcion){
     Validator.useLang('es')
     let validador = new Validator(objeto, reglas)
@@ -119,6 +120,13 @@ function validarObjeto(objeto, reglas, funcion){
 exports.modificarUsuario = function(usuario, autoridad){
 
     return new Promise(function(resolve, reject){
+        
+        if(autoridad.rol == 'CLIENTE'){
+            if(autoridad._id != usuario._id){
+                reject({ codigo:403, mensaje:"Los clientes solo pueden modificarse a si mismos. Deja ya de joder con el postman"})//Mal
+                return 
+            }
+        }
 
         if(!validarObjeto(usuario, reglasUsrModificacion, reject)){
             return
@@ -126,20 +134,20 @@ exports.modificarUsuario = function(usuario, autoridad){
 
         mongoDBUtil.esquema.collection("usuarios")
             .findOneAndUpdate( 
-                    { _id : new ObjectID(usuario._id) },
-                    {
-                        $set : {
-                            nombre    : usuario.nombre,
-                            pw        : usuario.pw,
-                            direccion : usuario.direccion,
-                            correoE   : usuario.correoE,
-                            telefono  : usuario.telefono,
-                            idioma    : usuario.idioma,
-                        }
-                    },
-                    {
-                        returnOriginal : false,
-                    })
+                { _id : new ObjectID(usuario._id) },
+                {
+                    $set : {
+                        nombre    : usuario.nombre,
+                        pw        : usuario.pw,
+                        direccion : usuario.direccion,
+                        correoE   : usuario.correoE,
+                        telefono  : usuario.telefono,
+                        idioma    : usuario.idioma,
+                    }
+                },
+                {
+                    returnOriginal : false,
+                })
             .then(function(commandResult){
                 console.log(commandResult)
                 if(!commandResult.value){

@@ -6,6 +6,7 @@ exports.interceptorJWT = function(request, response, next){
     console.log("------------------------------------------")
     console.log("Interceptor autenticacion")
 
+    // :(
     let urlSinParametros = request.url.split("?")[0]
     if((request.method.toUpperCase()=="POST" && urlSinParametros == "/login") || 
        (request.method.toUpperCase()=="POST" && urlSinParametros == "/usuarios") ||
@@ -47,9 +48,14 @@ exports.interceptorJWT = function(request, response, next){
         return
     }
 
-    //
-    //
-    //
-    next()
+    //Creamos la autoridad
+    let autoridad = {
+        _id   : token._id,
+        login : token.login,
+        rol   : token.rol 
+    }
+    //Se la asignamos al request
+    request.autoridad = autoridad
 
+    next()
 }

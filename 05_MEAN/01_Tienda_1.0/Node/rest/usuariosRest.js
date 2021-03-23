@@ -87,13 +87,14 @@ function modificarUsuario(request, response){
     
     let idUsuario = request.params.id
     let usuario = request.body
-    usuario._id = 
+    usuario._id = idUsuario
     
-    negocioUsuarios.modificarUsuario(usuario)
+    negocioUsuarios.modificarUsuario(usuario, request.autoridad)
     .then( (usuarioModifica) => {
         response.json(usuarioModifica)
     })
     .catch( error => {
+        console.log(error)
         response.statusCode = error.codigo
         response.json(error)
     })
