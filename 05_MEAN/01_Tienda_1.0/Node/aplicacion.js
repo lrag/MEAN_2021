@@ -6,8 +6,6 @@ const mongoDBUtil = require('./util/MongoDBUtil')
 const authRouter = require('./autenticacion/authRouter').router
 const usuariosRouter = require('./rest/usuariosRest').router
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
-const { response } = require('express')
-
 
 mongoDBUtil.conectarBBDD()
 .then((arrancarServidor))

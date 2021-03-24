@@ -101,14 +101,14 @@ Pedidos
 	codigo   :
 	fecha    :
 	estado   :
+	total    : 150
 	
 	usuario  : {
 		todo menos el PW
 	}
 	
-	total    : 150
-	
-	detalles : [
+	detalles : 
+		[
 		{
 			cantidad : 0
 			precio   : 0
@@ -134,7 +134,7 @@ Pedidos
 			}
 		
 		}	
-	]
+		]
 }]
 
 

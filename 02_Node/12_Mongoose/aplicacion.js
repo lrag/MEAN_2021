@@ -35,7 +35,7 @@ mongoose
         //de que hagan las cosas por ti
 
         //Cuando creamos el esquema no indicamos cual será la coleccion que guardará los documentos
-        let esquemaUsuarios = new mongoose.Schema({
+        let esquemaUsuario = new mongoose.Schema({
             //Si queremos que sea el driver el que le de valor al _id
             //no lo añadiremos al esquema            
             //_id       : ObjectID,
@@ -61,7 +61,7 @@ mongoose
         //Prototipo.count() -> cuantos documentos hay        
 
         //Le pedimos a mongoose que nos cree un prototipo basado en el esquema
-        Usuario = mongoose.model('usuarios', esquemaUsuarios)
+        Usuario = mongoose.model('usuarios', esquemaUsuario)
 
         //A partir de este momento cada vez que necesitemos un usuario hacemos el new del prototipo
         let usuario = new Usuario()
