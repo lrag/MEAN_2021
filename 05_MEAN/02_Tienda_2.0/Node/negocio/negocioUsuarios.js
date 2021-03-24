@@ -138,7 +138,7 @@ exports.modificarUsuario = function(usuario, autoridad){
             .findOneAndUpdate( 
                 { _id : new ObjectID(usuario._id) },
                 {
-                    $set : {
+                    $set : { 
                         nombre    : usuario.nombre,
                         pw        : usuario.pw,
                         direccion : usuario.direccion,

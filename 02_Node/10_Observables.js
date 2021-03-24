@@ -80,7 +80,7 @@ let observable3 = new Observable(function(subscriber){
 })
 
 //A un observable se puede subscribir vários subscriptores
-/*
+
 observable3.subscribe(
     numero => console.log("Subscriptor 1:"+numero)    
 )
@@ -90,9 +90,9 @@ observable3.subscribe(
 observable3.subscribe(
     numero => console.log("Subscriptor 3:"+numero)    
 )
-*/
 
-//
+
+/*
 
 const https = require("https")
 
@@ -167,3 +167,5 @@ enviarPeticionPromesa()
 setTimeout(function(){
     console.log("FIN")
 },3000)
+
+*/
