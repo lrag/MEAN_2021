@@ -1,6 +1,6 @@
 //npm install validatorjs
-const Validator = require('validatorjs')
-const Usuario = require("../entidades/usuario")
+const validadorUtil = require('../../util/validadorUtil')
+const Usuario = require("../entidades/usuario").Usuario
 
 let reglasUsrInsercion = {
     nombre  : 'required|min:3|max:40',
@@ -17,7 +17,6 @@ let reglasUsrModificacion = {
     correoE   : 'required|email',
 }
 
-
 exports.buscarPorLoginYPw = function(login, pw){
     return new Promise(function(resolve, reject){
         let criterio = {
@@ -25,7 +24,7 @@ exports.buscarPorLoginYPw = function(login, pw){
             pw    : pw
         }
 
-        mongoDBUtil.esquema.collection("usuarios").findOne( criterio )
+        Usuario.findOne( criterio )
         .then( usuario => {
             if(!usuario){
                 reject({ codigo:404, mensaje:'No existe un usuario con esas credenciales'})
@@ -42,7 +41,7 @@ exports.buscarPorLoginYPw = function(login, pw){
 
 exports.comprobarLogin = function(login){
     return new Promise(function(resolve, reject){
-        mongoDBUtil.esquema.collection("usuarios").findOne({ login : login })
+        Usuario.findOne({ login : login })
         .then( resultado => {
             if(resultado){
                 resolve(true)
@@ -58,7 +57,7 @@ exports.comprobarLogin = function(login){
 }
 
 //Alta usuario solo sirve para usuarios con el rol 'CLIENTE'
-//Los emnpleados se darían de alta siguiendo otro proceso
+//Los empleados se darían de alta siguiendo otro proceso
 exports.altaUsuario = function(usuario){
 
     return new Promise(function(resolve, reject){
@@ -67,50 +66,33 @@ exports.altaUsuario = function(usuario){
         //Insertar el usuario
         //Enviar correoE de bienvenida
         //...
-        Validator.useLang('es')
-        let validador = new Validator(usuario, reglasUsrInsercion)
-        if(validador.fails()){
-            console.log(validador.errors.errors)
-            reject( { codigo:400, 
-                      mensaje:'Los datos del cliente son incorrectos', 
-                      errores: validador.errors.errors } ) //Mal
+        
+        //validar objeto ya se encarga de invocar 'reject'        
+        if(!validadorUtil.validarObjeto(usuario, reglasUsrInsercion)){
             return
         }
 
         //Le asignamos el rol al usuario
         usuario.rol = 'CLIENTE'
 
-        let coleccionUsuarios = mongoDBUtil.esquema.collection('usuarios')
         exports.comprobarLogin(usuario.login)
         .then( existe => {
             if(existe){
                 reject( { codigo:400, mensaje:'Ya existe un usuario con el mismo login' })
                 return
             }
-            return coleccionUsuarios.insertOne(usuario)
+
+            let usuarioMG = new Usuario(usuario)
+            return usuarioMG.save()
         })
-        .then( resultado => {
-            resolve(resultado.ops[0]) 
+        .then( usuarioInsertado => {
+            resolve(usuarioInsertado) 
         })
         .catch( error => {
             console.log(error)
             reject( { codigo:500, mensaje:'¡Error con la base de datos!'} ) //Mal
         })    
     })
-}
-
-//Esto podría estar en 'ValidatorjsUtil.js'
-function validarObjeto(objeto, reglas, funcion){
-    Validator.useLang('es')
-    let validador = new Validator(objeto, reglas)
-    if(validador.fails()){
-        console.log(validador.errors.errors)
-        funcion( { codigo:400, 
-            mensaje:'Los datos del objeto son incorrectos', 
-            errores: validador.errors.errors } ) //Mal            
-        return false
-    }
-    return true
 }
 
 //Autorización:
@@ -129,6 +111,7 @@ exports.modificarUsuario = function(usuario, autoridad){
             }
         }
 
+        //validar objeto ya se encarga de invocar 'reject'
         if(!validarObjeto(usuario, reglasUsrModificacion, reject)){
             return
         }

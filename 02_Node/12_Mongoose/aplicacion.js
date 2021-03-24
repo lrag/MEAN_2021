@@ -1,5 +1,4 @@
 //npm install mongoose
-const { ObjectID } = require("bson")
 let mongoose = require("mongoose")
 
 //Le proporcionaremos a Mongoose una url a la base de datos que incluya el esquema
@@ -39,7 +38,10 @@ mongoose
             //Si queremos que sea el driver el que le de valor al _id
             //no lo añadiremos al esquema            
             //_id       : ObjectID,
-            login     : String,
+            login: {
+                type: String,
+                required: true
+            },
             pw        : String,
             rol       : String,
             nombre    : String,

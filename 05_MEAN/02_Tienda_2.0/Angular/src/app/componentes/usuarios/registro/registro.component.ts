@@ -61,7 +61,7 @@ export class RegistroComponent implements OnInit {
     .subscribe(
       data => {
         if(data.existe){
-          this.errorLoginRepetido = "Ya existe un usario con este login"
+          this.errorLoginRepetido = "Ya existe un usuario con este login"
         } else {
           this.errorLoginRepetido = null
         }

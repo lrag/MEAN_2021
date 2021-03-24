@@ -2,6 +2,6 @@
 
 //@Injectable( { providedIn : 'root' })
 export class ConfiguracionUtil {
-    public static urlServidor:string = "https://localhost:6001"
+    public static urlServidor:string = "https://localhost:7000"
 }
 

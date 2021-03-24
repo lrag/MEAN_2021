@@ -8,7 +8,8 @@ exports.conectarBBDD = function(){
     return new Promise(function(resolve, reject){
         console.log("Conectando con la BBDD...")
 
-        let configuracion = JSON.parse(fs.readFileSync("../configuracion.json").toString())
+        //Ruta relativa a 'aplicacion.js', que es el que hace el require :(
+        let configuracion = JSON.parse(fs.readFileSync("./configuracion.json").toString())
 
         mongoose.connect(configuracion.url, { useNewUrlParser : true, useUnifiedTopology: true })
         .then( () => {
@@ -20,6 +21,6 @@ exports.conectarBBDD = function(){
             reject()
         })
 
-    }
+    })
 
 }

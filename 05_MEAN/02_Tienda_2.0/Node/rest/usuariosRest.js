@@ -30,6 +30,7 @@ function comprobarLogin(request, response){
         response.json({ existe : existe }) 
     })
     .catch( error => {
+        console.log(error)
         response.statusCode = error.codigo
         response.json(error)
     })
