@@ -1,7 +1,6 @@
 //npm install validatorjs
 const Validator = require('validatorjs')
-const mongoDBUtil = require("../../util/MongoDBUtil")
-const ObjectID = require("mongodb").ObjectID
+const Usuario = require("../entidades/usuario")
 
 let reglasUsrInsercion = {
     nombre  : 'required|min:3|max:40',
