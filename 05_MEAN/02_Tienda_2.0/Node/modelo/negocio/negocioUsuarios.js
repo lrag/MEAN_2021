@@ -112,33 +112,19 @@ exports.modificarUsuario = function(usuario, autoridad){
         }
 
         //validar objeto ya se encarga de invocar 'reject'
-        if(!validarObjeto(usuario, reglasUsrModificacion, reject)){
+        if(!validadorUtil.validarObjeto(usuario, reglasUsrModificacion, reject)){
             return
         }
 
-        mongoDBUtil.esquema.collection("usuarios")
-            .findOneAndUpdate( 
-                { _id : new ObjectID(usuario._id) },
-                {
-                    $set : { 
-                        nombre    : usuario.nombre,
-                        pw        : usuario.pw,
-                        direccion : usuario.direccion,
-                        correoE   : usuario.correoE,
-                        telefono  : usuario.telefono,
-                        idioma    : usuario.idioma,
-                    }
-                },
-                {
-                    returnOriginal : false,
-                })
-            .then(function(commandResult){
-                console.log(commandResult)
-                if(!commandResult.value){
+        Usuario
+            .findByIdAndUpdate(usuario._id, usuario)
+            .then( usuarioModificado => {
+                console.log("Usr modificado:",usuarioModificado)
+                if(!usuarioModificado){
                     reject({ codigo:404, mensaje:"No existe un usuario con el id "+usuario._id})//Mal
                     return
                 }
-                resolve(commandResult.value)//Bien
+                resolve(usuario)//Bien
             })
             .catch( error => {
                 console.log(error)

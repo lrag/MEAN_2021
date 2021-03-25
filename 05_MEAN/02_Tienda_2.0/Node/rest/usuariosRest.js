@@ -90,11 +90,7 @@ function modificarUsuario(request, response){
     let usuario = request.body
     usuario._id = idUsuario
     
-
-
-
-    
-    negocioUsuarios.modificarUsuario(usuario, request.autoridad)
+   negocioUsuarios.modificarUsuario(usuario, request.autoridad)
     .then( (usuarioModifica) => {
         response.json(usuarioModifica)
     })

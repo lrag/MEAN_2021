@@ -1,13 +1,13 @@
 const https = require('https')
 const fs = require('fs')
 const express = require('express')
-const mongoDBUtil = require('./util/MongooseDBUtil')
+const mongooseDButil = require('./util/MongooseDBUtil')
 const authRouter = require('./autenticacion/authRouter').router
 const usuariosRouter = require('./rest/usuariosRest').router
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
 
-mongoDBUtil.conectarBBDD()
-.then((arrancarServidor))
+mongooseDButil.conectarBBDD()
+.then(arrancarServidor)
 .catch( function(error){
     console.log(error)
 })

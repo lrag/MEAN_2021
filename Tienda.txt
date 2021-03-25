@@ -13,7 +13,7 @@ Buscar usuario por login y pw -> 'login'
 Existe un usuario con este login? -> si/no
 -anonimo
 
-Alta usuario  
+Alta usuario de tipo cliente
 -anonimo
 
 Modificar usuario
@@ -26,10 +26,29 @@ Baja usuario
 -cliente: solo se puede borrar a si mismo
 -admin:puede borrar a cualquiera
 
-Listar usuarios
+Listar usuarios 
 -hay que estar autenticado
 -solo admin
 
+
+PRODUCTOS
+
+-listar productos filtrandolos por un criterio
+	-hay que estar autenticado
+	-por nombre, entre dos precios, categoria, fabricante 
+	
+-buscar un producto por su id
+	-hay que estar autenticado
+	
+-insertar producto
+	-hay que ser admin
+	
+-modificar producto
+	-hay que ser admin
+	
+-borrar producto
+	-hay que ser admin
+	
 
 ////////
 //APIS//
@@ -51,13 +70,21 @@ Metodo	Ruta	          Body    Respuesta Funcionalidad
 
 GET     /usuarios                 {json}    listar usuarios
 GET     /usuarios/:id             {json}    buscar usuario
-
-
 GET	/usuarios?login=X -       {si/no}   login repetido
 POST	/usuarios         {json}  {json}    alta de usuario
 PUT     /usuarios/:id     {json}  {json}    modificar usuario
 DELETE  /usuarios/:id     -	  -         baja usuario
  
+
+Api REST de productos
+
+Metodo	Ruta	           Body    Respuesta Funcionalidad 
+
+GET     /productos                 {json}    listar productos
+GET     /productos/:id             {json}    buscar producto
+POST	/productos         {json}  {json}    insertar producto
+PUT     /productos/:id     {json}  {json}    modificar producto
+DELETE  /productos/:id      -	  -          borrar producto
 
 
 /////////////////
@@ -86,13 +113,14 @@ Usuarios
 
 Productos
 [{
-	_id
-	nombre
-	fabricante
-	descripcion
-	imagen
-	precio
-	existencias
+	_id         :
+	nombre      :
+	categoria   :
+	fabricante  :
+	descripcion :
+	imagen      :
+	precio      :
+	existencias :
 }]
 
 Pedidos
