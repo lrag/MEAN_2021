@@ -150,7 +150,7 @@ mongoose
         .then( usr => {
             console.log("Encontrado:"+usr.nombre)
             //Le pedidos al objeto que se borre (cruel)
-            return usr.remove()
+            return usr.deleteOne()
         })
         .then( () => {
             console.log("Usuario borrado.")

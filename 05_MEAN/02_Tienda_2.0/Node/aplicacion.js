@@ -1,10 +1,18 @@
+//Módulos estandard
 const https = require('https')
 const fs = require('fs')
+
+//Librerías de terceros
 const express = require('express')
+
+//Ficheros nuestros
 const mongooseDButil = require('./util/MongooseDBUtil')
-const authRouter = require('./autenticacion/authRouter').router
-const usuariosRouter = require('./rest/usuariosRest').router
+
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
+const authRouter = require('./autenticacion/authRouter').router
+
+const usuariosRouter = require('./rest/usuariosRest').router
+const productosRouter = require('./rest/productosRest').router
 
 mongooseDButil.conectarBBDD()
 .then(arrancarServidor)
@@ -51,6 +59,7 @@ function arrancarServidor(){
 
     app.use(authRouter)
     app.use(usuariosRouter)
+    app.use(productosRouter)
 
     //Quitamos la publicidad
     app.disable('x-powered-by')

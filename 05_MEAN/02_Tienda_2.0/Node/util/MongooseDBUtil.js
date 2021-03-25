@@ -1,7 +1,6 @@
 const fs = require('fs')
 const mongoose = require('mongoose')
 
-
 exports.conectarBBDD = function(){
     return new Promise(function(resolve, reject){
         console.log("Conectando con la BBDD...")
@@ -11,7 +10,6 @@ exports.conectarBBDD = function(){
 
         mongoose.set('useNewUrlParser', true);
         mongoose.set('useFindAndModify', true);
-        mongoose.set('useCreateIndex', true);
         mongoose.set('useUnifiedTopology', true);
 
         mongoose.connect(configuracion.url, { useNewUrlParser : true, useUnifiedTopology: true, useFindAndModify:true })

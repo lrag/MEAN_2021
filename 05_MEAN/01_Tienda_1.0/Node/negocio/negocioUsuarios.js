@@ -84,7 +84,7 @@ exports.altaUsuario = function(usuario){
         let coleccionUsuarios = mongoDBUtil.esquema.collection('usuarios')
         exports.comprobarLogin(usuario.login)
         .then( existe => {
-            if(existe){
+            if(existe==false){
                 reject( { codigo:400, mensaje:'Ya existe un usuario con el mismo login' })
                 return
             }
@@ -165,8 +165,6 @@ exports.modificarUsuario = function(usuario, autoridad){
     })
     
 }
-
-
 
 
 

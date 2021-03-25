@@ -72,16 +72,18 @@ exports.altaUsuario = function(usuario){
             return
         }
 
+        //Le quitamos al usuario cualquier _id que traiga
+        delete usuario._id
         //Le asignamos el rol al usuario
         usuario.rol = 'CLIENTE'
 
         exports.comprobarLogin(usuario.login)
         .then( existe => {
-            if(existe){
+            //Gracias por inventar javascript
+            if(existe==true){
                 reject( { codigo:400, mensaje:'Ya existe un usuario con el mismo login' })
                 return
             }
-
             let usuarioMG = new Usuario(usuario)
             return usuarioMG.save()
         })
@@ -133,10 +135,3 @@ exports.modificarUsuario = function(usuario, autoridad){
     })
     
 }
-
-
-
-
-
-
-

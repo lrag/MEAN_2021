@@ -100,7 +100,3 @@ function modificarUsuario(request, response){
         response.json(error)
     })
 }
-
-
-
-

@@ -12,3 +12,4 @@ exports.validarObjeto = function(objeto, reglas, funcion){
     }
     return true
 }
+
