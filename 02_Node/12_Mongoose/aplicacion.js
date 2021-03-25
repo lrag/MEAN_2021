@@ -130,7 +130,7 @@ mongoose
         //Para buscar documentos utilizamos directamente el modelo
         
         //Buscar el primer documento que cumpla un criterio:
-        //Usuario.findOne( { _id : "605aff556469ce299cc7cf89"})
+        //Usuario.findOne( { _id : new ObjectI("605aff556469ce299cc7cf89") })
         //Si el criterio es el _id mejor usar findById:
         return Usuario.findById("605aff556469ce299cc7cf89")
     })

@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Usuario } from "../entidades/usuario";
-import { ConfiguracionUtil } from "../util/configuracionUtil";
+import { Usuario } from "../../../entidades/usuario";
+import { ConfiguracionUtil } from "../../../util/configuracionUtil";
 import { AutenticacionService } from "./autenticacionService";
-import { SessionService } from "./sessionService";
+import { SessionService } from "../../../servicios/sessionService";
 
 @Injectable( { providedIn : 'root' })
 export class UsuariosService {

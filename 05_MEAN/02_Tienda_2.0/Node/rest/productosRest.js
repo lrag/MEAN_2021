@@ -26,10 +26,18 @@ function listarProductos(request, response){
         response.statusCode = error.codigo
         response.json(error)
     })  
-      
+
 }
 
 function buscarProducto(request, response){
+
+    let id = request.params.id
+    negocioProductos.buscarProducto(id)
+    .then( producto => response.json(producto))
+    .catch( error => {
+        response.statusCode = error.codigo
+        response.json(error)
+    })
 
 }
 

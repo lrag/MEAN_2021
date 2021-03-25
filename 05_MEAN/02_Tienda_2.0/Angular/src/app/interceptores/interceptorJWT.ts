@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AutenticacionService } from "../servicios/autenticacionService";
+import { AutenticacionService } from "../modulos/usuarios/servicios/autenticacionService";
 
 //Los interceptores deben de estar marcados con @Injectable y se registran EN EL MÓDULO
 //providers : [{

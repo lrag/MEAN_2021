@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouteReuseStrategy } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
-import { AutenticacionService } from 'src/app/servicios/autenticacionService';
+import { AutenticacionService } from 'src/app/modulos/usuarios/servicios/autenticacionService';
 import { SessionService } from 'src/app/servicios/sessionService';
 
 @Component({

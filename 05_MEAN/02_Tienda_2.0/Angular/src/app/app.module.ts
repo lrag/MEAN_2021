@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './componentes/usuarios/login/login.component';
-import { RegistroComponent } from './componentes/usuarios/registro/registro.component';
-import { AceptacionTerminosComponent } from './componentes/usuarios/aceptacion-terminos/aceptacion-terminos.component';
-import { PerfilComponent } from './componentes/usuarios/perfil/perfil.component';
+import { LoginComponent } from './modulos/usuarios/componentes/login/login.component';
+import { RegistroComponent } from './modulos/usuarios/componentes/registro/registro.component';
+import { AceptacionTerminosComponent } from './modulos/usuarios/componentes/aceptacion-terminos/aceptacion-terminos.component';
+import { PerfilComponent } from './modulos/usuarios/componentes/perfil/perfil.component';
 
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
 import { MenuComponent } from './componentes/maquetacion/menu/menu.component';
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './componentes/maquetacion/maquetacion-login/maquetacion-login.component';
 import { MaquetacionTiendaComponent } from './componentes/maquetacion/maquetacion-tienda/maquetacion-tienda.component';
 import { SessionService } from './servicios/sessionService';
-import { AutenticacionService } from './servicios/autenticacionService';
+import { AutenticacionService } from './modulos/usuarios/servicios/autenticacionService';
 import { InterceptorJWT } from './interceptores/interceptorJWT';
 
 
