@@ -8,11 +8,13 @@ import { MaquetacionTiendaComponent } from "./componentes/maquetacion-tienda/maq
 import { MenuComponent } from "./componentes/menu/menu.component";
 import { CestaComponent } from './componentes/cesta/cesta.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
+import { CatalogoComponent } from "./componentes/catalogo/catalogo.component";
 
 @NgModule({
     declarations: [
       MenuComponent,
       CestaComponent,
+      CatalogoComponent,
       ProductoComponent,
       MaquetacionTiendaComponent
     ],
@@ -33,13 +35,14 @@ export class TiendaModule {
           path      : 'perfil',
           component : PerfilComponent
         },
-        /*{
-          path      : 'catalago',
+        {
+          path      : 'catalogo',
           component : CatalogoComponent
         },
-        {
+        /*{
           path      : 'cesta',
           component : CestaComponent
-        }  */
+        }  
+        */
       ]
 }

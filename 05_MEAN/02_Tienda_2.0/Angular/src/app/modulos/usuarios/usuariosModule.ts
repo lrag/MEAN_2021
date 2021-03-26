@@ -8,7 +8,6 @@ import { LoginComponent } from "./componentes/login/login.component";
 import { MaquetacionLoginComponent } from "./componentes/maquetacion-login/maquetacion-login.component";
 import { PerfilComponent } from "./componentes/perfil/perfil.component";
 import { RegistroComponent } from "./componentes/registro/registro.component";
-import { UsuariosService } from "./servicios/usuariosService";
 
 @NgModule({
     declarations: [
