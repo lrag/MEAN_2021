@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Usuario } from "../../../entidades/usuario";
+import { Usuario } from "../entidades/usuario";
 import { ConfiguracionUtil } from "../../../util/configuracionUtil";
 import { SessionService } from "../../../servicios/sessionService";
 import { UsuariosService } from "./usuariosService";

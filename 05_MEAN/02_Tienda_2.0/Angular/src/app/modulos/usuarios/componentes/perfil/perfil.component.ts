@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/entidades/usuario';
+import { Usuario } from 'src/app/modulos/usuarios/entidades/usuario';
 import { AutenticacionService } from 'src/app/modulos/usuarios/servicios/autenticacionService';
 import { SessionService } from 'src/app/servicios/sessionService';
 import { UsuariosService } from 'src/app/modulos/usuarios/servicios/usuariosService';

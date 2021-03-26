@@ -1,5 +1,3 @@
-import { LoginComponent } from "../componentes/usuarios/login/login.component"
-
 
 export class Usuario {
 
@@ -13,6 +11,5 @@ export class Usuario {
         public telefono  : string = null,
         public direccion : string = null
     ){}
-
 
 }
