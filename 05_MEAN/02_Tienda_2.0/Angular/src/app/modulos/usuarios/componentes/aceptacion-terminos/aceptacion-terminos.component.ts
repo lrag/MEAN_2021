@@ -33,7 +33,7 @@ export class AceptacionTerminosComponent implements OnInit {
 
     this.usuariosService.altaUsuario(usuario)
     .subscribe(
-      usuarioInsertado => this.router.navigateByUrl("/login"),
+      usuarioInsertado => this.router.navigateByUrl("/"),
       error => this.mensaje = "No se pudo registrar"
     )
   }

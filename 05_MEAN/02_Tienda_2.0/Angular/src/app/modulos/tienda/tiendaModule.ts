@@ -6,10 +6,14 @@ import { RouterModule } from "@angular/router";
 import { PerfilComponent } from "../usuarios/componentes/perfil/perfil.component";
 import { MaquetacionTiendaComponent } from "./componentes/maquetacion-tienda/maquetacion-tienda.component";
 import { MenuComponent } from "./componentes/menu/menu.component";
+import { CestaComponent } from './componentes/cesta/cesta.component';
+import { ProductoComponent } from './componentes/producto/producto.component';
 
 @NgModule({
     declarations: [
       MenuComponent,
+      CestaComponent,
+      ProductoComponent,
       MaquetacionTiendaComponent
     ],
     imports: [

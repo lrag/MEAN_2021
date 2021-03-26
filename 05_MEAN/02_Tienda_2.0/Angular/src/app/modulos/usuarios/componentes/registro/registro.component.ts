@@ -29,7 +29,7 @@ export class RegistroComponent implements OnInit {
     this.sessionService.setItem("usuario",this.usuario)
 
     //Navega
-    this.router.navigateByUrl("/login/aceptacion")
+    this.router.navigateByUrl("/usuarios/aceptacion")
   }
 
 
@@ -50,13 +50,6 @@ export class RegistroComponent implements OnInit {
       return
     }
 
-    /*
-    this.usuariosService.comprobarLogin(this.usuario.login)
-    .subscribe(
-      function(data) {},
-      function(error) {}
-    )
-    */
     this.usuariosService.comprobarLogin(this.usuario.login)
     .subscribe(
       data => {

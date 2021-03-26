@@ -34,7 +34,7 @@ export class UsuariosModule {
     //Estas son las rutas para el router outlet que hay en MaquetacionLoginComponent
     public static rutasMaquetacionLogin = [
         {
-          path      : '',
+          path      : 'login',
           component : LoginComponent
         },
         {

@@ -20,6 +20,7 @@ import { AutenticacionService } from './modulos/usuarios/servicios/autenticacion
 import { InterceptorJWT } from './interceptores/interceptorJWT';
 import { UsuariosModule } from './modulos/usuarios/usuariosModule';
 import { TiendaModule } from './modulos/tienda/tiendaModule';
+import { CatalogoComponent } from './modulos/tienda/componentes/catalogo/catalogo.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { TiendaModule } from './modulos/tienda/tiendaModule';
     PieComponent,
     AppComponent,
     CabeceraComponent,
+    CatalogoComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,14 +51,18 @@ import { TiendaModule } from './modulos/tienda/tiendaModule';
 export class AppModule {
   
   //Estas rutas son para la primera carpeta de la url
-  public static rutasPrimerRouterOutlet = [
+  public static rutasPrimerRouterOutlet = [     
+      //{
+      //  path      : '**',  
+      //  component : CuatrocientosCuatroComponent 
+      //},
       {
         path      : '',   
-        redirectTo: '/login', 
+        redirectTo: '/usuarios/login', 
         pathMatch : 'full' 
       },
       {
-        path      : 'login',
+        path      : 'usuarios',
         component : MaquetacionLoginComponent,
         children  : UsuariosModule.rutasMaquetacionLogin
       },
