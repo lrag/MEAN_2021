@@ -51,7 +51,12 @@ export class AppModule {
   //Estas rutas son para la primera carpeta de la url
   public static rutasPrimerRouterOutlet = [
       {
-        path      : '',
+        path      : '',   
+        redirectTo: '/login', 
+        pathMatch : 'full' 
+      },
+      {
+        path      : 'login',
         component : MaquetacionLoginComponent,
         children  : UsuariosModule.rutasMaquetacionLogin
       },
