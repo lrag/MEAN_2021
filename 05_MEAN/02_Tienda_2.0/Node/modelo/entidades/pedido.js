@@ -22,7 +22,7 @@ let esquemaPedido = new mongoose.Schema({
 	usuario : {
 		_id       : ObjectID,
 		login     : String,
-		//pw      :  String,
+		//pw      : String,
 		//rol     : String,
 		nombre    : String,
 		direccion : String,
