@@ -33,10 +33,8 @@ export class ProductoComponent implements OnInit {
     //let detalle:DetallePedido = new DetallePedido(1, this.producto.precio, this.producto)
     //cesta.detalles.push(detalle)
 
+    //En nuestra aplicación es la cesta, el pedido, el que sabe trabajar con los detalles
     cesta.addProducto(1, this.producto)
-
-
-
   }
 
 }

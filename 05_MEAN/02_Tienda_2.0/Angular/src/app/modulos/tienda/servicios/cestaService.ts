@@ -17,13 +17,15 @@ export class CestaService {
       
         //La cesta estará en el SessionService
         let cesta = this.sessionService.getItem("cesta")
-        //Debemos añadir a la cesta las funciones que le faltan!!!!
-
-
         //La primera vez que se llame aqui la cesta no existe
-        if(!cesta){
+        //Debemos añadir a la cesta las funciones que le faltan!!!!
+        if(cesta){
+            console.log("La cesta ya existe")
+            Object.setPrototypeOf(cesta, Pedido.prototype)
+        } else {
             //Creamos un pedido y lo guardamos en el sessionService especificando
             //persistente=true
+            console.log("Creando la cesta")
             cesta = new Pedido()
             this.sessionService.setItem("cesta", cesta, true)
         }
