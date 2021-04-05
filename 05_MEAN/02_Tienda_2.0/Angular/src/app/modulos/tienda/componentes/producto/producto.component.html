@@ -6,8 +6,8 @@
     <p class="card-text">{{ producto.descripcion.substring(0,200)}}...</p>
     
     <div class="row">
-        <h4 class="col-8">{{producto.precio}} €</h4>
-        <button class="btn btn-primary col-4">Comprar</button>
+        <h4 class="col-6">{{producto.precio}} €</h4>
+        <button class="btn btn-primary col-6" (click)="comprar()">Comprar</button>
     </div>
     </div>
 </div>
