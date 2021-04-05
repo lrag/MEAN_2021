@@ -7,7 +7,7 @@ export class SessionService {
 
     public setItem(clave:string, valor:any, persistente:boolean=false):void{
         //this.items[clave] = valor
-        if(persistente){
+        if(persistente==true){
             localStorage.setItem(clave,JSON.stringify(valor))
         } else {
             sessionStorage.setItem(clave, JSON.stringify(valor))
@@ -16,9 +16,13 @@ export class SessionService {
 
     public getItem(clave:string):any{
         //return this.items[clave]
-        return JSON.parse(sessionStorage.getItem(clave))
-
-        
+        let item = sessionStorage.getItem(clave)
+        console.log("1:"+item)
+        if(!item){
+            item = localStorage.getItem(clave)
+            console.log("2:"+item)
+        }
+        return JSON.parse(item)
     }
 
     public removeItem(clave:string):void{
