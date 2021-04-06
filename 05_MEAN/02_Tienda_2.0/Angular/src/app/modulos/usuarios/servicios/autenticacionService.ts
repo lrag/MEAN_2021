@@ -41,6 +41,11 @@ export class AutenticacionService {
         })
     }
 
+    public logout():void{
+        //Hay que eliminar el JWT y el usuario
+        this.sessionService.clear()
+    }
+
     public modificarUsuario(usuario:Usuario):Observable<any>{
 
         //Hay que hacer dos cosas:
