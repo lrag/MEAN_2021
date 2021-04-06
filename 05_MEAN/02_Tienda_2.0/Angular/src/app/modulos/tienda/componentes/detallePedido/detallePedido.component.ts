@@ -7,6 +7,7 @@ import { DetallePedido } from '../../entidades/detallePedido';
 })
 export class DetallePedidoComponent implements OnInit {
 
+  @Input()
   public detalle:DetallePedido
 
   constructor() { 

@@ -9,6 +9,7 @@ import { MenuComponent } from "./componentes/menu/menu.component";
 import { CestaComponent } from './componentes/cesta/cesta.component';
 import { ProductoComponent } from './componentes/producto/producto.component';
 import { CatalogoComponent } from "./componentes/catalogo/catalogo.component";
+import { DetallePedidoComponent } from "./componentes/detallePedido/detallePedido.component";
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { CatalogoComponent } from "./componentes/catalogo/catalogo.component";
       CestaComponent,
       CatalogoComponent,
       ProductoComponent,
+      DetallePedidoComponent,
       MaquetacionTiendaComponent
     ],
     imports: [
@@ -39,10 +41,9 @@ export class TiendaModule {
           path      : 'catalogo',
           component : CatalogoComponent
         },
-        /*{
+        {
           path      : 'cesta',
           component : CestaComponent
         }  
-        */
       ]
 }

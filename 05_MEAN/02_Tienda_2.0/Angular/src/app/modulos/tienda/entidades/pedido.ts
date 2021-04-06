@@ -49,6 +49,22 @@ export class Pedido {
         this.calcularTotal()
     }
 
+    //Disminuye la cantidad de un producto en 1
+    //Si no existe el producto en la cesta pues nada, que no falle
+    //Si existe y la cantidad queda a 0, que se elimina
+    public disminuirCantidad(producto:Producto):void{
+
+    }
+
+    //Elimina el detalle que contiene el producto recibido
+    public eliminarDetalle(producto:Producto){
+
+    }
+
+    public vaciarCesta(){
+        
+    }
+
     private calcularTotal():void{
         let total = 0
         //for(let detalle of this.detalles){
