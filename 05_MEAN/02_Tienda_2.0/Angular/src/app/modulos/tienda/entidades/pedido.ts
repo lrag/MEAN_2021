@@ -54,15 +54,36 @@ export class Pedido {
     //Si existe y la cantidad queda a 0, que se elimina
     public disminuirCantidad(producto:Producto):void{
 
+        let detalle = this.detalles.find(function(d){
+            return d.producto._id == producto._id
+        })
+
+        if(!detalle){
+            return
+        }
+
+        detalle.cantidad -= 1
+        if(detalle.cantidad == 0){
+            this.eliminarDetalle(producto)
+        }
+
+        this.calcularTotal()
     }
 
     //Elimina el detalle que contiene el producto recibido
     public eliminarDetalle(producto:Producto){
-
+        for(let a=0; a<this.detalles.length; a++){
+            if(this.detalles[a].producto._id == producto._id){
+                this.detalles.splice(a,1)
+                this.calcularTotal()
+                break
+            }
+        }
     }
 
     public vaciarCesta(){
-        
+        this.detalles = []
+        this.calcularTotal()
     }
 
     private calcularTotal():void{
@@ -77,7 +98,6 @@ export class Pedido {
         //guardar
         //provisional!
         localStorage.setItem("cesta_"+this.usuario._id, JSON.stringify(this))
-
     }
 
 }

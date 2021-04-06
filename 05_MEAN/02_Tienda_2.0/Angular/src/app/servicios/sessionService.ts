@@ -17,10 +17,8 @@ export class SessionService {
     public getItem(clave:string):any{
         //return this.items[clave]
         let item = sessionStorage.getItem(clave)
-        console.log("1:"+item)
         if(!item){
             item = localStorage.getItem(clave)
-            console.log("2:"+item)
         }
         return JSON.parse(item)
     }

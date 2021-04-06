@@ -2,8 +2,10 @@
 
 
 <div *ngFor="let dp of cesta.detalles">
-    <app-detallePedido [detalle]="dp"></app-detallePedido>
+    <!--Le pasamos a cada detallePedidoComponent el detalle que tiene que mostrar y la cesta a la que pertenece-->
+    <app-detallePedido [detalle]="dp" [cesta]="cesta"></app-detallePedido>
 </div>
+
 <div *ngIf="cesta.detalles.length==0">
     <h2 class="text-center">No hay productos en la cesta</h2>
 </div>
@@ -16,3 +18,4 @@
         <button class="btn btn-danger ml-2">Vaciar</button>
     </h4>
 </div>
+
