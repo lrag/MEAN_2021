@@ -1,6 +1,6 @@
-const { ObjectID } = require("bson")
-let mongoose = require("mongoose")
-let Producto = require("./producto")
+const ObjectID = require("bson").ObjectID
+const mongoose = require("mongoose")
+const Producto = require("./producto").Producto
 
 let esquemaPedido = new mongoose.Schema({
     //Si queremos que sea el driver el que le de valor al _id
@@ -42,3 +42,4 @@ let esquemaPedido = new mongoose.Schema({
 })
 
 exports.Pedido = mongoose.model('pedidos', esquemaPedido)
+

@@ -43,16 +43,53 @@ export class CestaService {
         return cesta
     }
 
+    //Esto guarda la cesta en el LOCAL STORAGE
+    public setCesta(cesta){
+        let usuario = this.autenticacionService.getUsuario()
+        let nombreCesta = "cesta_"+usuario._id
+        this.sessionService.setItem(nombreCesta, cesta, true)
+    }
+
+    //Esto guarda la cesta EN EL SERVIDOR
     public guardarCesta(cesta:Pedido):Observable<any>{
-        return this.httpClient.post(ConfiguracionUtil.urlServidor+"/pedidos", cesta)
+        let observable = null
+        if(!cesta._id){
+            observable = this.insertarCesta(cesta)
+        } else {
+            observable = this.modificarCesta(cesta)
+        }
+        return observable
+    }
+
+    public insertarCesta(cesta:Pedido):Observable<any>{
+        
+        return new Observable( subscribers => {
+            this.httpClient.post(ConfiguracionUtil.urlServidor+"/pedidos", cesta)
+            .subscribe(
+                cestaInsertada => {
+                    //sustituir la cesta del localStorage por esta que tiene id
+                    this.setCesta(cestaInsertada)
+                    subscribers.next()
+                    subscribers.complete()
+                },
+                error => {
+                    subscribers.error(error)
+                    subscribers.complete()
+                }
+            )
+        })
+    }
+
+    public modificarCesta(cesta:Pedido):Observable<any>{
+        return this.httpClient.put(ConfiguracionUtil.urlServidor+"/pedidos/"+cesta._id, cesta)
     }
 
     public listarCestas(){
-        
+        //AJAX
     }
 
     public borrarCesta(){
-
+        //AJAX
     }
 
     //Despues...

@@ -165,7 +165,9 @@ function buscarCoche(request, response){
 //app.use(jsonBodyParser)
 
 //Desde la versión 4 de express se hace así:
-app.use(express.json());
+app.use(express.json({
+    limit: '5mb' //Tamaño máximo del body que estamos dispuestos a leer
+}))
 
 app.put("/aviones/:id", modificarAvion)
 function modificarAvion(request, response){

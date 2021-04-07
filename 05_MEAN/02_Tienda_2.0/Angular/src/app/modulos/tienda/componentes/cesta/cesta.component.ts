@@ -29,12 +29,15 @@ export class CestaComponent implements OnInit {
       this.mensaje = "No hay detalles en la cesta"
       return
     }
-    
+
     this.cestaService.guardarCesta(this.cesta)
     .subscribe(
-      respuesta => { console.log("CESTA GUARDADA") },
-      error => this.mensaje = "Hubo un error al guardar la cesta"
+      () => { 
+        console.log("CESTA GUARDADA") 
+      },
+      error => this.mensaje = error.mensaje
     )
+
   }
 
   public comprar():void{
