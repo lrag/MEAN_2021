@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AutenticacionService } from 'src/app/modulos/usuarios/servicios/autenticacionService';
 
 @Component({
   selector: 'app-maquetacion-tienda',
@@ -6,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaquetacionTiendaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private autenticacionService:AutenticacionService,
+              private router:Router) { 
+
+    //Si el usuario no se ha autenticado y está trasteando con la barra de navegacion le mandamos
+    //a la pantalla de login
+    if(!autenticacionService.getUsuario()){
+      router.navigateByUrl("/usuarios/login")
+    }
+
+  }
 
   ngOnInit(): void {
   }
