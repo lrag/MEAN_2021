@@ -49,6 +49,34 @@ PRODUCTOS
 -borrar producto
 	-hay que ser admin
 	
+	
+CESTAS/PEDIDOS
+
+
+-componer una cesta (esto lo hace la aplicación angular)
+
+-guardar las cestas
+
+-listar las cestas 
+	-los usuarios podrán ver sus cestas
+	
+-borrar una cesta
+
+-seleccionar una cesta 
+
+
+-"comprar" una cesta
+	-un proceso en el que se emite una factura y se prepara un envío
+	 a partir de una cesta/pedido
+
+
+
+FACTURAS
+
+-listar las facturas
+	-los usuarios pueden ver solo las suyas
+	-los administradores pueden verlas todas
+	
 
 ////////
 //APIS//
@@ -62,7 +90,8 @@ POST   /login
 {
   login : aaa
   pw    : bbb
-}  
+}
+
 
 Api REST de usuarios
 
@@ -86,6 +115,31 @@ POST	/productos         {json}  {json}    insertar producto
 PUT     /productos/:id     {json}  {json}    modificar producto
 DELETE  /productos/:id      -	  -          borrar producto
 
+
+Api REST de pedidos/cestas
+
+Metodo	Ruta	            Parametros Body    Respuesta Funcionalidad 
+
+GET     /pedidos            criterio   -       {json}    listar pedidos ADMIN
+GET     /usuarios/X/pedidos                              listar pedidos CLIENTE
+
+GET     /pedidos/:id                	       {json}    buscar pedido
+POST	/pedidos                       {json}  {json}    insertar pedido
+PUT     /pedidos/:id      	       {json}  {json}    modificar pedido
+DELETE  /pedidos/:id       -	  -                      borrar pedido
+
+
+
+PUT /pedidos/:id
+
+POST /facturas
+
+POST /ordenes_compra
+CT:app/json
+--------------------
+{
+	pedido
+}
 
 /////////////////
 //BASE DE DATOS//

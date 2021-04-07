@@ -10,19 +10,19 @@ router.put('/productos/:id', modifcarProducto)
 router.delete('/productos/:id', eliminarProducto)
 
 
+///////////////////////////////
+//Funciones Logica de Control//
+///////////////////////////////
 
-////////
-//Funcionnes Logica de Control
 function listarProductos(request,response){
-//recohger el request del criterio de fiultrado
-let criterio=request.query.criterio
-negocioProductos.listarProductos(criterio)
-.then(listadoProductos=> response.json(listadoProductos))
-.catch( error => {
-    response.statusCode = error.codigo
-    response.json(error)
-})  
-
+    //recoger el request del criterio de fiultrado
+    let criterio=request.query.criterio
+    negocioProductos.listarProductos(criterio)
+    .then(listadoProductos=> response.json(listadoProductos))
+    .catch( error => {
+        response.statusCode = error.codigo
+        response.json(error)
+    })  
 }
 
 function buscarProductos(request,response){

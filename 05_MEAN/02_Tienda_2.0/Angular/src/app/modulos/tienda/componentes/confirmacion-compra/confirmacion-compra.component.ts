@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscriber } from 'rxjs';
 import { Pedido } from '../../entidades/pedido';
+import { CestaService } from '../../servicios/cestaService';
 
 @Component({
   selector: 'app-confirmacion-compra',
@@ -10,7 +11,9 @@ export class ConfirmacionCompraComponent implements OnInit {
 
   public cesta:Pedido
 
-  constructor() { 
+  constructor(private cestaService:CestaService) { 
+
+    this.cesta = cestaService.getCesta()
 
   }
 
@@ -18,6 +21,9 @@ export class ConfirmacionCompraComponent implements OnInit {
   }
 
   public confirmarCompra(){
+
+    console.log(this.cesta)
+
 
   }
 

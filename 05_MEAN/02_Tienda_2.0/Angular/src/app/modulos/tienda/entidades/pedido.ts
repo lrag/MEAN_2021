@@ -6,12 +6,15 @@ import { Producto } from "./producto";
 export class Pedido {
 
     constructor(
-        public _id      : string          = null,
-        public codigo   : string          = null,
-        public fecha    : string          = null,
-        public estado   : string          = null, 
-        public total    : number          = null,
-        public usuario  : Usuario         = null,
+        public _id          : string      = null,
+        public codigo       : string      = null,
+        public fecha        : string      = null,
+        public estado       : string      = null, 
+        public total        : number      = null,
+        public usuario      : Usuario     = null,
+        public dirEntrega   : string      = null,
+        public formaPago    : string      = null,
+        public fechaEntrega : string      = null,
         public detalles : DetallePedido[] = []
     ){}
 
