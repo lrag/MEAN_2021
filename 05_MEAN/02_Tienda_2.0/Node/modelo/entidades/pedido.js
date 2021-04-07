@@ -7,10 +7,13 @@ let esquemaPedido = new mongoose.Schema({
     //no lo añadiremos al esquema            
     //_id       : ObjectID,
     
-	codigo : String,
-	fecha  : String,
-	estado : String, 
-	total  : Number,
+	codigo 		 : String,
+	fecha  		 : String,
+	estado 		 : String, 
+	total  		 : Number,
+	dirEntrega   : String,
+	formaPago    : String,
+	fechaEntrega : String,
 
 	//Si queremos solo el _id:
 	//usuario : ObjectID,
