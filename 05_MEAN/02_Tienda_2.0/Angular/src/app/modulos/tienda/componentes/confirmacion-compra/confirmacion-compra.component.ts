@@ -13,7 +13,10 @@ export class ConfirmacionCompraComponent implements OnInit {
 
   constructor(private cestaService:CestaService) { 
 
-    this.cesta = cestaService.getCesta()
+    //this.cesta = cestaService.getCesta()
+    cestaService
+      .getCesta()
+      .subscribe( cesta => this.cesta=cesta )    
 
   }
 

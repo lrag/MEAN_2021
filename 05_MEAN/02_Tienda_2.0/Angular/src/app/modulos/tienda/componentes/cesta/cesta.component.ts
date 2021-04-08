@@ -14,7 +14,15 @@ export class CestaComponent implements OnInit {
 
   constructor(private cestaService:CestaService,
               private router:Router) { 
-    this.cesta = cestaService.getCesta()
+    //El que quiere la cesta recibe un BehaviorSubject al que se subscribe
+    //para ir recibiendo la cesta cada vez que cambie
+    cestaService
+      .getCesta()
+      .subscribe( cesta => { 
+        console.log("Recibiendo una nueva cesta en CestaComponent")
+        this.cesta=cesta 
+      })
+
   }
 
   ngOnInit(): void {

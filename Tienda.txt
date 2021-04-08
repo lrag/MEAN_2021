@@ -179,11 +179,14 @@ Productos
 
 Pedidos
 [{
-	_id      : 
-	codigo   :
-	fecha    :
-	estado   :
-	total    : 150
+	_id          : 
+	codigo       :
+	fecha        :
+	estado       :
+	total        : 150
+	dirEntrega   :
+	formaPago    :
+	fechaEntrega :
 	
 	usuario  : {
 		todo menos el PW

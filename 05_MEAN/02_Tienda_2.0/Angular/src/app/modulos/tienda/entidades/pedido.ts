@@ -100,7 +100,7 @@ export class Pedido {
 
         //guardar
         //provisional!
-        localStorage.setItem("cesta_"+this.usuario._id, JSON.stringify(this))
+        //localStorage.setItem("cesta_"+this.usuario._id, JSON.stringify(this))
     }
 
 }

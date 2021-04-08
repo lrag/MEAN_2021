@@ -15,7 +15,13 @@ export class ProductoComponent implements OnInit {
   @Input()
   public producto:Producto = new Producto()
 
-  constructor(private cestaService:CestaService) { }
+  private cesta:Pedido
+
+  constructor(private cestaService:CestaService) { 
+    this.cestaService
+      .getCesta()
+      .subscribe( cesta => this.cesta=cesta )
+  }
 
   ngOnInit(): void {
   }
@@ -27,14 +33,13 @@ export class ProductoComponent implements OnInit {
     //La cantidad será 1
     //El precio será el de catágolo
 
-    let cesta:Pedido = this.cestaService.getCesta()
-
     //Esto es una putisima mierda
     //let detalle:DetallePedido = new DetallePedido(1, this.producto.precio, this.producto)
     //cesta.detalles.push(detalle)
 
     //En nuestra aplicación es la cesta, el pedido, el que sabe trabajar con los detalles
-    cesta.addProducto(1, this.producto)
+    this.cesta.addProducto(1, this.producto)
+    this.cestaService.setCesta(this.cesta)
   }
 
 }
