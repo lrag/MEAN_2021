@@ -25,15 +25,12 @@ export class CestaService {
     //Muchos componentes de la aplicacion necesitan la cesta
     //No sabemos exactamente cual será el primero en necesitarla
     public getCesta():BehaviorSubject<Pedido>{
-      
-
         //El primero que invoque 'getCesta' disparará:
         //-la creación del subject
         //-la creacion de la cesta
         //-guardar la cesta en el SessionService (local storage)
         //-la emisión del primer evento
         if(!this.subject){
-
             let cesta = this.sessionService.getItem( this.nombreCesta )
             if(cesta){
                 //El objeto se ha creado a partir de un JSON que tenemos en el localStorage
@@ -44,10 +41,8 @@ export class CestaService {
                 cesta.usuario = this.autenticacionService.getUsuario()
                 this.sessionService.setItem(this.nombreCesta, cesta, true)
             }
-
             this.subject = new BehaviorSubject(cesta)
         }
-
         return this.subject
     }
 
@@ -56,6 +51,16 @@ export class CestaService {
         this.sessionService.setItem(this.nombreCesta, cesta, true)
         this.subject.next(cesta)
     }
+
+    public nuevaCesta():void{
+        let cesta = new Pedido()
+        cesta.usuario = this.autenticacionService.getUsuario()
+        this.setCesta(cesta)
+    }
+
+    ///////////////
+    // ZONA AJAX //
+    ///////////////
 
     //Esto guarda la cesta EN EL SERVIDOR
     public guardarCesta(cesta:Pedido):Observable<any>{

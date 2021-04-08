@@ -29,7 +29,7 @@ export class CestaComponent implements OnInit {
   }
 
   public vaciarCesta():void{
-    this.cesta.vaciarCesta()
+    this.cestaService.nuevaCesta()
   }
 
   public guardar():void{
@@ -45,7 +45,6 @@ export class CestaComponent implements OnInit {
       },
       error => this.mensaje = error.mensaje
     )
-
   }
 
   public comprar():void{
