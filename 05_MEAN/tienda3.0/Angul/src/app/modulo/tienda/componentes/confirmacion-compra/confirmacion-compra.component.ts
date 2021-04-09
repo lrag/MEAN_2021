@@ -10,12 +10,17 @@ import { CestaService } from '../../servicios/cestaService';
 export class ConfirmacionCompraComponent implements OnInit {
 
   public cesta:Pedido
+  
 
   constructor(private cestaService:CestaService) { 
-    //this.cesta = cestaService.getCesta()
+    //this.cesta=cestaService.getCesta() 
+    //con los camvbios de behavior subject
     cestaService
-      .getCesta()
-      .subscribe( cesta => this.cesta=cesta )    
+          .getCesta() //para obtener la cesta
+          .subscribe(
+            cesta=> this.cesta=cesta
+          )
+
   }
 
   ngOnInit(): void {
@@ -26,5 +31,3 @@ export class ConfirmacionCompraComponent implements OnInit {
   }
 
 }
-
-
