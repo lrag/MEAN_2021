@@ -29,4 +29,8 @@ export class ListadoPedidosComponent implements OnInit {
     )
   }
 
+  public seleccionarCesta(pedido:Pedido):void{
+    this.cestaService.setCesta(pedido)
+  }
+
 }

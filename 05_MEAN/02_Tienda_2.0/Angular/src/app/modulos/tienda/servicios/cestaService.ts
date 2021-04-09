@@ -48,8 +48,12 @@ export class CestaService {
         return this.subject
     }
 
-    //Esto guarda la cesta en el LOCAL STORAGE
+    //Esto guarda una cesta en el LOCAL STORAGE
+    //Y avisa a todo el mundo de que la cesta ha cambiado
     public setCesta(cesta){
+        if(cesta.constructor != Pedido){
+            Object.setPrototypeOf(cesta, Pedido.prototype)
+        }
         this.sessionService.setItem(this.nombreCesta, cesta, true)
         this.subject.next(cesta)
     }
@@ -82,7 +86,6 @@ export class CestaService {
             .subscribe(
                 cestaInsertada => {
                     //sustituir la cesta del localStorage por esta que tiene id
-                    Object.setPrototypeOf(cestaInsertada, Pedido.prototype)
                     this.setCesta(cestaInsertada)
                     subscribers.next()
                     subscribers.complete()

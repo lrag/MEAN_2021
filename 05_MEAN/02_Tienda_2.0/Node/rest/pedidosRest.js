@@ -3,8 +3,10 @@ const negocioPedidos = require("../modelo/negocio/negocioPedidos")
 
 let router = express.Router()
 
+router.get("/usuarios/:idUsuario/pedidos", listarPedidosUsuario)
 router.post("/pedidos", insertarPedido)
 router.put("/pedidos/:id", modificarPedido)
+router.delete("/pedidos/:id", borrarPedido)
 
 exports.router = router
 
@@ -12,6 +14,19 @@ exports.router = router
 /////////////////////////////////////
 //Funciones de la lógica de control//
 /////////////////////////////////////
+
+//GET /usuarios/:idUsuario/pedidos
+function listarPedidosUsuario(request, response){
+    let idUsuario = request.params.idUsuario
+
+    negocioPedidos.listarPedidosUsuario(idUsuario, request.autoridad)
+    .then( listadoPedidos => response.json(listadoPedidos))
+    .catch( error => {
+        response.statusCode = error.codigo
+        response.json(error)
+    } )
+}
+
 
 //POST /pedidos
 //Ct:App/json
@@ -42,6 +57,16 @@ function modificarPedido(request, response){
     pedido._id = idPedido
     negocioPedidos.modificarPedido(pedido, request.autoridad)
         .then( pedidoModificado => response.json(pedidoModificado))
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        } )
+}
+
+function borrarPedido(request, response){
+    let idPedido = request.params.id
+    negocioPedidos.borrarPedido(idPedido, request.autoridad)
+        .then( () => response.json({ codigo:200, mensaje:"El pedido se ha borrado"})
         .catch( error => {
             response.statusCode = error.codigo
             response.json(error)

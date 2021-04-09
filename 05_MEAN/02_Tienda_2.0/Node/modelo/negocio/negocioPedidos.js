@@ -1,5 +1,21 @@
 let Pedido = require("../entidades/pedido").Pedido
 
+exports.listarPedidosUsuario = function(idUsuario, autoridad){
+    return new Promise(function(resolve, reject){
+        if(idUsuario != autoridad._id){
+            reject({ codigo:403, mensaje:"Los clientes solo pueden ver sus pedidos"})
+            return
+        }  
+        
+        Pedido.find({ "usuario._id" : idUsuario })
+        .then( listadoPedidos => resolve(listadoPedidos) )
+        .catch( error => {
+            console.log(error)
+            reject({ codigo:500, mensaje:'Error en la base de datos!'})
+        }) 
+    })
+}
+
 
 //Cualquiera puede insertar un pedido, aunque solo lo solicitarán los usuarios con rol CLIENTE
 //Aun así tenemos que comprobar que el usuario que está asociado al pedido coincide con el usuario 
@@ -20,11 +36,16 @@ exports.insertarPedido = function(pedido, autoridad){
 
         //Retiramos cualquier id que venga en el pedido
         delete pedido._id
+        //Le asignamos un código
+        pedido.codigo = Math.round(Date.now()/1000) 
+        //Le asignamos como fecha la hora del sistema
+        pedido.fecha = Date.now()
 
         let pedidoMG = new Pedido(pedido)
         pedidoMG.save()
         .then( pedidoInsertado => resolve(pedidoInsertado) )
         .catch( error => {
+            console.log(error)
             reject({ codigo:500, mensaje:'Error en la base de datos!'})
         })
     })
@@ -55,18 +76,25 @@ exports.modificarPedido = function(pedido, autoridad){
                 resolve(pedidoModificado)
             })
             .catch( error => {
+                console.log(error)
                 reject({ codigo:500, mensaje:'Error en la base de datos!'})
             })
+    })
+}
+
+exports.borrarPedido = function(idPedido, autoridad){
+
+    return new Promise(function(resolve, reject){
+
+
+        Pedido.findOneAndRemove({ _id:idPedido, "usuario._id":autoridad._id }) 
+
+
+
 
     })
 
+
+
 }
 
-
-//crear el componente ListadoPedidos
-//crear una ruta al componente '/tienda/pedidos'
-//el componente tendrá una tabla con los pedidos del usuario
-//-añadir la funcion listarPedidos donde sea
-//-GET /usuarios/XXX/pedidos <-----
-
-//listar pedidos por usuario
