@@ -30,3 +30,7 @@ function insertarPedido(request, response){
 
 }
 
+//PUT /pedidos/:id
+//CT:app/json
+//----------------
+//{ pedido }
