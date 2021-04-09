@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { SessionService } from "src/app/servicios/sessionService";
 import { ConfiguracionUtil } from "src/app/util/configuracionUtil";
+import { Usuario } from "../../usuarios/entidades/usuario";
 import { AutenticacionService } from "../../usuarios/servicios/autenticacionService";
 import { Pedido } from "../entidades/pedido";
 
@@ -13,13 +14,14 @@ export class CestaService {
 
     private subject:BehaviorSubject<Pedido> //Undefined
     private nombreCesta:string
+    private usuario:Usuario
 
     public constructor(private sessionService:SessionService,
                        private autenticacionService:AutenticacionService,
                        private httpClient:HttpClient){
         //La cesta estará en el SessionService y su clave incluirá el _id del usuario
-        let usuario = this.autenticacionService.getUsuario()
-        this.nombreCesta = "cesta_"+usuario._id
+        this.usuario = this.autenticacionService.getUsuario()
+        this.nombreCesta = "cesta_"+this.usuario._id
     }
 
     //Muchos componentes de la aplicacion necesitan la cesta
@@ -54,7 +56,7 @@ export class CestaService {
 
     public nuevaCesta():void{
         let cesta = new Pedido()
-        cesta.usuario = this.autenticacionService.getUsuario()
+        cesta.usuario = this.usuario
         this.setCesta(cesta)
     }
 
@@ -97,8 +99,8 @@ export class CestaService {
         return this.httpClient.put(ConfiguracionUtil.urlServidor+"/pedidos/"+cesta._id, cesta)
     }
 
-    public listarCestas(){
-        //AJAX
+    public listarCestas():Observable<any>{
+        return this.httpClient.get(ConfiguracionUtil.urlServidor+`/usuarios/${this.usuario._id}/pedidos`)
     }
 
     public borrarCesta(){

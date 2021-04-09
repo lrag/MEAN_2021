@@ -1,0 +1,22 @@
+<h2 class="text-center">Listado de pedidos guardados</h2>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Código</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let pedido of pedidos">
+        <td>{{pedido.codigo}}</td>
+        <td>{{pedido.fecha}}</td>
+        <td>{{pedido.total}}</td>
+        <td>
+            <button class="btn btn-primary">Sel.</button>
+        </td>
+        <td>
+            <button class="btn btn-danger">Borrar</button>
+        </td>
+    </tr>
+</table>

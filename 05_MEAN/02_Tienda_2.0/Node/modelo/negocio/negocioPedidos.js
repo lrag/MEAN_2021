@@ -61,3 +61,12 @@ exports.modificarPedido = function(pedido, autoridad){
     })
 
 }
+
+
+//crear el componente ListadoPedidos
+//crear una ruta al componente '/tienda/pedidos'
+//el componente tendrá una tabla con los pedidos del usuario
+//-añadir la funcion listarPedidos donde sea
+//-GET /usuarios/XXX/pedidos <-----
+
+//listar pedidos por usuario

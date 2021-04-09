@@ -11,6 +11,8 @@ import { ProductoComponent } from './componentes/producto/producto.component';
 import { CatalogoComponent } from "./componentes/catalogo/catalogo.component";
 import { DetallePedidoComponent } from "./componentes/detallePedido/detallePedido.component";
 import { ConfirmacionCompraComponent } from "./componentes/confirmacion-compra/confirmacion-compra.component";
+import { CabeceraComponent } from "src/app/componentes/maquetacion/cabecera/cabecera.component";
+import { ListadoPedidosComponent } from "./componentes/listado-pedidos/listado-pedidos.component";
 
 @NgModule({
     declarations: [
@@ -19,6 +21,7 @@ import { ConfirmacionCompraComponent } from "./componentes/confirmacion-compra/c
       CatalogoComponent,
       ProductoComponent,
       DetallePedidoComponent,
+      ListadoPedidosComponent,
       MaquetacionTiendaComponent,
       ConfirmacionCompraComponent
     ],
@@ -50,6 +53,10 @@ export class TiendaModule {
         {
           path      : 'compra',
           component : ConfirmacionCompraComponent
+        },
+        {
+          path      : 'pedidos',
+          component : ListadoPedidosComponent
         }  
       ]
 }
