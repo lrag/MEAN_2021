@@ -4,6 +4,7 @@ const negocioPedidos = require("../modelo/negocio/negocioPedidos")
 let router = express.Router()
 
 router.post("/pedidos", insertarPedido)
+router.put("/pedidos/:id", modificarPedido)
 
 exports.router = router
 
@@ -19,7 +20,7 @@ exports.router = router
 function insertarPedido(request, response){
     let pedido = request.body
 
-    negocioPedidos.insertarPedido(pedido)
+    negocioPedidos.insertarPedido(pedido, request.autoridad)
     .then( pedidoInsertado => {
         response.json(pedidoInsertado)
     })
@@ -34,3 +35,15 @@ function insertarPedido(request, response){
 //CT:app/json
 //----------------
 //{ pedido }
+function modificarPedido(request, response){
+
+    let idPedido = request.params.id
+    let pedido = request.body
+    pedido._id = idPedido
+    negocioPedidos.modificarPedido(pedido, request.autoridad)
+        .then( pedidoModificado => response.json(pedidoModificado))
+        .catch( error => {
+            response.statusCode = error.codigo
+            response.json(error)
+        } )
+}
