@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script type="application/javascript">
+
+function Pedido(codigo, fecha){
+    this.codigo = codigo
+    this.fecha = fecha
+}
+Pedido.prototype.addProducto = function(producto){
+    console.log("Añadiendo el producto:"+producto)
+}
+
+function prueba(){
+    let ped1 = new Pedido("PED-0","hoy")
+    let ped2 = new Pedido("PED-1","mañana")
+    console.log(ped1)
+
+    ped1.addProducto("fleje")
+    ped2.addProducto("chisme")
+
+    //
+    let ped3 = {
+        codigo : "PED-2",
+        fecha  : "Pasado mañana"
+    }
+    //La nit del fog
+    //ped3.addProducto("MASCLETÁ")
+    
+    //Le asignamos a ped3 el prototipo de Pedido
+    console.log(ped3)
+    Object.setPrototypeOf(ped3, Pedido.prototype)
+    console.log(ped3)
+    ped3.addProducto("MASCLETÁ")
+
+
+    Pedido.prototype.cantar = function(){
+        console.log("Trololó")
+    }
+
+    ped1.cantar()
+    ped2.cantar()
+    ped3.cantar()
+    
+}
+
+window.onload = prueba
+
+</script>
+
+
+<body>
+    <h1>24 SetPrototypeOf</h1>
+</body>
+</html>

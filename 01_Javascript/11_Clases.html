@@ -21,11 +21,15 @@ class Avion {
         this.year       = year
     }
 
+    //Esto es una caca de la vaca porque cada avión tendrá su copia de la funcion
+    //Lo suyo es añadir las funciones al prototipo para que todas las instancias las compartan
     toCSV = function(){
         return this.fabricante+","+this.modelo+","+this.year
     }
 
 }
+//Si lo hacemos asi todos los aviones compartiran las funciones
+//Pero claro...se pierde lo bonito
 Avion.prototype.saludar = function(){
     console.log("Hola, soy el avion "+this.fabricante+" "+this.modelo)
 }

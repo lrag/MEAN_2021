@@ -6,10 +6,9 @@ let router = express.Router()
 router.get("/usuarios/:idUsuario/pedidos", listarPedidosUsuario)
 router.post("/pedidos", insertarPedido)
 router.put("/pedidos/:id", modificarPedido)
-router.delete("/pedidos/:id", borrarPedido)
+//router.delete("/pedidos/:id", borrarPedido)
 
 exports.router = router
-
 
 /////////////////////////////////////
 //Funciones de la lógica de control//
@@ -63,6 +62,7 @@ function modificarPedido(request, response){
         } )
 }
 
+/*
 function borrarPedido(request, response){
     let idPedido = request.params.id
     negocioPedidos.borrarPedido(idPedido, request.autoridad)
@@ -72,3 +72,19 @@ function borrarPedido(request, response){
             response.json(error)
         } )
 }
+*/
+
+function Pedido(codigo, fecha){
+    this.codigo = codigo
+    this.fecha = fecha
+}
+Pedido.prototype.addProducto = function(producto){
+    console.log("Añadiendo el producto:"+producto)
+}
+
+let p0 = new Pedido("PED-0","hoy")
+console.log(p0)
+
+
+
+
