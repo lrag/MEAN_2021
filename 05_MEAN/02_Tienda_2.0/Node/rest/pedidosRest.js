@@ -26,7 +26,6 @@ function listarPedidosUsuario(request, response){
     } )
 }
 
-
 //POST /pedidos
 //Ct:App/json
 //-------------

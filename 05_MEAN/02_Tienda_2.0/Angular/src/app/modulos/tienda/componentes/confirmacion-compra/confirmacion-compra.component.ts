@@ -14,8 +14,8 @@ export class ConfirmacionCompraComponent implements OnInit {
   constructor(private cestaService:CestaService) { 
     //this.cesta = cestaService.getCesta()
     cestaService
-      .getCesta()
-      .subscribe( cesta => this.cesta=cesta )    
+      .getCesta() //devuelve el subject
+      .subscribe( cesta => this.cesta=cesta ) //nos subscribimos 
   }
 
   ngOnInit(): void {
@@ -23,6 +23,9 @@ export class ConfirmacionCompraComponent implements OnInit {
 
   public confirmarCompra(){
     console.log(this.cesta)
+
+    //
+
   }
 
 }
