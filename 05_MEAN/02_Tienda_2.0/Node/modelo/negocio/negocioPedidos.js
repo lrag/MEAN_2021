@@ -37,7 +37,7 @@ exports.insertarPedido = function(pedido, autoridad){
         //Retiramos cualquier id que venga en el pedido
         delete pedido._id
         //Le asignamos un código
-        pedido.codigo = Math.round(Date.now()/1000) 
+        pedido.codigo = "PED-"+Math.round(Date.now()/1000) 
         //Le asignamos como fecha la hora del sistema
         pedido.fecha = Date.now()
 

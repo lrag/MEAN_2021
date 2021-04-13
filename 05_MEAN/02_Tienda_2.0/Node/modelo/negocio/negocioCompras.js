@@ -1,5 +1,6 @@
 const Pedido = require("../entidades/pedido").Pedido
 const Producto = require("../entidades/producto").Producto
+const Factura = require("../entidades/factura").Factura
 const validadorutil = require("../../util/validadorUtil")
 const negocioPedidos = require("./negocioPedidos")
 
@@ -34,41 +35,91 @@ exports.comprar = function(pedido, autoridad){
         */
 
         //Por cada detalle del pedido debemos:
-        //-Comprobar que el producto exista (find asíncrono)
-        //-Reducir sus existencias (update asíncono)
+        //-Comprobar que el producto exista (find, asíncrono)
+        //-Reducir sus existencias (update, asíncono)
         //
         //No sabemos cuantos detalles hay!
         //
         //En un bucle creamos una promesa por cada detalle y las recopilamos en un array
 
-        let arrayDePromesas = []
+        let total = 0
 
+        let arrayDePromesas = []
         for(let detalle of pedido.detalles){
-            //console.log("Examinando :"+detalle.producto._id)
-            let promesa = Producto.findById(detalle.producto._id)
-            
-            promesa.then( producto => {
-                if(!producto){
-                    console.log("No existe el producto "+detalle.producto.nombre)
-                } else {
-                    console.log("Existencias del producto "+detalle.producto.nombre+": "+producto.existencias)
-                }
+
+            let promesaProducto = new Promise(function(resolve, reject){
+                //Buscamos el producto
+                console.log("Buscando:"+detalle.producto.nombre)
+                Producto.findById(detalle.producto._id)
+                .then( productoEncontradoMG => {
+                    if(!productoEncontradoMG){
+                        reject({ codigo:400, mensaje:`No se pudo aceptar el pedido. El producto ${detalle.producto.nombre} no existe`})
+                        return //pa no seguir
+                    }
+                    //Comprobamos si hay existencias
+                    console.log("Comprobando las existencias del producto:"+detalle.producto.nombre)
+                    if(productoEncontradoMG.existencias-detalle.cantidad < 0){
+                        reject({ codigo:400, 
+                                 mensaje:`No se pudo aceptar el pedido.  Producto: ${detalle.producto.nombre}, Cantidad solicitada:${detalle.cantidad}, Existencias:${productoEncontradoMG.existencias}`,
+                                 info: { idProducto  : detalle.producto._id,
+                                         cantidad    : detalle.cantidad,
+                                         existencias : productoEncontradoMG.existencias }
+                               })
+                        return 
+                    }
+                    //Comprobamos que no se esten haciendo el listo con los precios
+                    if(detalle.precio != productoEncontradoMG.precio){
+                        reject({ codigo:400, mensaje:"Error con el precio del producto "+productoEncontradoMG.nombre})
+                        return;
+                    }
+
+                    //Aumentamos el total
+                    total += detalle.cantidad * productoEncontradoMG.precio
+                    console.log("Total:"+total)
+                    console.log("Reduciendo las existencias del producto:"+detalle.producto.nombre)
+                    productoEncontradoMG.existencias -= detalle.cantidad //Con esto solo modificamos el objeto que está en la memoria
+                    return productoEncontradoMG.save() //Esto es asíncrono
+                })
+                .then( productoModificado => {
+                    resolve()
+                })
+                .catch( error => {
+                    console.log(error)
+                    reject({ codigo:500, mensaje:'Error en la base de datos!'})
+                })
             })
-            arrayDePromesas.push(promesa)
+            //Añadimos la promesa al array
+            arrayDePromesas.push(promesaProducto)
             
         }
+        
 
-        //
         Promise.all(arrayDePromesas)
-        .then( () => console.log("YA") )
-        .catch( () => console.log("MAL!") )
+        .then( () => {
+            console.log("Todos los detalles eran correctos") 
+            console.log("Total:"+total)
+            let facturaMG = new Factura()
+            facturaMG.codigo = "FRA-"+Math.round(Date.now()/1000)   
+            facturaMG.fecha = Date.now()  
+            facturaMG.usuario = pedido.usuario
+            facturaMG.total = total
+            facturaMG.detalles = pedido.detalles   
+            facturaMG.pedido = pedido     
+            return facturaMG.save()
+        })
+        .then( facturaInsertada => {
+            //preparar envío
+            //enviar un correo electronico al cliente
+            //...
+            //FIN
+            resolve({ mensaje : "Pedido aceptado", factura:facturaInsertada })
+        })
+        .catch( error => {
+            console.log(error)
+            reject(error) 
+        })
 
-        /////////////////////////
-        //ESTO HAY QUE QUITARLO//
-        /////////////////////////
-        console.log("Salimos de la funcion")
-        resolve({ mensaje : "OK" })
-
+        console.log("Salimos de la funcion 'negocioCompras.comprar'")
 
     })
 
