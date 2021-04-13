@@ -34,13 +34,13 @@ exports.buscarProducto = function(idProducto){
 
 exports.insertarProducto = function(producto, autoridad){
     
-    return new Promise(function(resolve, reject){
+    return new Promise(async function(resolve, reject){
 
         if(autoridad.rol != "ADMIN"){
             reject({ codigo:403, mensaje: 'Solo los administradores pueden insertar productos'})
             return 
         }
-
+ 
         //Retiramos cualquier id que venga en el producto
         delete producto._id
 
@@ -49,15 +49,14 @@ exports.insertarProducto = function(producto, autoridad){
         }
 
         let productoMG = new Producto(producto)
-        productoMG
-            .save()
-            .then( productoInsertado => {
-                resolve(productoInsertado)
-            })
-            .catch( error => {
-                console.log(error)
-                reject({ codigo:500, mensaje:'¡Error en la base de datos!'})                
-            })
+        
+        try {
+            resolve( await productoMG.save() )
+        } catch (error){
+            console.log(error)
+            reject({ codigo:500, mensaje:"Error en la base de datos"})
+        }
+
     })
 
 }

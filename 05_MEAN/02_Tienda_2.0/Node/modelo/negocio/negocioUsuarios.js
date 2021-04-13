@@ -121,6 +121,10 @@ exports.modificarUsuario = function(usuario, autoridad){
             return
         }
 
+        //Le quitamos el login al usuario recibido en la petición
+        //para que no se pueda modificar desde el postman
+        delete usuario.login
+
         Usuario
             .findByIdAndUpdate(usuario._id, usuario)
             .then( usuarioModificado => {

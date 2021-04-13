@@ -18,44 +18,43 @@ let reglasUsrModificacion = {
 }
 
 exports.buscarPorLoginYPw = function(login, pw){
-    return new Promise(function(resolve, reject){
+    return new Promise(async function(resolve, reject){
         let criterio = {
             login : login,
             pw    : pw
         }
 
-        Usuario.findOne( criterio )
-        .then( usuario => {
+        try {
+            let usuario = await Usuario.findOne( criterio )
             if(!usuario){
                 reject({ codigo:404, mensaje:'No existe un usuario con esas credenciales'})
                 return
             }
             //Aqui el usuario tiene pw
             //Se lo quitamos porque a nadie le interesa
-            delete usuario.pw
+            usuario.pw = ""
+
             resolve(usuario)
-        })
-        .catch( error => {
+        } catch(error) {
             console.log(error)
             reject({ codigo:500, mensaje:'¡Error en la base de datos!'})
-        })
+        }
     })
 }
 
 exports.comprobarLogin = function(login){
-    return new Promise(function(resolve, reject){
-        Usuario.findOne({ login : login })
-        .then( resultado => {
-            if(resultado){
+    return new Promise(async function(resolve, reject){
+        try {
+            let usuario = await Usuario.findOne({ login : login })
+            if(usuario){
                 resolve(true)
             } else {
                 resolve(false)
             }
-        })
-        .catch( error => {
+        } catch ( error ) {
             console.log(error)
             reject( { codigo:500, mensaje:'¡Error con la base de datos!' })
-        })
+        }
     })
 }
 
@@ -63,7 +62,7 @@ exports.comprobarLogin = function(login){
 //Los empleados se darían de alta siguiendo otro proceso
 exports.altaUsuario = function(usuario){
 
-    return new Promise(function(resolve, reject){
+    return new Promise(async function(resolve, reject){
         //Validar
         //Comprobar que el login no exista
         //Insertar el usuario
@@ -80,23 +79,19 @@ exports.altaUsuario = function(usuario){
         //Le asignamos el rol al usuario
         usuario.rol = 'CLIENTE'
 
-        exports.comprobarLogin(usuario.login)
-        .then( existe => {
+        try {
+            let existe = await exports.comprobarLogin(usuario.login)
             //Gracias por inventar javascript
             if(existe==true){
                 reject( { codigo:400, mensaje:'Ya existe un usuario con el mismo login' })
                 return
             }
             let usuarioMG = new Usuario(usuario)
-            return usuarioMG.save()
-        })
-        .then( usuarioInsertado => {
-            resolve(usuarioInsertado) 
-        })
-        .catch( error => {
+            resolve(await usuarioMG.save())
+        } catch (error) {
             console.log(error)
             reject( { codigo:500, mensaje:'¡Error con la base de datos!'} ) //Mal
-        })    
+        }
     })
 }
 
@@ -105,9 +100,7 @@ exports.altaUsuario = function(usuario){
 //-los CLIENTE solo puededn modificarse a si mismos
 exports.modificarUsuario = function(usuario, autoridad){
 
-    return new Promise(function(resolve, reject){
-        
-        console.log(autoridad)
+    return new Promise(async function(resolve, reject){
 
         if(autoridad.rol != 'ADMIN'){
             if(autoridad._id != usuario._id){
@@ -121,20 +114,23 @@ exports.modificarUsuario = function(usuario, autoridad){
             return
         }
 
-        Usuario
-            .findByIdAndUpdate(usuario._id, usuario)
-            .then( usuarioModificado => {
-                console.log("Usr modificado:",usuarioModificado)
-                if(!usuarioModificado){
-                    reject({ codigo:404, mensaje:"No existe un usuario con el id "+usuario._id})//Mal
-                    return
-                }
-                resolve(usuario)//Bien
-            })
-            .catch( error => {
-                console.log(error)
-                reject( { codigo:500, mensaje:'¡Error con la base de datos!'} ) //Mal
-            })
+        //Le quitamos el login al usuario recibido en la petición
+        //para que no se pueda modificar desde el postman
+        delete usuario.login
+
+        try {
+            let usuarioModificado = await Usuario.findByIdAndUpdate(usuario._id, usuario)
+            console.log("Usr modificado:",usuarioModificado)
+            if(!usuarioModificado){
+                reject({ codigo:404, mensaje:"No existe un usuario con el id "+usuario._id})//Mal
+                return
+            }
+            resolve(usuario)//Bien
+        } catch (error) {
+            console.log(error)
+            reject( { codigo:500, mensaje:'¡Error con la base de datos!'} ) //Mal
+        }
+
     })
     
 }
