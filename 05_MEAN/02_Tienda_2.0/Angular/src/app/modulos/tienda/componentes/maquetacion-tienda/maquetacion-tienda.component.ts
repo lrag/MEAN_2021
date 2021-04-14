@@ -16,6 +16,20 @@ export class MaquetacionTiendaComponent implements OnInit {
     if(!autenticacionService.getUsuario()){
       router.navigateByUrl("/usuarios/login")
     }
+    
+    router.navigate([
+      //"/tienda/catalogo", //lo que queremos que haya en la barra del navegador, aplicable a los router outlet sin nombre
+      "/tienda",
+      {
+        outlets : {
+          //clave: nombre del router outlet
+          //valor: ruta a aplicar
+          'primary' : ['catalogo'],
+          'izq'     : ['barraIzq'],
+          'der'     : ['resumenCesta']
+        }
+      }
+    ], { skipLocationChange : true })
 
   }
 
@@ -23,3 +37,5 @@ export class MaquetacionTiendaComponent implements OnInit {
   }
 
 }
+
+

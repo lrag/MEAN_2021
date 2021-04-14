@@ -40,25 +40,44 @@ import { BarraIzquierdaComponent } from "./componentes/barra-izquierda/barra-izq
 export class TiendaModule {
 
     public static rutasMaquetacionTienda = [
-        {
-          path      : 'perfil',
-          component : PerfilComponent
-        },
-        {
-          path      : 'catalogo',
-          component : CatalogoComponent
-        },
-        {
-          path      : 'cesta',
-          component : CestaComponent
-        },
-        {
-          path      : 'compra',
-          component : ConfirmacionCompraComponent
-        },
-        {
-          path      : 'pedidos',
-          component : ListadoPedidosComponent
-        }  
-      ]
+      //
+      //Rutas para la segunda carpeta de la barra del navegador:  
+      //
+      {
+        path      : 'perfil',
+        component : PerfilComponent
+      },
+      {
+        path      : 'catalogo',
+        component : CatalogoComponent
+      },
+      {
+        path      : 'cesta',
+        component : CestaComponent
+      },
+      {
+        path      : 'compra',
+        component : ConfirmacionCompraComponent
+      },
+      {
+        path      : 'pedidos',
+        component : ListadoPedidosComponent
+      },
+      //  
+      //Rutas para los named router outlets
+      //
+      {
+        outlet    : 'izq',
+        path      : 'barraIzq',
+        component : BarraIzquierdaComponent
+        //pueden tener 'children' 
+      },
+      {
+        outlet    : 'der',
+        path      : 'resumenCesta',
+        component : ResumenCestaComponent
+        //pueden tener 'children' 
+      },
+
+    ]
 }
