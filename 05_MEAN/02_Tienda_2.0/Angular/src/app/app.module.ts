@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
-import { MenuComponent } from './modulos/tienda/componentes/menu/menu.component';
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';

@@ -1,4 +1,3 @@
-import { ngfactoryFilePath } from "@angular/compiler/src/aot/util";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
@@ -11,8 +10,9 @@ import { ProductoComponent } from './componentes/producto/producto.component';
 import { CatalogoComponent } from "./componentes/catalogo/catalogo.component";
 import { DetallePedidoComponent } from "./componentes/detallePedido/detallePedido.component";
 import { ConfirmacionCompraComponent } from "./componentes/confirmacion-compra/confirmacion-compra.component";
-import { CabeceraComponent } from "src/app/componentes/maquetacion/cabecera/cabecera.component";
 import { ListadoPedidosComponent } from "./componentes/listado-pedidos/listado-pedidos.component";
+import { ResumenCestaComponent } from "./componentes/resumen-cesta/resumen-cesta.component";
+import { BarraIzquierdaComponent } from "./componentes/barra-izquierda/barra-izquierda.component";
 
 @NgModule({
     declarations: [
@@ -20,7 +20,9 @@ import { ListadoPedidosComponent } from "./componentes/listado-pedidos/listado-p
       CestaComponent,
       CatalogoComponent,
       ProductoComponent,
+      ResumenCestaComponent,
       DetallePedidoComponent,
+      BarraIzquierdaComponent,
       ListadoPedidosComponent,
       MaquetacionTiendaComponent,
       ConfirmacionCompraComponent
