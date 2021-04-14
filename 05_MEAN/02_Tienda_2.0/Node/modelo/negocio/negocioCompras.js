@@ -70,6 +70,8 @@ exports.comprar = function(pedido, autoridad){
                     console.log("Total:"+total)
                     console.log("Reduciendo las existencias del producto:"+detalle.producto.nombre)
                     productoEncontradoMG.existencias -= detalle.cantidad //Con esto solo modificamos el objeto que está en la memoria
+                    
+                    //Modificamos el producto
                     return productoEncontradoMG.save() //Esto es asíncrono
                 })
                 .then( productoModificado => {
