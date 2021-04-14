@@ -12,7 +12,7 @@ let reglasPedido = {
 
 exports.comprar = function(pedido, autoridad){
 
-    return new Promise(function(resolve, reject){
+    return new Promise(async function(resolve, reject){
 
         //Validamos que tenga los datos necesarios
         if(!validadorutil.validarObjeto(pedido, reglasPedido, reject)){

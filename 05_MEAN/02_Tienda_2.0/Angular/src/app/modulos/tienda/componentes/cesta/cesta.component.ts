@@ -54,6 +54,15 @@ export class CestaComponent implements OnInit {
     }
 
     this.router.navigateByUrl("/tienda/compra")
+    this.router.navigate([
+      "/tienda",
+      {
+        outlets : {
+          'primary' : ['compra'],
+          'der'     : ['resumenCesta']
+        }
+      }
+    ], { skipLocationChange : true })    
   }
 
 }

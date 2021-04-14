@@ -18,7 +18,6 @@ export class MaquetacionTiendaComponent implements OnInit {
     }
     
     router.navigate([
-      //"/tienda/catalogo", //lo que queremos que haya en la barra del navegador, aplicable a los router outlet sin nombre
       "/tienda",
       {
         outlets : {
