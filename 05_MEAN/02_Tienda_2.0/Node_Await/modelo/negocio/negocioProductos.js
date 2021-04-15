@@ -15,8 +15,44 @@ let reglasProd = {
 exports.listarProductos = function(criterio){
     return new Promise(async function(resolve, reject){
         //revisar el criterio y adaptarlo a las necesidades de MongoDB...
-        //...
-        resolve(await Producto.find(/*criterio*/))
+        /*
+        {
+            texto : 'string',
+            fabricante : 'string',
+            categoria  : {
+                    _id    : 'string',
+                    nombre : 'string'
+                }
+            precioMin  : 123,
+            precioMax  : 456
+        }
+        */
+
+        let filtro = {}
+
+        if(criterio.categoria){
+            filtro["categoria._id"] = criterio.categoria
+        }
+
+        let precio = {
+            $gte : 0, 
+            $lte : Number.MAX_SAFE_INTEGER 
+        }
+        if( criterio.precioMin){
+            precio.$gte = criterio.precioMin
+        }
+        if( criterio.precioMax){
+            precio.$lte = criterio.precioMax
+        }
+        filtro.precio = precio
+
+        if(criterio.texto){
+            filtro.nombre = criterio.texto
+        }
+
+        console.log("Filtro:", filtro)
+
+        resolve(await Producto.find(filtro))
     })
 }
 

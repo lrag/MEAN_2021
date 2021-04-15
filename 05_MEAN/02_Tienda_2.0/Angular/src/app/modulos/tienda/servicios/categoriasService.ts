@@ -4,16 +4,14 @@ import { Observable } from "rxjs";
 import { ConfiguracionUtil } from "src/app/util/configuracionUtil";
 import { CriterioBusquedaProducto } from "../entidades/criterioBusquedaProducto";
 
-
 @Injectable( { providedIn : 'root' })
-export class ProductosService {
+export class CategoriasService {
 
-    public constructor(private httpClient:HttpClient){
+    constructor(private httpClient:HttpClient){
     }
 
-    public listarProductos(criterio:CriterioBusquedaProducto):Observable<any>{
-        console.log(JSON.stringify(criterio))
-        return this.httpClient.get(ConfiguracionUtil.urlServidor+`/productos?criterio=${JSON.stringify(criterio)}`)
+    public listarCategorias():Observable<any>{
+        return this.httpClient.get(ConfiguracionUtil.urlServidor+"/categorias")
     }
 
 }
