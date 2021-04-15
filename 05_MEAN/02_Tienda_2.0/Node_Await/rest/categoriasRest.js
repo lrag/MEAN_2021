@@ -1,5 +1,5 @@
 const express = require("express")
-const negocioCompras = require("../modelo/negocio/negocioCategorias")
+const negocioCategorias = require("../modelo/negocio/negocioCategorias")
 
 let router = express.Router()
 
