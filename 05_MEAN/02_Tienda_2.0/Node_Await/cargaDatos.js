@@ -244,6 +244,7 @@ function cargarDatos_Promesa() {
 
             await mongoose.disconnect()
         } catch (error){
+            console.log(error)
             reject("ERROR!")
         }
         console.log("Carga completa")
