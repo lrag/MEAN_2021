@@ -17,6 +17,7 @@ export class MaquetacionTiendaComponent implements OnInit {
       router.navigateByUrl("/usuarios/login")
     }
     
+    
     router.navigate([
       "/tienda",
       {
@@ -29,6 +30,7 @@ export class MaquetacionTiendaComponent implements OnInit {
         }
       }
     ], { skipLocationChange : true })
+    
 
   }
 

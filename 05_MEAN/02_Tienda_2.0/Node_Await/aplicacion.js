@@ -11,10 +11,11 @@ const mongooseDButil = require('./util/MongooseDBUtil')
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
 const authRouter     = require('./autenticacion/authRouter').router
 
-const usuariosRouter  = require('./rest/usuariosRest').router
-const productosRouter = require('./rest/productosRest').router
-const pedidosRouter   = require('./rest/pedidosRest').router
-const comprasRouter   = require('./rest/comprasRest').router
+const pedidosRouter    = require('./rest/pedidosRest').router
+const comprasRouter    = require('./rest/comprasRest').router
+const usuariosRouter   = require('./rest/usuariosRest').router
+const productosRouter  = require('./rest/productosRest').router
+const categoriasRouter = require('./rest/categoriasRest').router
 
 mongooseDButil.conectarBBDD()
 .then(arrancarServidor)
@@ -66,6 +67,7 @@ function arrancarServidor(){
     app.use(productosRouter)
     app.use(pedidosRouter)
     app.use(comprasRouter)
+    app.use(categoriasRouter)
 
     //Quitamos la publicidad
     app.disable('x-powered-by')

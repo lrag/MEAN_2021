@@ -53,7 +53,6 @@ export class CestaComponent implements OnInit {
       return
     }
 
-    this.router.navigateByUrl("/tienda/compra")
     this.router.navigate([
       "/tienda",
       {

@@ -1,0 +1,9 @@
+
+
+exports.listarCategrias = function(autoridad){
+
+
+
+    
+
+}
