@@ -19,7 +19,7 @@ exports.listarProductos = function(criterio){
         {
             texto : 'string',
             fabricante : 'string',
-            categoria  : 'string',
+            categoria  : 'string', //ObjectId
             precioMin  : 123,
             precioMax  : 456
         }
@@ -48,7 +48,8 @@ exports.listarProductos = function(criterio){
         filtro.precio = precio
 
         if(criterio.texto){
-            filtro.nombre = criterio.nombre
+            //La 'i' es para que no sea case sensitive
+            filtro.nombre = { $regex : new RegExp(criterio.texto), $options : "i" }
         }
 
         console.log("Filtro:", filtro)
