@@ -33,4 +33,12 @@ export class ListadoPedidosComponent implements OnInit {
     this.cestaService.setCesta(pedido)
   }
 
+  public borrarCesta(cesta:Pedido):void{
+    this.cestaService.borrarCesta(cesta)
+    .subscribe(
+      () => this.listarPedidos(),
+      error => console.log(error)
+    )
+  }   
+
 }

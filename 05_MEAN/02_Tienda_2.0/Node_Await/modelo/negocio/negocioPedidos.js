@@ -83,18 +83,25 @@ exports.modificarPedido = function(pedido, autoridad){
 }
 
 exports.borrarPedido = function(idPedido, autoridad){
+    return new Promise(async function(resolve, reject){
+        try{
+            let pedido = await Pedido.findById(idPedido)
+            if(!pedido){
+                reject({ codigo:404, mensaje:"El pedido no existe"})
+                return
+            }
 
-    return new Promise(function(resolve, reject){
+            if( (pedido.usuario._id != autoridad._id) && autoridad.rol!="ADMIN"){
+                reject({ codigo:403, mensaje:"No tiene permisos para borrar este pedido"})
+                return
+            }
 
-
-        Pedido.findOneAndRemove({ _id:idPedido, "usuario._id":autoridad._id }) 
-
-
-
-
+            await Pedido.findByIdAndRemove(idPedido)
+            resolve()
+        } catch (error){
+            console.log(error)
+            reject({ codigo:500, mensaje:"Error en la base de datos!"})
+        }
     })
-
-
-
 }
 

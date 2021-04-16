@@ -19,7 +19,10 @@
                   <div class="form-group">
                       <label class="control-label col-xs-2" for="fabricante">Fabricante</label>
                       <div class="col-xs-8">
-                            <select class="form-control" id="fabricante" [(ngModel)]="criterio.fabricante"></select>
+                            <select class="form-control" id="fabricante" [(ngModel)]="criterio.fabricante">
+                                <option value="">Seleccione...</option>
+                                <option *ngFor="let f of fabricantes">{{f}}</option>
+                            </select>
                       </div>
                   </div>
 
@@ -27,7 +30,7 @@
                       <label class="control-label col-xs-2" for="categoria">Categoría</label>
                       <div class="col-xs-8">
                             <select class="form-control" id="categoria" [(ngModel)]="criterio.categoria">
-                                <option value="">Seleccione...</option>
+                                <option value="0">Seleccione...</option>
                                 <option *ngFor="let c of categorias" value="{{c._id}}">{{c.nombre}}</option>
                             </select>
                       </div>

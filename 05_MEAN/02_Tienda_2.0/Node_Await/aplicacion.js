@@ -9,13 +9,14 @@ const express = require('express')
 const mongooseDButil = require('./util/MongooseDBUtil')
 
 const interceptorJWT = require('./autenticacion/interceptorJWT').interceptorJWT
-const authRouter     = require('./autenticacion/authRouter').router
 
-const pedidosRouter    = require('./rest/pedidosRest').router
-const comprasRouter    = require('./rest/comprasRest').router
-const usuariosRouter   = require('./rest/usuariosRest').router
-const productosRouter  = require('./rest/productosRest').router
-const categoriasRouter = require('./rest/categoriasRest').router
+const authRouter        = require('./autenticacion/authRouter').router
+const pedidosRouter     = require('./rest/pedidosRest').router
+const comprasRouter     = require('./rest/comprasRest').router
+const usuariosRouter    = require('./rest/usuariosRest').router
+const productosRouter   = require('./rest/productosRest').router
+const categoriasRouter  = require('./rest/categoriasRest').router
+const fabricantesRouter = require('./rest/fabricantesRest').router
 
 mongooseDButil.conectarBBDD()
 .then(arrancarServidor)
@@ -63,11 +64,12 @@ function arrancarServidor(){
     app.use(interceptorJWT)
 
     app.use(authRouter)
-    app.use(usuariosRouter)
-    app.use(productosRouter)
     app.use(pedidosRouter)
     app.use(comprasRouter)
+    app.use(usuariosRouter)
+    app.use(productosRouter)
     app.use(categoriasRouter)
+    app.use(fabricantesRouter)
 
     //Quitamos la publicidad
     app.disable('x-powered-by')

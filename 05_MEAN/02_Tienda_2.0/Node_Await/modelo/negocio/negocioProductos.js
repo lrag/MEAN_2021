@@ -19,10 +19,7 @@ exports.listarProductos = function(criterio){
         {
             texto : 'string',
             fabricante : 'string',
-            categoria  : {
-                    _id    : 'string',
-                    nombre : 'string'
-                }
+            categoria  : 'string',
             precioMin  : 123,
             precioMax  : 456
         }
@@ -32,6 +29,10 @@ exports.listarProductos = function(criterio){
 
         if(criterio.categoria){
             filtro["categoria._id"] = criterio.categoria
+        }
+
+        if(criterio.fabricante){
+            filtro.fabricante = criterio.fabricante
         }
 
         let precio = {
@@ -47,7 +48,7 @@ exports.listarProductos = function(criterio){
         filtro.precio = precio
 
         if(criterio.texto){
-            filtro.nombre = criterio.texto
+            filtro.nombre = criterio.nombre
         }
 
         console.log("Filtro:", filtro)

@@ -6,7 +6,7 @@ let router = express.Router()
 router.get("/usuarios/:idUsuario/pedidos", listarPedidosUsuario)
 router.post("/pedidos", insertarPedido)
 router.put("/pedidos/:id", modificarPedido)
-//router.delete("/pedidos/:id", borrarPedido)
+router.delete("/pedidos/:id", borrarPedido)
 
 exports.router = router
 
@@ -61,17 +61,17 @@ function modificarPedido(request, response){
         } )
 }
 
-/*
+//DELETE /pedidos/:id
 function borrarPedido(request, response){
     let idPedido = request.params.id
     negocioPedidos.borrarPedido(idPedido, request.autoridad)
-        .then( () => response.json({ codigo:200, mensaje:"El pedido se ha borrado"})
+        .then( () => response.json({ codigo:200, mensaje:"El pedido se ha borrado"}) )
         .catch( error => {
             response.statusCode = error.codigo
             response.json(error)
-        } )
+        })
 }
-*/
+
 
 
 

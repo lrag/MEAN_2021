@@ -3,6 +3,7 @@ import { Categoria } from '../../entidades/categoria';
 import { CriterioBusquedaProducto } from '../../entidades/criterioBusquedaProducto';
 import { Producto } from '../../entidades/producto';
 import { CategoriasService } from '../../servicios/categoriasService';
+import { FabricantesService } from '../../servicios/fabricantesService';
 import { ProductosService } from '../../servicios/productosService';
 
 @Component({
@@ -12,14 +13,18 @@ import { ProductosService } from '../../servicios/productosService';
 })
 export class CatalogoComponent implements OnInit {
 
-  public categorias:Categoria[] //undefined
-  public criterio:CriterioBusquedaProducto = new CriterioBusquedaProducto()
+  public criterio:CriterioBusquedaProducto = new CriterioBusquedaProducto("",0,"")
+  
+  public fabricantes:String[] //undefined
   public productos:Producto[] //undefined
+  public categorias:Categoria[] //undefined
 
   constructor(private productosService:ProductosService,
-              private categoriasService:CategoriasService) { 
+              private categoriasService:CategoriasService, 
+              private fabricantesService:FabricantesService) { 
     this.listarProductos()
     this.listarCategorias()
+    this.listarFabricantes()
   }
 
   ngOnInit(): void {
@@ -29,6 +34,14 @@ export class CatalogoComponent implements OnInit {
     this.categoriasService.listarCategorias()
     .subscribe(
       categorias => this.categorias = categorias,
+      error => { console.log(error) }
+    )
+  }
+
+  public listarFabricantes():void {
+    this.fabricantesService.listarFabricantes()
+    .subscribe(
+      fabricantes => this.fabricantes = fabricantes,
       error => { console.log(error) }
     )
   }

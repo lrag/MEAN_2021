@@ -106,15 +106,10 @@ export class CestaService {
         return this.httpClient.get(ConfiguracionUtil.urlServidor+`/usuarios/${this.usuario._id}/pedidos`)
     }
 
-    public borrarCesta(){
-        //AJAX
+    public borrarCesta(cesta:Pedido){
+        return this.httpClient.delete(ConfiguracionUtil.urlServidor+`/pedidos/${cesta._id}`)
     }
-
-    //Despues...
-    public seleccionarCesta(){
-
-    }
-    
+   
 }
 
 
