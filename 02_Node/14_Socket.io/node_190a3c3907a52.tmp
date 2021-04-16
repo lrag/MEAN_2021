@@ -1,0 +1,26 @@
+//npm install socket.io
+const socketIo = require("socket.io")
+const http = require("http")
+
+//Usaremos expres para entregar el contenido estático y para...
+const express = require("express")
+
+//Configuramos el servidor web para entregar 'cliente.html'
+let app = express()
+app.use(express.static("./recursos"))
+app.listen(80, function(){
+    console.log("Esperando peticiones HTTP en el puerto 80")
+})
+
+//Socket.io no es una implementación de websockets (aunque lo utiliza y se parece mucho)
+//
+//Necesitamos abrir un puerto para recibir las solicitudes de conexión
+//Para ello utilizamos el módulo 'http'
+//
+//Creamos un objeto server normal y corriente
+
+let servidor = http.createServer(function(request,response){
+})
+servidor.listen(8000, function(){
+    console.log("Esperando conexiones Socket.io en el puerto 8000")
+})
