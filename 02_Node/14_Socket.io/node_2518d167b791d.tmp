@@ -38,6 +38,8 @@ servidor.listen(8000, function(){
 })
 
 
+//En este array guardaremos la lista de alias de los usuarios conectados
+let aliasUsuarios = []
 
 //En socket.io todo funciona por EVENTOS
 
@@ -61,15 +63,31 @@ io.on('connection', function(socket){
 
     console.log("Nueva conexión")
 
-    socket.on("alias", function(valor){
+    socket.on("alias", function(alias){
         //Estas funciones se asignan al socket
         //console.log(this)
-        console.log("Alias recibido:"+valor)
+        console.log("Alias recibido:"+alias)
+        aliasUsuarios.push(alias)
+        console.log(aliasUsuarios)
+        //Enviamos los alias a todos los que estén conectados
+        io.emit("aliasUsuarios", JSON.stringify(aliasUsuarios))
     })
 
     socket.on("mensaje", nuevoMensaje)
 
+    socket.on("KE_ME_BOI_EH",function(alias){
+        console.log("Se va a ir:"+alias)
+        for(let a=0;a<aliasUsuarios.length;a++){
+            if(aliasUsuarios[a]==alias){
+                aliasUsuarios.splice(a,1)
+                break;
+            }
+        }
+    });
 
+    socket.on("disconnect", function(){
+        console.log("Usuario desconectado")
+    })
 })
 
 function nuevoMensaje(mensaje){

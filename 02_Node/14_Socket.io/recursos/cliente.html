@@ -44,15 +44,35 @@ function conectar(){
     //Con el evento 'connect' nos enteramos de que la conexión se ha establecido
     socket.on("connect", conexionEstablecida)  
     socket.on("mensaje", mensajeRecibido)
+    socket.on("aliasUsuarios", monstrarAliasUsuarios)
+}
+
+function desconectar(){
+    $("#btnConectar").prop( "disabled", false );
+    $("#btnDesconectar").prop( "disabled", true );
+    $("#alias").prop( "disabled", false );
+    $("#btnEnviar").prop( "disabled", true );
+
+    socket.emit("KE_ME_BOI_EH",$("#alias").val())
+    socket.disconnect()
+}
+
+function monstrarAliasUsuarios(aliasUsuarios){
+    aliasUsuarios = JSON.parse(aliasUsuarios) 
+    $("#usuarios").html('')
+    $(aliasUsuarios).each(function(pos, elem){
+        $("#usuarios").append("<li>"+elem+"</li>")
+    })
 }
 
 function conexionEstablecida(){
     console.log("Conexión establecida")
     $("#btnConectar").prop( "disabled", true );
+    $("#btnDesconectar").prop( "disabled", false );
     $("#alias").prop( "disabled", true );
     $("#btnEnviar").prop( "disabled", false );
     //Enviamos un mensaje con el alias
-    enviarAlias(alias)    
+    enviarAlias($("#alias").val())    
 }
 
 function mensajeRecibido(mensaje){
@@ -81,15 +101,20 @@ function enviarMensaje(){
         texto : texto
     }
     socket.emit("mensaje", JSON.stringify(mensaje))
+    $("#mensaje").val("")
 }
+
+
 
 
 $(inicializar)
 function inicializar(){
 
     $("#btnConectar").click(conectar)   
+    $("#btnDesconectar").click(desconectar)   
     $("#btnEnviar").click(enviarMensaje)
     
+    $("#btnDesconectar").prop("disabled","true")
     $("#btnEnviar").prop("disabled","true")
 
     //Asi hacen las cosas en ciudad JQuery:
@@ -157,7 +182,9 @@ function inicializar(){
                         Participantes
                     </div>
                     <div class="card-body">
-                        <div id="usuarios"></div>
+                        <div>
+                            <ul id="usuarios"></ul>
+                        </div>
                     </div>
                 </div>
                 <div class="card mt-2">
