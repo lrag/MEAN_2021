@@ -30,7 +30,6 @@ function conectar(){
     }
 
     //La librería nos da el objeto 'io'
-
     //La función connect es síncrona
     //Devuelve un socket, pero que todavía no está establecido puesto
     //que conectar en realidad es una tarea asincrona
@@ -45,6 +44,7 @@ function conectar(){
     socket.on("connect", conexionEstablecida)  
     socket.on("mensaje", mensajeRecibido)
     socket.on("aliasUsuarios", monstrarAliasUsuarios)
+    socket.on("aliasRepetido", aliasRepetido)
 }
 
 function desconectar(){
@@ -53,7 +53,6 @@ function desconectar(){
     $("#alias").prop( "disabled", false );
     $("#btnEnviar").prop( "disabled", true );
 
-    socket.emit("KE_ME_BOI_EH",$("#alias").val())
     socket.disconnect()
 }
 
@@ -104,7 +103,10 @@ function enviarMensaje(){
     $("#mensaje").val("")
 }
 
-
+function aliasRepetido(){
+    alert("El alias ya existe. Escoja otro por favor")
+    desconectar()
+}
 
 
 $(inicializar)
