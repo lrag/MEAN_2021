@@ -72,13 +72,10 @@ function conexionEstablecida(){
     $("#btnEnviar").prop( "disabled", false );
     //Enviamos un mensaje con el alias
     enviarAlias($("#alias").val())    
-}
 
-function mensajeRecibido(mensaje){
-    console.log("Mensaje:"+mensaje)
-    mensaje = JSON.parse(mensaje)
-    $(`<div>${mensaje.alias} - ${mensaje.texto}</div>`)
-        .appendTo("#mensajes")
+    $.ajax( { url : "/salas" } )
+    .done(rellenarSalas)
+    .fail( error => console.log(error) )
 }
 
 function enviarAlias(alias){
@@ -86,6 +83,13 @@ function enviarAlias(alias){
     //-nombre del mensaje (string)
     //-valor del mensaje (string)
     socket.emit("alias", alias)
+}
+
+function mensajeRecibido(mensaje){
+    console.log("Mensaje:"+mensaje)
+    mensaje = JSON.parse(mensaje)
+    $(`<div>${mensaje.alias} - ${mensaje.texto}</div>`)
+        .appendTo("#mensajes")
 }
 
 function enviarMensaje(){
@@ -108,6 +112,27 @@ function aliasRepetido(){
     desconectar()
 }
 
+function rellenarSalas(salas){
+
+    //$(salas).each(function(pos, elem){
+    //})
+
+    salas.forEach(function(sala, pos){
+        $(`<div>
+                <input type="radio" name="sala" value="${sala}" onclick="cambiarSala('${sala}')"/> ${sala}
+           </div>`)
+        //.click(cambiarSala)
+        .appendTo("#salas")
+    })
+    $(`[value=General]`).prop("checked",true)
+}
+
+function cambiarSala(sala){
+    console.log("Cambiar a la sala:"+sala)
+    socket.emit('cambiarSala', sala)
+    $(`<div>-------Sala:${sala}---------------------------------------------</div>`)
+        .appendTo("#mensajes")
+}
 
 $(inicializar)
 function inicializar(){
@@ -121,10 +146,7 @@ function inicializar(){
 
     //Asi hacen las cosas en ciudad JQuery:
     //$("#btnEnviar").click(enviarMensaje).prop("disabled","true")
-
 }
-
-
 
 </script>
 
@@ -133,7 +155,7 @@ function inicializar(){
     <div class="container-fluid">
 
         <div class="jumbotron">
-            <h1>Chat 3000</h1>
+            <h1>Chat 3000 MkII (Salas)</h1>
         </div>
 
         <div class="row">

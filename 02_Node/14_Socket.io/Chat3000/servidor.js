@@ -113,15 +113,5 @@ function usuarioDesconectado(){
     io.emit("aliasUsuarios", JSON.stringify(aliasUsuarios))
 }
 
-/*
-    socket.on("KE_ME_BOI_EH",function(alias){
-        console.log("Se va a ir:"+alias)
-        for(let a=0;a<aliasUsuarios.length;a++){
-            if(aliasUsuarios[a]==alias){
-                aliasUsuarios.splice(a,1)
-                break;
-            }
-        }
-    });
-*/
+
 

@@ -74,18 +74,18 @@ function conexionEstablecida(){
     enviarAlias($("#alias").val())    
 }
 
-function mensajeRecibido(mensaje){
-    console.log("Mensaje:"+mensaje)
-    mensaje = JSON.parse(mensaje)
-    $(`<div>${mensaje.alias} - ${mensaje.texto}</div>`)
-        .appendTo("#mensajes")
-}
-
 function enviarAlias(alias){
     //Los mensajes tienen solo dos valores:
     //-nombre del mensaje (string)
     //-valor del mensaje (string)
     socket.emit("alias", alias)
+}
+
+function mensajeRecibido(mensaje){
+    console.log("Mensaje:"+mensaje)
+    mensaje = JSON.parse(mensaje)
+    $(`<div>${mensaje.alias} - ${mensaje.texto}</div>`)
+        .appendTo("#mensajes")
 }
 
 function enviarMensaje(){
@@ -187,14 +187,6 @@ function inicializar(){
                         <div>
                             <ul id="usuarios"></ul>
                         </div>
-                    </div>
-                </div>
-                <div class="card mt-2">
-                    <div class="card-header">
-                        Salas
-                    </div>
-                    <div class="card-body">
-                        <div id="salas"></div>
                     </div>
                 </div>
             </div>
