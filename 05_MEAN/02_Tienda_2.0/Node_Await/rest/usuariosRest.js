@@ -3,7 +3,6 @@ const negocioUsuarios = require("../modelo/negocio/negocioUsuarios")
 
 let router = express.Router()
 
-
 //Anónimo
 router.get('/comprobarLogin',comprobarLogin) //Esto no es rest
 
