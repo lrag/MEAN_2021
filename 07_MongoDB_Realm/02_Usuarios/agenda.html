@@ -23,7 +23,64 @@
         crossorigin="anonymous">
 
 </head>
+
+<script type="application/javascript">
+
+//En esta variable global guardamos la referencia a la aplicacion Realm
+let app
+
+function conectar(){
+
+    console.log("Conectando con realm...")
+
+    //Obtenemos un objeto que representa a la aplicacion Realm
+    app = new Realm.App({ id : "agendarealm-qilou" })
+
+    /*
+    console.log("==================================")
+    for(let propiedad in app){
+        console.log(propiedad+":", app[propiedad])
+        console.log("----------------------------------")
+    }
+
+    console.log("==================================")
+    for(let propiedad in app.services){
+        console.log(propiedad+":", app[propiedad])
+        console.log("----------------------------------")
+    }
+    */
+
+    //Conectamos con Realm proporcionando unas credenciales
+    //Las credenciales se crean dependiendo que los 'providers' registrados en la aplicación Realm
+    //En la nuestra hemos activado 'email/password'
+    let credenciales = Realm.Credentials.emailPassword("ripley@weylandyutani.com", "1234567890")
+    
+    //Una vez que tenemos las credenciales hacemos el login
+    app.logIn(credenciales)
+    .then( usuario => {
+        console.log("Conexión establecida")
+        console.log("Usuario:", usuario)
+    })
+    .catch( error => {
+        console.log(error)
+    })
+
+}
+
+//window.onload = conectar
+$(inicializar)
+function inicializar(){
+
+    //conectar()
+
+}
+
+
+</script>
+
 <body>
+
+    <input type="button" value="DALE" onclick="conectar()"/>
 
     <div class="jumbotron">
         <h1>Agenda 3000 Realm Edition</h1>
