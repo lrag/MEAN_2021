@@ -28,6 +28,10 @@
 
 //En esta variable global guardamos la referencia a la aplicacion Realm
 let app
+//En esta variable guardamos el esquema
+let esquema
+//Aqui guardamos el usuario
+let usuario
 
 function conectar(){
 
@@ -50,37 +54,71 @@ function conectar(){
     }
     */
 
-    //Conectamos con Realm proporcionando unas credenciales
-    //Las credenciales se crean dependiendo que los 'providers' registrados en la aplicación Realm
-    //En la nuestra hemos activado 'email/password'
-    let credenciales = Realm.Credentials.emailPassword("ripley@weylandyutani.com", "1234567890")
+    //Podemos acceder a todos los usuarios que hayan utilizado el navegador para autenticarse
+    //Si alguno de esos usuarios está autenticado ocupará la primera posición del array
+    console.log("==================================")
+    let usuarios = app.users
+    console.log("Usuarios:",usuarios)
+
+    //Tambien podemos acceder directamente al usuario autenticado
+    console.log("==================================")
+    usuario = app.currentUser
+    //Si no hay un usuario autenticado mostraremos otra vez la pantalla de login
+    if(!usuario){
+        window.location = "login.html"
+        return
+    }
+    console.log("Usuario:",usuario)  
+
+    //Obtenemos el esquema
+    //Primero hay que acceder al servicio mongoDB
+    let mongoDb = app.services.mongodb("mongodb-atlas")
+    //Al servicio MongoDB le pedimos el esquema
+    esquema = mongoDb.db("agenda")
     
-    //Una vez que tenemos las credenciales hacemos el login
-    app.logIn(credenciales)
-    .then( usuario => {
-        console.log("Conexión establecida")
-        console.log("Usuario:", usuario)
+}
+
+function listarPersonas(){
+
+
+
+}
+
+function insertarPersona(){
+
+    let persona = {
+        nombre    : $("#nombre").val(),
+        direccion : $("#direccion").val(),
+        telefono  : $("#telefono").val(),
+        correoE   : $("#correoE").val(),
+        idUsuario : usuario._id
+    }
+
+    esquema.collection("personas").insertOne( persona )
+    .then( resultado => {
+        console.log(resultado)
     })
     .catch( error => {
         console.log(error)
     })
 
+
 }
+
 
 //window.onload = conectar
 $(inicializar)
 function inicializar(){
 
-    //conectar()
+    $("#btnInsertar").click(insertarPersona)
 
+    conectar()
+    listarPersonas()
 }
-
 
 </script>
 
 <body>
-
-    <input type="button" value="DALE" onclick="conectar()"/>
 
     <div class="jumbotron">
         <h1>Agenda 3000 Realm Edition</h1>

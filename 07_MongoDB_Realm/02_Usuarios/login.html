@@ -62,6 +62,8 @@ function conectar(){
     .then( usuario => {
         console.log("Conexión establecida")
         console.log("Usuario:", usuario)
+        //Navegamos a la agenda
+        window.location = "agenda.html"
     })
     .catch( error => {
         console.log(error)
