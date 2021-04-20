@@ -79,8 +79,27 @@ function conectar(){
 }
 
 function listarPersonas(){
+    esquema.collection("personas").find({ idUsuario : usuario.id })
+    .then( rellenarTablaPersonas )
+    .catch( error => console.log(error))
+}
 
-
+function rellenarTablaPersonas(listadoPersonas){
+    $("#tablaPersonas").html('')
+    listadoPersonas.forEach(function(persona, pos){
+        $(`
+        <tr>
+            <td>${persona.nombre}</td>
+            <td>${persona.direccion}</td>
+            <td>${persona.telefono}</td>
+            <td>${persona.correoE}</td>
+        </tr>   
+        `)
+        .click(function(){
+            //seleccionarPelicula(pelicula._id)
+        })
+        .appendTo("#tablaPersonas")
+    }) 
 
 }
 
@@ -97,11 +116,11 @@ function insertarPersona(){
     esquema.collection("personas").insertOne( persona )
     .then( resultado => {
         console.log(resultado)
+        listarPersonas()
     })
     .catch( error => {
         console.log(error)
     })
-
 
 }
 
