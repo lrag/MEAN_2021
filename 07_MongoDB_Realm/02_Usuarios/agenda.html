@@ -79,6 +79,26 @@ function conectar(){
     esquema = mongodb.db("agenda")    
 }
 
+
+//607e874f5463142d7d67ae5f
+
+//Logout
+function logout(){
+
+    //PAra cerrar la sesión del usuario invocamos su función 'logout'
+    //Esto encía una petición http a mongo para que se revoque el token
+    //asi que devuelve una promesa
+    //app.currentUser.logOut()
+
+    usuario
+        .logOut()
+        .then( () => {
+            window.location = "login.html"
+        })
+        .catch( err => console.log(error))
+}
+
+
 function listarPersonas(){
     esquema.collection("personas").find({ idUsuario : usuario.id })
     .then( rellenarTablaPersonas )
@@ -146,6 +166,11 @@ function rellenarFormulario(persona){
 }
 
 function insertarPersona(){
+
+    if( $("#nombre").val() == ""){
+        alert("El nombre es obligatorio")
+        return
+    }
 
     let persona = {
         nombre    : $("#nombre").val(),
@@ -247,6 +272,7 @@ function inicializar(){
     $("#btnBorrar").click(borrarPersona)
     $("#btnModificar").click(modificarPersona)
     $("#btnVaciar").click(vaciarFormulario)
+    $("#btnSalir").click(logout)
 
     modoInsercion()
     conectar()
@@ -258,7 +284,7 @@ function inicializar(){
 <body>
 
     <div class="jumbotron">
-        <h1>Agenda 3000 Realm Edition</h1>
+        <h1>Agenda 3000 Realm Edition (Usuarios)</h1>        
     </div>
     
     <div class="text-center mt-2 mb-2">
@@ -266,6 +292,7 @@ function inicializar(){
         <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
         <button class="btn btn-danger  mr-1" id="btnBorrar">Borrar</button>
         <button class="btn btn-warning mr-1" id="btnVaciar">Vaciar</button>
+        <button class="btn btn-primary mr-1" id="btnSalir">Salir</button>
     </div>
 
     <div class="row">

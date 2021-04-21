@@ -68,14 +68,28 @@ function conectar(){
     .catch( error => {
         //
         console.log(error)
+        $("#error").html('<div class="alert alert-danger">Credenciales incorrectas</div>')
     })
 
+}
+
+function introPulsado(e){
+    if(e.keyCode != 13){
+        return
+    }
+    conectar()
+}
+
+function mostrarRegistro(){
+    window.location = "registro.html"
 }
 
 //window.onload = conectar
 $(inicializar)
 function inicializar(){
+    $("#pw").keyup(introPulsado)
     $("#btnLogin").click(conectar)
+    $("#btnRegistro").click(mostrarRegistro)
 }
 
 </script>
@@ -107,6 +121,8 @@ function inicializar(){
                         </div>
                         </div>  
                     </div> <!--formulario-->
+
+                    <div id="error"></div>
                 
                     <div class="text-center">
                         <input type="button" id="btnLogin" class="btn mr-1 btn-primary" style="width:110px" value="Login" />
@@ -117,6 +133,7 @@ function inicializar(){
             </div>         
         </div>            
     </div>
+
 
 
 </body>
