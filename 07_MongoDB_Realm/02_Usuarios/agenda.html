@@ -32,6 +32,8 @@ let app
 let esquema
 //Aqui guardamos el usuario
 let usuario
+//Esta variable referencia a la persona que ocupa el formulario
+let personaSel
 
 function conectar(){
 
@@ -74,14 +76,18 @@ function conectar(){
     //Primero hay que acceder al servicio mongoDB
     let mongoDb = app.services.mongodb("mongodb-atlas")
     //Al servicio MongoDB le pedimos el esquema
-    esquema = mongoDb.db("agenda")
-    
+    esquema = mongoDb.db("agenda")    
 }
 
 function listarPersonas(){
     esquema.collection("personas").find({ idUsuario : usuario.id })
     .then( rellenarTablaPersonas )
     .catch( error => console.log(error))
+
+    //Solo cuentan los del usuario
+    esquema.collection("personas").count()
+    .then( numero => console.log("Numero de contactos:"+numero))
+    .catch( error => console.log(error) )
 }
 
 function rellenarTablaPersonas(listadoPersonas){
@@ -96,12 +102,37 @@ function rellenarTablaPersonas(listadoPersonas){
         </tr>   
         `)
         .click(function(){
-            //seleccionarPelicula(pelicula._id)
+            seleccionarPersona(persona._id)
         })
         .appendTo("#tablaPersonas")
     }) 
-
 }
+
+function seleccionarPersona(_id){
+    esquema.collection("personas").findOne({ _id : _id })
+    .then( rellenarFormulario )
+}
+
+function rellenarFormulario(persona){
+    //$("#nombre").val(persona.nombre)
+    //$("#direccion").val(persona.direccion)
+    //$("#telefono").val(persona.telefono)
+    //$("#correoE").val(persona.correoE)    
+
+    //No siempre nos sirve una función flecha...
+    //Aqui this es window 
+    //$("[campo]").each( (pos, elem) => {
+        //Aqui this es window, deberiamos utilizar 'elem'
+    //})
+
+    $("[campo]").each( function() {
+        //Aqui this es cada uno de los elementos encontrados  
+        this.value = persona[this.id]
+    })
+    personaSel = persona
+}
+
+
 
 function insertarPersona(){
 
@@ -124,12 +155,22 @@ function insertarPersona(){
 
 }
 
+function vaciarFormulario(){
+    //$("#nombre").val("")
+    //$("#direccion").val("")
+    //$("#telefono").val("")
+    //$("#correoE").val("")
+
+    $("[campo]").val("")
+    personaSel = null
+}
 
 //window.onload = conectar
 $(inicializar)
 function inicializar(){
 
     $("#btnInsertar").click(insertarPersona)
+    $("#btnVaciar").click(vaciarFormulario)
 
     conectar()
     listarPersonas()
