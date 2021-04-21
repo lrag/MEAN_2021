@@ -42,19 +42,13 @@ function conectar(){
     //Obtenemos un objeto que representa a la aplicacion Realm
     app = new Realm.App({ id : "agendarealm-qilou" })
 
-    
+    /*
     console.log("==================================")
     for(let propiedad in app){
         console.log(propiedad+":", app[propiedad])
         console.log("----------------------------------")
     }
-
-    console.log("==================================")
-    for(let propiedad in app.services){
-        console.log(propiedad+":", app[propiedad])
-        console.log("----------------------------------")
-    }
-    
+    */    
 
     //Podemos acceder a todos los usuarios que hayan utilizado el navegador para autenticarse
     //Si alguno de esos usuarios está autenticado ocupará la primera posición del array
@@ -80,7 +74,6 @@ function conectar(){
 
     //realm-web@1.2.1
     let mongodb = app.currentUser.mongoClient("mongodb-atlas");
-
 
     //Al servicio MongoDB le pedimos el esquema
     esquema = mongodb.db("agenda")    
@@ -117,7 +110,15 @@ function rellenarTablaPersonas(listadoPersonas){
 
 function seleccionarPersona(_id){
     esquema.collection("personas").findOne({ _id : _id })
-    .then( rellenarFormulario )
+    .then( persona => {
+        if(!persona){
+            console.log("No existe una persona con el id "+_id)
+            return
+        }
+        rellenarFormulario(persona)
+        modoSeleccion()
+        personaSel = persona
+    })
 }
 
 function rellenarFormulario(persona){
@@ -142,7 +143,6 @@ function rellenarFormulario(persona){
         //Aqui this es cada uno de los elementos encontrados  
         this.value = persona[this.id]
     })
-    personaSel = persona
 }
 
 function insertarPersona(){
@@ -152,13 +152,15 @@ function insertarPersona(){
         direccion : $("#direccion").val(),
         telefono  : $("#telefono").val(),
         correoE   : $("#correoE").val(),
-        idUsuario : usuario._id
+        idUsuario : usuario.id // WTF
     }
 
     esquema.collection("personas").insertOne( persona )
     .then( resultado => {
         console.log(resultado)
         listarPersonas()
+        vaciarFormulario()
+        modoInsercion()
     })
     .catch( error => {
         console.log(error)
@@ -184,16 +186,16 @@ function borrarPersona(){
              console.log("No existe una persona con ese id!")     
              return  
         }        
-        vaciarFormulario()
         listarPersonas()
+        vaciarFormulario()
+        modoInsercion()
+        persoaSel = null
     })
     .catch(error => console.log(error))
 
 }
 
 function modificarPersona(){
-
-
     esquema
         .collection("personas")
         .findOneAndUpdate( 
@@ -216,11 +218,25 @@ function modificarPersona(){
             }
             vaciarFormulario()
             listarPersonas()
+            modoInsercion()
+            personaSel = null
         })
         .catch( err => {
             console.log(err)
         })
 
+}
+
+function modoInsercion(){
+    $("#btnInsertar").prop('disabled', false)
+    $("#btnBorrar").prop('disabled', true)
+    $("#btnModificar").prop('disabled', true)
+}
+
+function modoSeleccion(){
+    $("#btnInsertar").prop('disabled', !false) // :)
+    $("#btnBorrar").prop('disabled', !true)
+    $("#btnModificar").prop('disabled', !true)
 }
 
 //window.onload = conectar
@@ -232,6 +248,7 @@ function inicializar(){
     $("#btnModificar").click(modificarPersona)
     $("#btnVaciar").click(vaciarFormulario)
 
+    modoInsercion()
     conectar()
     listarPersonas()
 }
