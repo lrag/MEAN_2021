@@ -20,6 +20,67 @@
 
 <script type="application/javascript">
 
+
+function confirmar(){
+
+    //Validar...
+    app = new Realm.App({ id : "agendarealm-qilou" })
+
+    let email = $("#correoE").val()
+    let pw    = $("#password").val()
+
+    //Pasos:
+    //-registrar el usuario
+    //-añadir su información adicional a 'custom user data'
+    app.emailPasswordAuth.registerUser(email, pw)
+    .then( () => {
+        console.log("Usuario registrado")
+
+        //Para poder añadir el curstom data al usuario necesitamos el id del nuevo usuario
+        //asi que hacemos un login 
+        let credenciales = Realm.Credentials.emailPassword(email, pw)
+        return app.logIn(credenciales)
+    })
+    .then( usuario => {
+
+        let customData = {
+          nombre    : $("#nombre").val(),
+          direccion : $("#direccion").val(),
+          telefono  : $("#telefono").val(),
+          idUsuario : usuario.id
+        }     
+
+        return usuario
+          .mongoClient("mongodb-atlas")
+          .db("agenda")
+          .collection("usuarios")
+          .insertOne(customData)
+    })
+    .then( documentoInsertado => {
+      console.log("Nuevo custom data:", documentoInsertado)
+
+      //Refrescamos el usuario porque lo que tenemos en el local storage no incluye
+      //el custom user data
+      return app.currentUser.refreshCustomData()
+    }).
+    then( () => {
+      //FIN
+      window.location = "agenda.html"
+    })
+    .catch( error => console.log(error))
+
+}
+
+function cancelar(){
+    window.location = "login.html"
+}
+
+$(inicializar)
+function inicializar(){
+    $("#btnConfirmar").click(confirmar)
+    $("#btnCancelar").click(cancelar)
+}
+
 </script>
 
 
@@ -53,7 +114,7 @@
           <div class="col-xs-8">
             <input type="text" 
                   class="form-control"
-                  id="pw"/>
+                  id="password"/>
           </div>
         </div>
         <div class="form-group">
