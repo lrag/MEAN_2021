@@ -8,9 +8,6 @@
 
     <!-- Esta librería nos permite ejecutar consultas directamente a las colecciones
          definidas en la aplicacion Realm asi como invocar las funciones que hayamos creado -->
-    <!--
-    <script src="https://unpkg.com/realm-web@0.8.0/dist/bundle.iife.js"></script>
-    -->
     <script src="https://unpkg.com/realm-web@1.2.1/dist/bundle.iife.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -36,75 +33,33 @@ let usuario
 let personaSel
 
 function conectar(){
-
-    console.log("Conectando con realm...")
-
     //Obtenemos un objeto que representa a la aplicacion Realm
     app = new Realm.App({ id : "agendarealm-qilou" })
-
-    /*
-    console.log("==================================")
-    for(let propiedad in app){
-        console.log(propiedad+":", app[propiedad])
-        console.log("----------------------------------")
-    }
-    */    
-
-    //Podemos acceder a todos los usuarios que hayan utilizado el navegador para autenticarse
-    //Si alguno de esos usuarios está autenticado ocupará la primera posición del array
-    console.log("==================================")
-    let usuarios = app.users
-    console.log("Usuarios:",usuarios)
-
-    //Tambien podemos acceder directamente al usuario autenticado
-    console.log("==================================")
     usuario = app.currentUser
     //Si no hay un usuario autenticado mostraremos otra vez la pantalla de login
     if(!usuario){
         window.location = "login.html"
         return
     }
-    console.log("Usuario:",usuario)  
 
-    //Obtenemos el esquema
-    //Primero hay que acceder al servicio mongoDB
-    
-    //realm-web@0.8.0
-    //let mongoDb = app.services.mongodb("mongodb-atlas")
-
-    //realm-web@1.2.1
-    let mongodb = app.currentUser.mongoClient("mongodb-atlas");
-
-    //Al servicio MongoDB le pedimos el esquema
+    let mongodb = usuario.mongoClient("mongodb-atlas");
     esquema = mongodb.db("agenda")    
 }
 
 //Logout
-function logout(){
-
-    //PAra cerrar la sesión del usuario invocamos su función 'logout'
-    //Esto encía una petición http a mongo para que se revoque el token
-    //asi que devuelve una promesa
-    //app.currentUser.logOut()
-
-    usuario
-        .logOut()
-        .then( () => {
-            window.location = "login.html"
-        })
-        .catch( err => console.log(error))
+async function logout(){
+    await usuario.logOut()
+    window.location = "login.html"
 }
 
 
-function listarPersonas(){
-    esquema.collection("personas").find({ idUsuario : usuario.id })
-    .then( rellenarTablaPersonas )
-    .catch( error => console.log(error))
-
-    //Solo cuentan los del usuario
-    esquema.collection("personas").count()
-    .then( numero => console.log("Numero de contactos:"+numero))
-    .catch( error => console.log(error) )
+async function listarPersonas(){
+    try{    
+        let listadoPersonas = await esquema.collection("personas").find({ idUsuario : usuario.id })
+        rellenarTablaPersonas(listadoPersonas)
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 function rellenarTablaPersonas(listadoPersonas){
@@ -125,9 +80,9 @@ function rellenarTablaPersonas(listadoPersonas){
     }) 
 }
 
-function seleccionarPersona(_id){
-    esquema.collection("personas").findOne({ _id : _id })
-    .then( persona => {
+async function seleccionarPersona(_id){
+    try {
+        let persona = await esquema.collection("personas").findOne({ _id : _id })
         if(!persona){
             console.log("No existe una persona con el id "+_id)
             return
@@ -135,117 +90,92 @@ function seleccionarPersona(_id){
         rellenarFormulario(persona)
         modoSeleccion()
         personaSel = persona
-    })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 function rellenarFormulario(persona){
-    //$("#nombre").val(persona.nombre)
-    //$("#direccion").val(persona.direccion)
-    //$("#telefono").val(persona.telefono)
-    //$("#correoE").val(persona.correoE)    
-
-    //No siempre nos sirve una función flecha...
-    //Aqui this es window 
-    //$("[campo]").each( (pos, elem) => {
-        //Aqui this es window, deberiamos utilizar 'elem'
-    //})
-
-    /*
-    <input class="form-control" campo="" id="nombre"/>
-    <input class="form-control" campo="" id="direccion"/>
-    <input class="form-control" campo="" id="telefono"/>
-    <input class="form-control" campo="" id="correoE"/>
-    */
     $("[campo]").each( function() {
-        //Aqui this es cada uno de los elementos encontrados  
         this.value = persona[this.id]
     })
 }
 
-function insertarPersona(){
+async function insertarPersona(){
+    try {
+        if( $("#nombre").val() == ""){
+            alert("El nombre es obligatorio")
+            return
+        }
 
-    if( $("#nombre").val() == ""){
-        alert("El nombre es obligatorio")
-        return
-    }
+        let persona = {
+            nombre    : $("#nombre").val(),
+            direccion : $("#direccion").val(),
+            telefono  : $("#telefono").val(),
+            correoE   : $("#correoE").val(),
+            idUsuario : usuario.id // WTF
+        }
 
-    let persona = {
-        nombre    : $("#nombre").val(),
-        direccion : $("#direccion").val(),
-        telefono  : $("#telefono").val(),
-        correoE   : $("#correoE").val(),
-        idUsuario : usuario.id // WTF
-    }
-
-    esquema.collection("personas").insertOne( persona )
-    .then( resultado => {
+        let resultado = await esquema.collection("personas").insertOne( persona )
         console.log(resultado)
         listarPersonas()
         vaciarFormulario()
         modoInsercion()
-    })
-    .catch( error => {
+    } catch (error){
         console.log(error)
-    })
-
+    }
 }
 
 function vaciarFormulario(){
-    //$("#nombre").val("")
-    //$("#direccion").val("")
-    //$("#telefono").val("")
-    //$("#correoE").val("")
-
     $("[campo]").val("")
     personaSel = null
 }
 
-function borrarPersona(){
-
-    esquema.collection("personas").deleteOne({ _id : personaSel._id })
-    .then( commandResult => {
+async function borrarPersona(){
+    try {
+        let commandResult = await esquema.collection("personas").deleteOne({ _id : personaSel._id })
         if(commandResult.deletedCount==0){
-             console.log("No existe una persona con ese id!")     
-             return  
+            console.log("No existe una persona con ese id!")     
+            return  
         }        
         listarPersonas()
         vaciarFormulario()
         modoInsercion()
         personaSel = null
-    })
-    .catch(error => console.log(error))
-
+    } catch (error){
+        console.log(error)
+    }
 }
 
-function modificarPersona(){
-    esquema
-        .collection("personas")
-        .findOneAndUpdate( 
-                { _id : personaSel._id },
-                {
-                    "$set" : {
-                        nombre    : $("#nombre").val(),
-                        direccion : $("#direccion").val(),
-                        telefono  : $("#telefono").val(),
-                        correoE   : $("#correoE").val(),
-                    }
-                },
-                {
-                    returnOriginal : false,
-                })
-        .then( personaModificada => {
-            if(!personaModificada){
-                console.log("No existe una persona con el id "+personaSel._id)
-                return
-            }
-            vaciarFormulario()
-            listarPersonas()
-            modoInsercion()
-            personaSel = null
-        })
-        .catch( err => {
-            console.log(err)
-        })
+async function modificarPersona(){
+
+    try {
+        let personaModificada = await esquema
+            .collection("personas")
+            .findOneAndUpdate( 
+                    { _id : personaSel._id },
+                    {
+                        "$set" : {
+                            nombre    : $("#nombre").val(),
+                            direccion : $("#direccion").val(),
+                            telefono  : $("#telefono").val(),
+                            correoE   : $("#correoE").val(),
+                        }
+                    },
+                    {
+                        returnOriginal : false,
+                    })
+        if(!personaModificada){
+            console.log("No existe una persona con el id "+personaSel._id)
+            return
+        }
+        vaciarFormulario()
+        listarPersonas()
+        modoInsercion()
+        personaSel = null
+    } catch (error){
+        console.log(error)
+    }
 
 }
 
@@ -261,7 +191,6 @@ function modoSeleccion(){
     $("#btnModificar").prop('disabled', !true)
 }
 
-//window.onload = conectar
 $(inicializar)
 function inicializar(){
 
@@ -281,7 +210,7 @@ function inicializar(){
 <body>
 
     <div class="jumbotron">
-        <h1>Agenda 3000 Realm Edition (Usuarios)</h1>        
+        <h1>Agenda 3000 Realm Edition (Usuarios con await)</h1>        
     </div>
     
     <div class="text-center mt-2 mb-2">
