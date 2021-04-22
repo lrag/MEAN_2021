@@ -7,7 +7,7 @@
 
     <!-- Esta librería nos permite enviar consultas directamente a la base de datos
          desde el navegador, asi como invocar las funciones definidas en el servidor-->
-    <script src="https://unpkg.com/realm-web@0.8.0/dist/bundle.iife.js"></script>
+    <script src="https://unpkg.com/realm-web@1.2.1/dist/bundle.iife.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -30,7 +30,7 @@ let idPersonaSel = null
 function conectar(callback){
 
     //Obtenemos un objeto que representa a la aplicación que corre en los servidores de MongoDB
-    const app = new Realm.App({ id: "agenda3000mkv-gouhq" });
+    const app = new Realm.App({ id: "agendarealm_usuarios_anonimos-ckfac" });
 
     //Nos autenticamos como usuario anónimo
     //Creamos unas credenciales
@@ -41,9 +41,9 @@ function conectar(callback){
             console.log(user)
 
             //Obtenemos una 'conexión' a la bb.dd que está en Atlas
-            const mongo = app.services.mongodb("mongodb-atlas");
+            const mongo = user.mongoClient("mongodb-atlas");
             //Obtenemos el esquema
-            esquema = mongo.db("agenda")
+            esquema = mongo.db("agenda_usuarios_anonimos")
 
             callback()
         })
@@ -205,70 +205,74 @@ function inicializar(){
 </script>
 
 <body>
+
+    <div class="container-fluid">
   
-    <div class="jumbotron">
-        <h1>Agenda 3000 Realm Edition</h1>
-    </div>
-    
-    <div class="text-center mt-2 mb-2">
-        <button class="btn btn-primary mr-1" id="btnInsertar">Insertar</button>
-        <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
-        <button class="btn btn-danger  mr-1" id="btnBorrar">Borrar</button>
-        <button class="btn btn-warning mr-1" id="btnVaciar">Vaciar</button>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12 col-lg-8 offset-lg-2"> 
-            <!--$("#formulario [campo]")-->
-            <div class="row" id="formulario">  
-
-                <div class="col-2 mt-1">
-                    <label>Nombre</label>
-                </div>
-                <div class="col-10 mt-1">
-                    <input class="form-control" campo="" id="nombre"/>
-                </div>
-
-                <div class="col-2 mt-1">
-                    <label>Direccion</label>
-                </div>
-                <div class="col-10 mt-1">
-                    <input class="form-control" campo="" id="direccion"/>
-                </div>
-
-                <div class="col-2 mt-1">
-                    <label>Telefono</label>
-                </div>
-                <div class="col-10 mt-1">
-                    <input class="form-control" campo="" id="telefono"/>
-                </div>
-             
-                <div class="col-2 mt-1">
-                    <label>Correo E</label>
-                </div>
-                <div class="col-10 mt-1">
-                    <input class="form-control" campo="" id="correoE"/>
-                </div>                 
-            </div>         
+        <div class="jumbotron">
+            <h1>Agenda 3000 Realm Edition</h1>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12 col-lg-8 offset-lg-2"> 
-            <table class="table table-striped table-hover mt-4">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Correo E</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaPersonas">
-                </tbody>
-            </table>
+        
+        <div class="text-center mt-2 mb-2">
+            <button class="btn btn-primary mr-1" id="btnInsertar">Insertar</button>
+            <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
+            <button class="btn btn-danger  mr-1" id="btnBorrar">Borrar</button>
+            <button class="btn btn-warning mr-1" id="btnVaciar">Vaciar</button>
         </div>
-    </div>    
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-8 offset-lg-2"> 
+                <!--$("#formulario [campo]")-->
+                <div class="row" id="formulario">  
+
+                    <div class="col-2 mt-1">
+                        <label>Nombre</label>
+                    </div>
+                    <div class="col-10 mt-1">
+                        <input class="form-control" campo="" id="nombre"/>
+                    </div>
+
+                    <div class="col-2 mt-1">
+                        <label>Direccion</label>
+                    </div>
+                    <div class="col-10 mt-1">
+                        <input class="form-control" campo="" id="direccion"/>
+                    </div>
+
+                    <div class="col-2 mt-1">
+                        <label>Telefono</label>
+                    </div>
+                    <div class="col-10 mt-1">
+                        <input class="form-control" campo="" id="telefono"/>
+                    </div>
+                
+                    <div class="col-2 mt-1">
+                        <label>Correo E</label>
+                    </div>
+                    <div class="col-10 mt-1">
+                        <input class="form-control" campo="" id="correoE"/>
+                    </div>                 
+                </div>         
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-8 offset-lg-2"> 
+                <table class="table table-striped table-hover mt-4">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Correo E</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPersonas">
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+
+    </div>
 
 </body>
 </html>
