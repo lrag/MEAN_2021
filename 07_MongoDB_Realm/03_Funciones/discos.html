@@ -29,7 +29,7 @@ let app
 let esquema
 //Aqui guardamos el usuario
 let usuario
-//Esta variable referencia a la persona que ocupa el formulario
+//Esta variable referencia al disco que ocupa el formulario
 let discoSel
 
 function conectar(){
@@ -46,7 +46,34 @@ function conectar(){
     esquema = mongodb.db("ejemplo_funciones")    
 }
 
-//Logout
+
+//////////////////////////////
+//LLAMADAS A FUNCIONES REALM//
+//////////////////////////////
+
+
+///////////////////////////////////////////////////////////
+//exports = function(s1, s2){
+//    console.log("Llamada a la función sumar con los parámetros:"+s1+" y "+s2)
+//    return s1+s2 
+//};
+///////////////////////////////////////////////////////////
+async function sumar(){
+    let suma = await usuario.functions.sumar(25,75)
+    console.log(suma)
+}
+
+///////////////////////////////////////////////////////////
+//exports = function(s1, s2){
+//  console.log("Llamada a la función sumar con los parámetros:"+s1+" y "+s2)
+//  return s1+s2  //{ suma: s1+s2 };
+//};
+///////////////////////////////////////////////////////////
+async function saludar(){
+    let saludo = await usuario.functions.saludar()
+    alert(saludo)
+}
+
 async function logout(){
     await usuario.logOut()
     window.location = "login.html"
@@ -204,6 +231,9 @@ function inicializar(){
     $("#btnVaciar").click(vaciarFormulario)
     $("#btnSalir").click(logout)
 
+    $("#btnSumar").click(sumar)
+    $("#btnSaludar").click(saludar)
+
     modoInsercion()
     conectar()
     listarDiscos()
@@ -224,6 +254,10 @@ function inicializar(){
             <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
             <button class="btn btn-danger  mr-1" id="btnBorrar">Borrar</button>
             <button class="btn btn-warning mr-1" id="btnVaciar">Vaciar</button>
+            |
+            <button class="btn btn-success mr-1" id="btnSumar">Sumar</button>
+            <button class="btn btn-success mr-1" id="btnSaludar">Saludar</button>
+            |
             <button class="btn btn-primary mr-1" id="btnSalir">Salir</button>
         </div>
 
