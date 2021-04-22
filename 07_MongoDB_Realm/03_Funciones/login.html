@@ -33,7 +33,7 @@ async function conectar(){
         let pw    = $("#pw").val()
         let credenciales = Realm.Credentials.emailPassword(email, pw)
         let usuario = await app.logIn(credenciales)
-        window.location = "agenda.html"
+        window.location = "discos.html"
     } catch( error) {
         console.log(error)
         $("#error").html('<div class="alert alert-danger">Credenciales incorrectas</div>')
@@ -65,7 +65,7 @@ function inicializar(){
     <div class="container-fluid">
 
         <div class="jumbotron">
-            <h1>DiscoGest 3000</h1>
+            <h1>DiscoGest 3000 Realm (funciones)</h1>        
         </div>
         
         <div class="row">

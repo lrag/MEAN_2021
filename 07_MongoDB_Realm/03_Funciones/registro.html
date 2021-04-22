@@ -51,7 +51,7 @@ async function confirmar(){
 
     let usuarioInsertado = await usuario
       .mongoClient("mongodb-atlas")
-      .db("agenda")
+      .db("ejemplo_funciones")
       .collection("usuarios")
       .insertOne(customData)
 
@@ -59,7 +59,7 @@ async function confirmar(){
     //Refrescamos el usuario porque lo que tenemos en el local storage no incluye
     //el custom user data
     await app.currentUser.refreshCustomData()
-    window.location = "agenda.html"
+    window.location = "discos.html"
   } catch (error) {
     console.log(error)
   }
@@ -84,7 +84,7 @@ function inicializar(){
   <div class="container-fluid">
   
     <div class="jumbotron">
-      <h1>DiscoGest 3000</h1>
+      <h1>DiscoGest 3000 Realm (funciones)</h1>        
     </div>
 
     <div class="text-center">
