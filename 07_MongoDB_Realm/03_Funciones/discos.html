@@ -74,6 +74,29 @@ async function saludar(){
     alert(saludo)
 }
 
+///////////////////////////////////////////////////////////
+//Authentication: System
+//exports = async function(arg){
+//    let numeroDiscos = await context.services
+//    .get("mongodb-atlas")
+//    .db("ejemplo_funciones")
+//    .collection("discos")
+//    .count()
+//    return numeroDiscos;
+//};
+///////////////////////////////////////////////////////////
+async function getNumeroDiscos(){
+    //Esto devuelve solo el numero de discos del usuario
+    //let numeroDiscos = await esquema.collection("discos").count()
+    
+    let numeroDiscos = await usuario.functions.contarDiscos()    
+    $("#numeroDiscos").html(numeroDiscos)
+
+    setTimeout(getNumeroDiscos, 5000)
+}
+
+///////////////////////////////////////////////////////////
+
 async function logout(){
     await usuario.logOut()
     window.location = "login.html"
@@ -140,9 +163,6 @@ async function insertarDisco(){
             year       : $("#year").val(),
             genero     : $("#genero").val(),
             comentario : $("#comentario").val(),
-
-            datoChungo : "HABER KE PASA AKI",
-
             idUsuario  : usuario.id 
         }
 
@@ -237,6 +257,7 @@ function inicializar(){
     modoInsercion()
     conectar()
     listarDiscos()
+    getNumeroDiscos()
 }
 
 </script>
@@ -249,6 +270,12 @@ function inicializar(){
             <h1>DiscoGest 3000 Realm (funciones)</h1>        
         </div>
         
+        <div class="text-center">
+            <h3>Número de discos en la aplicación <span id="numeroDiscos"></span></h3>
+        </div>
+
+        <br/>
+
         <div class="text-center mt-2 mb-2">
             <button class="btn btn-primary mr-1" id="btnInsertar">Insertar</button>
             <button class="btn btn-primary mr-1" id="btnModificar">Modificar</button>
