@@ -1,0 +1,23 @@
+<div class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" skipLocationChange href="#" [routerLink]="['/tienda', { outlets: { 'primary':'perfil', 'der':'resumenCesta' }}]">Perfil</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" skipLocationChange href="#" [routerLink]="['/tienda', { outlets: { 'primary':'catalogo', 'der':'resumenCesta' }}]">Catálogo</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" skipLocationChange href="#" [routerLink]="['/tienda', { outlets: { 'primary':'cesta', 'der':null } }]">Cesta</a>
+            <a routerLink="/tienda/compra" style="display:none"></a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" skipLocationChange href="#" [routerLink]="['/tienda', { outlets: { 'primary':'pedidos', 'der':'resumenCesta' }}]">Pedidos</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link">Facturas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" (click)="logout()">Salir</a>
+        </li>
+    </ul>
+</div> 
