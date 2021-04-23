@@ -21,6 +21,8 @@ export class RealmService {
         return this.app
     }
 
+    //El esquema lo van a utilizar los servicios que hagan consultas
+    //Los controladores NO!
     public getEsquema(){
         //El esquema lo obtenemos a partir del usuario autenticado
         if(!this.esquema){

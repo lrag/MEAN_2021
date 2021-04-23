@@ -22,12 +22,9 @@ export class PerfilComponent implements OnInit {
     let usuario:Usuario = autenticationService.getUsuario()
     
     this.formulario = formBuilder.group({
-      _id       : formBuilder.control(usuario._id),
+      id       : formBuilder.control(usuario.id),
       nombre    : formBuilder.control(usuario.nombre,    [ Validators.required ]),
-      login     : formBuilder.control(usuario.login),
       pw        : formBuilder.control(usuario.pw,        [ Validators.required, Validators.minLength(10) ]),
-      idioma    : formBuilder.control(usuario.idioma),
-      correoE   : formBuilder.control(usuario.correoE,   [ Validators.required, Validators.email ]),
       telefono  : formBuilder.control(usuario.telefono,  [ Validators.required ]),    
       direccion : formBuilder.control(usuario.direccion, [ Validators.required ]),    
     })

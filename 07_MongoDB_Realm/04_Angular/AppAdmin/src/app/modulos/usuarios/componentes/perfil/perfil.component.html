@@ -28,7 +28,7 @@
     
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="pw">Password</label>
-    </div>
+    </div>    
     <div class="col-sm-12 col-md-10 mt-1">
         <input id="pw" formControlName="pw" class="form-control"/>
 
@@ -40,32 +40,6 @@
         </div>
     </div>                 
     
-    <div class="col-sm-12 col-md-2 mt-1">
-        <label for="year">Idioma</label>
-    </div>
-    <div class="col-sm-12 col-md-10 mt-1">
-        <select formControlName="idioma" class="form-control">
-            <option>ES</option>
-            <option>EN</option>
-        </select>
-    </div>
-    
-    <div class="col-sm-12 col-md-2 mt-1">
-        <label for="correoE">Correo E</label>
-    </div>
-    <div class="col-sm-12 col-md-10 mt-1">
-        <input id="correoE" formControlName="correoE" class="form-control"/>
-
-        <div *ngIf="(formulario.get('correoE').dirty || formulario.get('correoE').touched)">
-            <small *ngIf="formulario.get('correoE').hasError('required')" class="text-danger" >
-                Campo obligatorio.
-            </small>
-            <small *ngIf="formulario.get('correoE').hasError('email')" class="text-danger" >
-                No es un correo electrónico correcto.
-            </small>
-        </div>
-    </div>
-
     <div class="col-sm-12 col-md-2 mt-1">
         <label for="telefono">Teléfono</label>
     </div>

@@ -21,17 +21,22 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public introPulsado(evento){
+    if(evento.keyCode != 13){
+        return
+    }
+    this.entrar()    
+  }
+
   public entrar():void{
     this.autenticacionService.login(this.usuario)
-    .subscribe(
-      () => {
-        this.router.navigateByUrl("/tienda")
-      },
-      error => {
-        console.log(error)
+    .then( () => {
+        this.router.navigateByUrl("/incidencias")
+    })
+    .catch(error => {
         this.mensaje = "Credenciales incorrectas"
-      }
-    )
+    })
+
   }
 
 }
