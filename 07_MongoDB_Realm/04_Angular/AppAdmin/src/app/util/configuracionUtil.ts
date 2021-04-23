@@ -2,6 +2,6 @@
 
 //@Injectable( { providedIn : 'root' })
 export class ConfiguracionUtil {
-    public static urlServidor:string = "https://localhost:7000"
+    public static realmAppId:string = "incigest_3000-tlxaw"
 }
 

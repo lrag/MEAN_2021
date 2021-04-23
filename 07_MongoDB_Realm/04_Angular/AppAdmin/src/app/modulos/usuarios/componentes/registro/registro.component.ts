@@ -16,7 +16,6 @@ export class RegistroComponent implements OnInit {
   public confirmacionPw:string
 
   constructor(private router:Router,
-              private sessionService:SessionService,
               private usuariosService:UsuariosService) { 
     this.usuario = new Usuario()
   }
@@ -24,12 +23,8 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public siguiente():void{
+  public guardar():void{
     
-    this.sessionService.setItem("usuario",this.usuario)
-
-    //Navega
-    this.router.navigateByUrl("/usuarios/aceptacion")
   }
 
 }

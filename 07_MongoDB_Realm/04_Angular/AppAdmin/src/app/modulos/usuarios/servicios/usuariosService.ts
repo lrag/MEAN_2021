@@ -10,13 +10,19 @@ export class UsuariosService {
     public constructor(private sessionService:SessionService){
     }
 
-
+    //PAra que los administradores registren a empleados
     public altaUsuario(usuario:Usuario){
+
+
+
+        
     }
 
+    //Para que un usuario modifique su perfil
     public modificarUsuario(usuario:Usuario){
     }
 
+    //Para que los administradores den de baja a un empleado
     public bajaUsuario(){
     }
 
