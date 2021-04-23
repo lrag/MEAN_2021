@@ -4,12 +4,11 @@ import { AppComponent } from './app.component';
 import { CabeceraComponent } from './componentes/maquetacion/cabecera/cabecera.component';
 import { PieComponent } from './componentes/maquetacion/pie/pie.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './modulos/usuarios/componentes/maquetacion-login/maquetacion-login.component';
 import { UsuariosModule } from './modulos/usuarios/usuariosModule';
-import { TiendaModule } from './modulos/tienda/tiendaModule';
-import { MaquetacionTiendaComponent } from './modulos/tienda/componentes/maquetacion-tienda/maquetacion-tienda.component';
+import { IncidenciasAdminModule } from './modulos/incidenciasAdmin/incidenciasAdminModule';
+import { MaquetacionIncidenciasComponent } from './modulos/incidenciasAdmin/componentes/maquetacion-incidencias/maquetacion-incidencias..component';
 
 
 @NgModule({
@@ -24,7 +23,7 @@ import { MaquetacionTiendaComponent } from './modulos/tienda/componentes/maqueta
     ReactiveFormsModule,     //Para los formularios reactivos y las validaciones que tanto nos gustan y tanto nos entretienen
     RouterModule.forRoot(AppModule.rutasPrimerRouterOutlet), //Para los router outlet
     UsuariosModule,
-    TiendaModule
+    IncidenciasAdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -48,9 +47,9 @@ export class AppModule {
         children  : UsuariosModule.rutasMaquetacionLogin
       },
       {
-        path      : 'tienda',
-        component : MaquetacionTiendaComponent,
-        children  : TiendaModule.rutasMaquetacionTienda
+        path      : 'incidencias',
+        component : MaquetacionIncidenciasComponent,
+        children  : IncidenciasAdminModule.rutasMaquetacionIncidencias
       }
   ]
   

@@ -23,6 +23,7 @@ import { RegistroComponent } from "./componentes/registro/registro.component";
     ],
     exports: [
         PerfilComponent,
+        RegistroComponent,
         MaquetacionLoginComponent
     ]
   })

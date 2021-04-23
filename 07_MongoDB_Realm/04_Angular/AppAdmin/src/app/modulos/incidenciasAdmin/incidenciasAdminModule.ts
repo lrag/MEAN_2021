@@ -3,27 +3,28 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { PerfilComponent } from "../usuarios/componentes/perfil/perfil.component";
-import { MaquetacionTiendaComponent } from "./componentes/maquetacion-tienda/maquetacion-tienda.component";
+import { RegistroComponent } from "../usuarios/componentes/registro/registro.component";
+import { MaquetacionIncidenciasComponent } from "./componentes/maquetacion-incidencias/maquetacion-incidencias..component";
 import { MenuComponent } from "./componentes/menu/menu.component";
 
 @NgModule({
     declarations: [
       MenuComponent,
-      MaquetacionTiendaComponent,
+      MaquetacionIncidenciasComponent,
     ],
     imports: [
         BrowserModule,
         FormsModule,
         ReactiveFormsModule, 
-        RouterModule.forRoot(TiendaModule.rutasMaquetacionTienda)
+        RouterModule.forRoot(IncidenciasAdminModule.rutasMaquetacionIncidencias)
     ],
     exports: [
-        MaquetacionTiendaComponent
+      MaquetacionIncidenciasComponent
     ]
   })
-export class TiendaModule {
+export class IncidenciasAdminModule {
 
-    public static rutasMaquetacionTienda = [
+    public static rutasMaquetacionIncidencias = [
       //
       //Rutas para la segunda carpeta de la barra del navegador:  
       //
@@ -31,5 +32,10 @@ export class TiendaModule {
         path      : 'perfil',
         component : PerfilComponent
       },
+      {
+        path      : 'empleados',
+        component : RegistroComponent
+      }
+      //path : incidencias
     ]
 }
