@@ -10,11 +10,21 @@ import { UsuariosService } from 'src/app/modulos/usuarios/servicios/usuariosServ
 })
 export class ListadoUsuariosComponent implements OnInit {
 
+  public empleados:any[]
 
-  constructor() { 
+  constructor(private usuariosService:UsuariosService) { 
+
+    this.listarEmpleados()
+
   }
 
   ngOnInit(): void {
+  }
+  
+  public listarEmpleados():void{
+    this.usuariosService.listarUsuarios()
+    .then( listado => this.empleados = listado)
+    .catch( error => console.log(error))
   }
 
 }

@@ -6,19 +6,28 @@
 
 <div class="text-center">
   <input type="button" 
-  value="Nuevo" 
-  class="btn mr-1 btn-primary" 
-  style="width:110px"/>
+         value="Nuevo" 
+         class="btn mr-1 btn-primary" 
+         style="width:110px"
+         routerLink="/incidencias/registroEmpleado">
 </div>
 
 <p></p>
 
 <table class="table table-striped table-hover">
   <tr>
+    <th>Correo E</th>
     <th>Nombre</th>
     <th>Dirección</th>
     <th>Teléfono</th>
     <th>ROL</th>
+  </tr>
+  <tr *ngFor="let e of empleados">
+    <td>{{e.email}}</td>
+    <td>{{e.nombre}}</td>
+    <td>{{e.direccion}}</td>
+    <td>{{e.telefono}}</td>
+    <td>{{e.rol}}</td>
   </tr>
 </table>
 

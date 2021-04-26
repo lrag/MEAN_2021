@@ -25,24 +25,30 @@ export class AutenticacionService {
                 let app = this.realmService.getApp()
                 let credenciales = Credentials.emailPassword(usuario.correoE, usuario.pw)
                 await app.logIn(credenciales)
-                resolve("( (  |")
+
+                if(app.currentUser.customData.rol != "ADMIN"){
+                    reject({ mensaje : 'Rol incorrento' })
+                    await app.currentUser.logOut()
+                    return
+                }
                 
                 //Llamamos por primera vez a get esquema aunque no queramos ejecutar una consulta
                 //para asegurarnos de que el esquema queda asociado al usuario atuenticado
                 //(semi ñapa)
                 this.realmService.getEsquema()
-
-
                 console.log("autenticacionService.login:",app.currentUser)
+                resolve("( (  |")
+
             } catch( error) {
                 console.log(error)
-                reject()                
+                reject({ mensaje : 'Credenciales incorrectas' })              
             }  
         })
 
     }
 
     public logout():void{
+        this.realmService.getApp().currentUser.logOut()
     }
 
     public modificarUsuario(usuario:Usuario):Observable<any>{

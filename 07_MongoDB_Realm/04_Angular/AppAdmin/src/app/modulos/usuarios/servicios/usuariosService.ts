@@ -33,6 +33,7 @@ export class UsuariosService {
         let usuarioAux = await app.logIn(credenciales)
 
         let customData = {
+          email     : usuario.correoE,
           nombre    : usuario.nombre,
           direccion : usuario.direccion,
           telefono  : usuario.telefono,
@@ -96,7 +97,9 @@ export class UsuariosService {
 
   //Para que los administradores listen a los empleados
   public listarUsuarios(){
-    //find
+    return this.realmService.getEsquema().collection("usuarios")
+      //.find({ rol : 'EMPLEADO' })
+      .find()
   }
 
 }

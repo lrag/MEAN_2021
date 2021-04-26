@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("/incidencias")
     })
     .catch(error => {
-        this.mensaje = "Credenciales incorrectas"
+        this.mensaje = error.mensaje
     })
 
   }
