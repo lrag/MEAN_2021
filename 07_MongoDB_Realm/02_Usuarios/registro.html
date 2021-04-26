@@ -36,7 +36,7 @@ function confirmar(){
     .then( () => {
         console.log("Usuario registrado")
 
-        //Para poder añadir el curstom data al usuario necesitamos el id del nuevo usuario
+        //Para poder añadir el custom data al usuario necesitamos el id del nuevo usuario
         //asi que hacemos un login 
         let credenciales = Realm.Credentials.emailPassword(email, pw)
         return app.logIn(credenciales)

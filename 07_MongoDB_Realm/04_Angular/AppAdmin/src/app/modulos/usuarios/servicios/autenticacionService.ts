@@ -9,12 +9,13 @@ import { Credentials } from "realm-web"
 @Injectable({ providedIn : 'root' })
 export class AutenticacionService {
 
+
     public constructor(private usuariosService:UsuariosService,
                        private realmService:RealmService){
     }
 
-    public getUsuario():Usuario{
-        return 
+    public getUsuario():any{
+        return this.realmService.getApp().currentUser
     }
 
     public login(usuario:Usuario){
@@ -25,6 +26,14 @@ export class AutenticacionService {
                 let credenciales = Credentials.emailPassword(usuario.correoE, usuario.pw)
                 await app.logIn(credenciales)
                 resolve("( (  |")
+                
+                //Llamamos por primera vez a get esquema aunque no queramos ejecutar una consulta
+                //para asegurarnos de que el esquema queda asociado al usuario atuenticado
+                //(semi ñapa)
+                this.realmService.getEsquema()
+
+
+                console.log("autenticacionService.login:",app.currentUser)
             } catch( error) {
                 console.log(error)
                 reject()                

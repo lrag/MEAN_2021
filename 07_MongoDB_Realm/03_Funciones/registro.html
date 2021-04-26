@@ -37,7 +37,7 @@ async function confirmar(){
     //-añadir su información adicional a 'custom user data'
     await app.emailPasswordAuth.registerUser(email, pw)
     console.log("Usuario registrado")
-    //Para poder añadir el curstom data al usuario necesitamos el id del nuevo usuario
+    //Para poder añadir el custom data al usuario necesitamos el id del nuevo usuario
     //asi que hacemos un login 
     let credenciales = Realm.Credentials.emailPassword(email, pw)
     let usuario = await app.logIn(credenciales)

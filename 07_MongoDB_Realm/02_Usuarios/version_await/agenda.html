@@ -36,6 +36,7 @@ function conectar(){
     //Obtenemos un objeto que representa a la aplicacion Realm
     app = new Realm.App({ id : "agendarealm-qilou" })
     usuario = app.currentUser
+    console.log(usuario)
     //Si no hay un usuario autenticado mostraremos otra vez la pantalla de login
     if(!usuario){
         window.location = "login.html"

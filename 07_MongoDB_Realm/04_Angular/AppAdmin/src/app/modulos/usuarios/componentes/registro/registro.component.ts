@@ -10,10 +10,9 @@ import { UsuariosService } from 'src/app/modulos/usuarios/servicios/usuariosServ
 })
 export class RegistroComponent implements OnInit {
 
-  public errorLoginRepetido
-  
   public usuario:Usuario
-  public confirmacionPw:string
+  public mensaje:string
+  public error:string
 
   constructor(private router:Router,
               private usuariosService:UsuariosService) { 
@@ -25,6 +24,16 @@ export class RegistroComponent implements OnInit {
 
   public guardar():void{
     
+    this.usuariosService.altaUsuario(this.usuario)
+    .then( () => {
+      console.log("Ya está")
+      this.mensaje = "Empleado registrado"
+    })
+    .catch( error => {
+      console.log(error)
+      this.error = "Fallo al registrar"
+    })
+
   }
 
 }
