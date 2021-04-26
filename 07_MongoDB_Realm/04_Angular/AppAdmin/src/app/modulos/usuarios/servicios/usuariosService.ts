@@ -41,7 +41,7 @@ export class UsuariosService {
 
             console.log("CurrentUSer (antes del insert one)", app.currentUser)
             
-
+            //hay que estar seguro de que esta consulta se hace en nombre de un administrador
             this.realmService.getEsquema()
               .collection("usuarios")
               .insertOne(customData)
