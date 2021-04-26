@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
+import { ListadoUsuariosComponent } from "./componentes/listadoUsuarios/listado-usuarios.component";
 import { LoginComponent } from "./componentes/login/login.component";
 import { MaquetacionLoginComponent } from "./componentes/maquetacion-login/maquetacion-login.component";
 import { PerfilComponent } from "./componentes/perfil/perfil.component";
@@ -13,6 +14,7 @@ import { RegistroComponent } from "./componentes/registro/registro.component";
       LoginComponent,
       PerfilComponent,
       RegistroComponent,
+      ListadoUsuariosComponent,
       MaquetacionLoginComponent
     ],
     imports: [
@@ -24,6 +26,7 @@ import { RegistroComponent } from "./componentes/registro/registro.component";
     exports: [
         PerfilComponent,
         RegistroComponent,
+        ListadoUsuariosComponent,
         MaquetacionLoginComponent
     ]
   })
@@ -34,10 +37,6 @@ export class UsuariosModule {
         {
           path      : 'login',
           component : LoginComponent
-        },
-        {
-          path      : 'registro',
-          component : RegistroComponent
         }
     ]
 

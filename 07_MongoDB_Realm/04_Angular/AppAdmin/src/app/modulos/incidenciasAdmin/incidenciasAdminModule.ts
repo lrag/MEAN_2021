@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
+import { ListadoUsuariosComponent } from "../usuarios/componentes/listadoUsuarios/listado-usuarios.component";
 import { PerfilComponent } from "../usuarios/componentes/perfil/perfil.component";
 import { RegistroComponent } from "../usuarios/componentes/registro/registro.component";
 import { MaquetacionIncidenciasComponent } from "./componentes/maquetacion-incidencias/maquetacion-incidencias..component";
@@ -33,8 +34,12 @@ export class IncidenciasAdminModule {
         component : PerfilComponent
       },
       {
-        path      : 'empleados',
+        path      : 'registroEmpleado',
         component : RegistroComponent
+      },
+      {
+        path      : 'empleados',
+        component : ListadoUsuariosComponent
       }
       //path : incidencias
     ]
