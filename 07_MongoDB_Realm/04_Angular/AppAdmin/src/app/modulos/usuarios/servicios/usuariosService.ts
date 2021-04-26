@@ -52,18 +52,23 @@ export class UsuariosService {
         /*  
         //Tambien podemos hacerlo en una funcion Realm en la que el rol siempre será 'EMPLEADO'
         exports = function(customData){
-          return new Promise( async (resolve,reject) => {            
-            var usuarios = context.services.get("mongodb-atlas").db("incidencias").collection("usuarios");            
+
+          return new Promise( async (resolve,reject) => {
+            //No hace falta porque hemos puesto una expresión al definir la función
+            //if(user.custom_data.rol != "ADMIN"){
+            //  reject({ mensaje : "Solo los administradores pueden invocar esta función"})
+            //}  
+            var usuarios = context.services.get("mongodb-atlas").db("incidencias").collection("usuarios"); 
             if(!customData.idUsuario){
               reject({ mensaje : "Es necesario el id del usuario" })
               return
-            }                
+            }    
             //Por si intentan hacerse los graciosos...
-            customData.rol = "CLIENTE"
-            await usuarios.insertOne(customData)                
+            customData.rol = "EMPLEADO"
+            await usuarios.insertOne(customData)    
             resolve({ mensaje :"OK"})
-          })            
-        };   
+          })
+        };  
         */        
         //Si dejamos esto llamamos a la función en nombre del empleado!
         //this.autenticacionService.getUsuario().functions.altaEmpleado(customData)
