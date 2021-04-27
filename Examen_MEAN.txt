@@ -1,0 +1,103 @@
+NOMBRE:…………………………………………………………………………………………………FECHA….…………….
+EXAMEN 
+
+Seleccione una o varias de las repuestas propuestas a cada una de las siguientes cuestiones:
+1)	Javascript es un lenguaje:
+a)	Fuertemente tipado
+b)	No tipado
+c)	No tiene tipos
+
+2)	La orientación a objetos de Javascript:
+a)	Funciona por prototipado
+b)	Javascript no es orientado a objetos
+c)	Funciona con clases
+
+3)	Una función que no recibe parámetros pero que se invoca con ellos:
+a)	No provoca error,pero no puede acceder a ellos
+b)	Provoca un error de ejecución
+c)	Puede acceder a ellos con ‘arguments’
+
+4)	Para averiguar qué tipo de valor guarda una variable:
+a)	Usamos instanceof
+b)	Usamos typeof
+c)	Usamos la intuición
+ 
+5)	El objeto XmlHttpRequest:
+a)	No permite enviar peticiones síncronas
+b)	Solo permite enviar peticiones GET
+c)	Debemos crearlo con new
+
+6)	Para crear un objeto en Javascript:
+a)	Debemos reservar la memoria y liberarla cuando el objeto no sea útil.
+b)	La reserva de memoria es automática pero la liberación no
+c)	Tanto la reserva de memoria como la liberación de la misma es automática
+
+7)	Definiendo una función flecha que recibe solo un parámetro:
+a)	Podemos obviar los paréntesis
+b)	Debemos incluir los paréntesis
+c)	Las funciones flecha no pueden recibir parámetros
+
+8)	Para cancelar un evento con Javascript referenciado por la variable ‘evento’:
+a)	evento.cancel
+b)	evento.preventDefault
+c)	evento.reject
+
+9)	Para concatenar cadenas en Javascript se utiliza el operador:
+a)	.
+b)	concat
+c)	+
+
+10)	 ¿Cuál de estas funciones pertenece al objeto Document?:
+a)	getElementsById.
+b)	getElementsByTagName.
+c)	getElementByName
+ 
+11)	 Una variable declarada con let:
+a)	Tiene como ámbito la función en la que se encuentra.
+b)	Tiene un ámbito global.
+c)	Tiene como ámbito el bloque en el que se encuentra
+
+12)	JQuery es:
+a)	Un framework Javascript.
+b)	Una librería Javascript.
+
+
+
+13)	En JQuery la función $:
+a)	Devuelve un array
+b)	Devuelve un objeto JQuery
+c)	Es void
+
+14)	Bootstrap divide el ancho de la pantalla en:
+a)	8 columnas.
+b)	10 columnas.
+c)	12 columnas.
+
+15)	En JQuery, concatenar una función a $( selector ):
+a)	Aplica esa función al primer elemento que cumple el selector
+b)	Aplica esa función último elemento que cumple el selector
+c)	Aplica esa función a todos los elementos que cumplen el selector
+
+16)	Typescript:
+a)	Es un lenguaje que se ejecuta en el navegador
+b)	Un subconjunto de Javascript
+c)	Un superconjunto de Javascript
+
+17)	El código de una aplicación Angular 2:  
+a)	Comprende las capas de Vista y Controlador del patrón MVC
+b)	Incluye vista, controlador y la lógica de negocio necesaria que pueda ejecutarse en el cliente
+
+18)	El código de una aplicación Angular 2:
+a)	Se ejecuta íntegramente en el navegador
+b)	Se ejecuta parte en el navegador, parte en el servidor
+c)	Depende de con que pie se levante
+
+19)	Las vistas en Angular 2
+a)	Son HTML
+b)	Son plantillas que se utilizan para generar la vista
+c)	Se definen obligatoriamente en el componente
+
+20)	Para repetir un elemento en una plantilla tantas veces como elementos existan en un array debe usarse:
+a)	forEach
+b)	ngFor
+c)	repeat
