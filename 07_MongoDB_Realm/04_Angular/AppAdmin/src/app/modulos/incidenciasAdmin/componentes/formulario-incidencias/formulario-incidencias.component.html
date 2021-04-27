@@ -1,48 +1,58 @@
 
 <div class="text-center mt-2 mb-2">
     <button class="btn btn-primary mr-1" id="btnInsertar"  (click)="insertar()">Insertar</button>
-    <button class="btn btn-primary mr-1" id="btnModificar" (click)="modificar()">Modificar</button>
-    <button class="btn btn-danger  mr-1" id="btnBorrar"    (click)="borrar()">Borrar</button>
-    <button class="btn btn-warning mr-1" id="btnVaciar"    (click)="vaciar()">Vaciar</button>
+    <button class="btn btn-primary mr-1" id="btnModificar" >Modificar</button>
+    <button class="btn btn-danger  mr-1" id="btnBorrar"    >Borrar</button>
+    <button class="btn btn-warning mr-1" id="btnVaciar"    >Vaciar</button>
+    <button class="btn btn-warning mr-1" id="btnVolver"    routerLink="/incidencias/listadoIncidencias">Volver</button>
 </div>
 
 <div class="row" id="formulario">  
 
     <div class="col-2 mt-1">
-        <label for="titulo">Título</label>
+        <label for="nombre">Nombre</label>
     </div>
     <div class="col-10 mt-1">
-        <input class="form-control" id="titulo" [(ngModel)]="tarea.titulo"/>
+        <input class="form-control" id="nombre" [(ngModel)]="incidencia.nombre"/>
     </div>
 
     <div class="col-2 mt-1">
-        <label>Empleado</label>
+        <label for="idUsuario">Empleado</label>
     </div>
     <div class="col-10 mt-1">
-        <select class="form-control" campo="" id="idUsuario" [(ngModel)]="tarea.usuario.idUsuario">
+        <select class="form-control" id="idUsuario" [(ngModel)]="incidencia.usuario.id">
             <option value="0">Seleccione...</option>
-            <option *ngFor="let e of empleados" value="{{e.idUsuario}}">{{e.nombre}}</option>
+            <!--Los objetos de este array vienen de la coleccion 'usuarios' en Realm (custom_user_data)-->
+            <option *ngFor="let e of listaEmpleados" value="{{e.idUsuario}}">{{e.nombre}}</option>
         </select>
     </div>
     <div class="col-2 mt-1">
         <label>Descripción</label>
     </div>
     <div class="col-10 mt-1">
-        <input class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion"/>
+        <input class="form-control" id="descripcion" [(ngModel)]="incidencia.descripcion"/>
     </div>
 
     <div class="col-2 mt-1">
         <label>Prioridad</label>
     </div>
     <div class="col-10 mt-1">
-        <input class="form-control" id="prioridad" [(ngModel)]="tarea.prioridad"/>
+        <input class="form-control" id="prioridad" [(ngModel)]="incidencia.prioridad"/>
+    </div>
+
+    <div class="col-2 mt-1">
+        <label>Fecha</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="fecha" [(ngModel)]="incidencia.fecha"/>
     </div>
     
     <div class="col-2 mt-1">
         <label>Estado</label>
     </div>
     <div class="col-10 mt-1">
-        <select class="form-control" id="estado" [(ngModel)]="tarea.estado">
+        <select class="form-control" id="estado" [(ngModel)]="incidencia.estado">
+            <option value="">Seleccione...</option>
             <option>PENDIENTE</option>
             <option>EN PROCESO</option>
             <option>FINALIZADA</option>

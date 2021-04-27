@@ -5,12 +5,16 @@ import { RouterModule } from "@angular/router";
 import { ListadoUsuariosComponent } from "../usuarios/componentes/listadoUsuarios/listado-usuarios.component";
 import { PerfilComponent } from "../usuarios/componentes/perfil/perfil.component";
 import { RegistroComponent } from "../usuarios/componentes/registro/registro.component";
+import { FormularioIncidenciasComponent } from "./componentes/formulario-incidencias/formulario-incidencias.component";
+import { ListadoIncidenciasComponent } from "./componentes/listado-incidencias/listado-incidencias.component";
 import { MaquetacionIncidenciasComponent } from "./componentes/maquetacion-incidencias/maquetacion-incidencias..component";
 import { MenuComponent } from "./componentes/menu/menu.component";
 
 @NgModule({
     declarations: [
       MenuComponent,
+      ListadoIncidenciasComponent,
+      FormularioIncidenciasComponent,
       MaquetacionIncidenciasComponent,
     ],
     imports: [
@@ -40,6 +44,14 @@ export class IncidenciasAdminModule {
       {
         path      : 'empleados',
         component : ListadoUsuariosComponent
+      },
+      {
+        path      : 'listadoIncidencias',
+        component : ListadoIncidenciasComponent
+      },
+      {
+        path      : 'formularioIncidencias',
+        component : FormularioIncidenciasComponent
       }
       //path : incidencias
     ]

@@ -14,7 +14,23 @@ export class AutenticacionService {
                        private realmService:RealmService){
     }
 
-    public getUsuario():any{
+    /*
+    public getUsuario():Usuario{
+        let usuarioRealm:any =  this.realmService.getApp().currentUser
+
+        let usuario:Usuario = new Usuario()
+        usuario.id        = usuarioRealm.id
+        usuario.correoE   = usuarioRealm.profile.data.email
+        usuario.nombre    = usuarioRealm.customData.nombre
+        usuario.direccion = usuarioRealm.customData.direccion
+        usuario.telefono  = usuarioRealm.customData.telefono
+        usuario.rol       = usuarioRealm.customData.rol
+
+        return usuario
+    }
+    */
+
+    public getUsuario():any {
         return this.realmService.getApp().currentUser
     }
 
@@ -36,7 +52,7 @@ export class AutenticacionService {
                 //para asegurarnos de que el esquema queda asociado al usuario atuenticado
                 //(semi ñapa)
                 this.realmService.getEsquema()
-                console.log("autenticacionService.login:",app.currentUser)
+                console.log("autenticacionService.login:",JSON.stringify(app.currentUser))
                 resolve("( (  |")
 
             } catch( error) {

@@ -98,8 +98,8 @@ export class UsuariosService {
   //Para que los administradores listen a los empleados
   public listarUsuarios(){
     return this.realmService.getEsquema().collection("usuarios")
-      //.find({ rol : 'EMPLEADO' })
-      .find()
+      .find({ rol : 'EMPLEADO' })
+      //.find()
   }
 
 }
