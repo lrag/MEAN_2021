@@ -1,0 +1,121 @@
+NOMBRE : …………………………………………………………………………………………………
+FECHA : ….…………….
+EXAMEN 
+
+
+1. How is the data organized within MongoDB?
+
+a.	MongoDB can hold up to one database containing many collections where
+	documents are stored.
+b.	MongoDB is able to handle multiple databases holding many collections and the
+	documents are finally stored within them.
+c.	MongoDB doesn’t have collections, but databases where the documents are
+	persisted.
+d.	MongoDB stores data in tables that belong to only one database.
+
+2. JSON is the way documents are represented in MongoDB. The mongoshell, as a javascript interpreter, uses JSON documents intensively to accomplish many different tasks such as CRUD operations, server configuration and so on. Which of the following assertions are correct (many of them might apply)?:
+
+a.	 The JSON format is also used to persist data on disk, which makes more optimal
+	to deal with data.
+b.	 JSON documents allow modeling our business entities easily as it enables
+	storing complex data types such as arrays and nested documents.
+c.	 JSON documents don’t need to follow a schema and hence different
+	documents from the same collection might have different fields.
+d.	 JSON documents cannot be bigger than 16MB.
+
+3. Choose the correct sentence (only one applies):
+
+a.	 If a document is inserted without the _id field, the mongod process creates it
+	automatically with a unique ObjectId as the value.
+b.	 If a document is inserted without the _id field, the driver creates it
+	automatically with a unique ObjectId as the value.
+c.	Documents cannot have an _id field.
+d.	None of the above is correct.
+
+
+4. Consider the following sentences being executed in a mongoshell session and guess
+which answer is the right one:
+
+use mongorules
+db.ilikemongodb.drop()
+db.ilikemongodb.insert({firstName:"Venancia" , lastName:"García" , role:"teacher" })
+db.ilikemongodb.insert({firstName:"Venancia" , lastName:"García" , role:"teacher" })
+db.ilikemongodb.insert({firstName:"Venancio" , lastName:"Pérez" , role:"teacher" })
+
+a.	 The second insert operation will fail because MongoDB doesn’t allow having two
+	documents with the same fields.
+b.	 None of the operations will fail, but the second insert will overwrite the first one
+	and only two documents will persist.
+c.	 All the documents will be added, and hence the collection will have three
+	documents.
+d.	 All the inserts will fail. The _id is a mandatory field that every document must
+	specify, otherwise will raise an error.
+
+5. Inserts will fail if… (only one applies):
+
+a.	There is already a document in the collection with that _id.
+b.	You try to assign an array to the _id.
+c.	The argument is not a well-formed document.
+d.	All the answers above are correct.
+
+6. Cuando se modifica un documento con update:
+
+a.	En mongoDB es imposible modificar documentos.
+b.	Si no se indica lo contrario se devuelve el documento que existía anteriormente.
+c.	Se devuelve siempre el nuevo documento.
+d.	Los documentos se modifican con la operación replace.
+
+7. Para insertar un documento en una colección 
+
+a.	Hay que pedirlo por favor.
+b.	Hay que usar insert y hace falta que exista el esquema pero no la colección.
+c.	Hay que usar insert y hace falta que existan previamente la colección y el esquema.
+d.	Hay que usar insert y no hace falta que existan previamente ni la colección ni el esquema.
+
+8. Based on the following commands in the mongoshell , which affirmations are true? (more
+than one can apply):
+
+db.ilikemongodb.insertMany( [ 
+{ _id:"6748FHJ" , brand:"Fiat" , model:"Uno" },
+{ _id:"6749FHJ" , brand:"Fiat" , model:"Uno" },
+{ _id:4389, companyName:"MongoDD" },
+{ _id:[1,2], CPU:"Intel" , brand:"Dell" },
+{ _id:"6750FHJ" , brand:"Fiat" , model:"Uno" } 
+],
+{ ordered: true } )
+
+a.	The documents are sorted by _id before insertion.
+b.	The third and four inserts will fail because their _id data types differ from the _id
+	data types in the other operations.
+c.	The fourth insert will fail because arrays are not allowed in the _id field.
+d.	The last insert won’t be executed because of the option { ordered: true }
+e.	prevent it due to a previous error.
+f.	
+
+
+9. When it comes to document deletion, how many commands are available in MongoDB?
+
+a.	 MongoDB doesn’t allow deleting documents because the NoSQL paradigm is
+	 meant to prevent data loss.
+b.	 Documents in MongoDB can only be deleted one by one with the deleteOneByOne
+	 command to avoid "f at finger " errors.
+c.	 Documents can be deleted in MongoDB by using deleteOne and deleteMany
+	 according to how many documents need to be removed.
+d.	 The deleteOne command is used to remove documents from a Stand-alone
+	deployment while the deleteMany helps to delete documents in Replica sets and
+	Sharded Clusters.
+
+10. Given the following query, what’s the expected output?
+
+db.movies.find( { "year" : 1989, "title" : "Batman" } )
+
+a.	 Return all the documents having the field year equals 1989 and the field
+	title equals Batman.
+b.	 Display a list of all the collections within the database movies containing
+	documents where the field year is equal to 1989 and the field title is equal to
+	Batman.
+c.	 Only pull out all the documents where the field year is equal to 1989 or the field
+	title is equal to Batman.
+d.	 None of the above is valid as MongoDB always negate query’s predicates and
+	bring back documents fulfilling the opposite condition.
+
