@@ -1,0 +1,51 @@
+
+<div class="text-center mt-2 mb-2">
+    <button class="btn btn-primary mr-1" id="btnInsertar"  (click)="insertar()">Insertar</button>
+    <button class="btn btn-primary mr-1" id="btnModificar" (click)="modificar()">Modificar</button>
+    <button class="btn btn-danger  mr-1" id="btnBorrar"    (click)="borrar()">Borrar</button>
+    <button class="btn btn-warning mr-1" id="btnVaciar"    (click)="vaciar()">Vaciar</button>
+</div>
+
+<div class="row" id="formulario">  
+
+    <div class="col-2 mt-1">
+        <label for="titulo">Título</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="titulo" [(ngModel)]="tarea.titulo"/>
+    </div>
+
+    <div class="col-2 mt-1">
+        <label>Empleado</label>
+    </div>
+    <div class="col-10 mt-1">
+        <select class="form-control" campo="" id="idUsuario" [(ngModel)]="tarea.usuario.idUsuario">
+            <option value="0">Seleccione...</option>
+            <option *ngFor="let e of empleados" value="{{e.idUsuario}}">{{e.nombre}}</option>
+        </select>
+    </div>
+    <div class="col-2 mt-1">
+        <label>DescripciÃ³n</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion"/>
+    </div>
+
+    <div class="col-2 mt-1">
+        <label>Prioridad</label>
+    </div>
+    <div class="col-10 mt-1">
+        <input class="form-control" id="prioridad" [(ngModel)]="tarea.prioridad"/>
+    </div>
+    
+    <div class="col-2 mt-1">
+        <label>Estado</label>
+    </div>
+    <div class="col-10 mt-1">
+        <select class="form-control" id="estado" [(ngModel)]="tarea.estado">
+            <option>PENDIENTE</option>
+            <option>EN PROCESO</option>
+            <option>FINALIZADA</option>
+        </select>
+    </div>                 
+</div>         

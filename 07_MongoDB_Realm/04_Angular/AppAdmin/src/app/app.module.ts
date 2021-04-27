@@ -9,13 +9,17 @@ import { MaquetacionLoginComponent } from './modulos/usuarios/componentes/maquet
 import { UsuariosModule } from './modulos/usuarios/usuariosModule';
 import { IncidenciasAdminModule } from './modulos/incidenciasAdmin/incidenciasAdminModule';
 import { MaquetacionIncidenciasComponent } from './modulos/incidenciasAdmin/componentes/maquetacion-incidencias/maquetacion-incidencias..component';
+import { ListadoIncidenciasComponent } from './modulos/incidenciasAdmin/componentes/listado-incidencias/listado-incidencias.component';
+import { FormularioIncidenciasComponent } from './modulos/incidenciasAdmin/componentes/formulario-incidencias/formulario-incidencias.component';
 
 
 @NgModule({
   declarations: [
     PieComponent,
     AppComponent,
-    CabeceraComponent
+    CabeceraComponent,
+    ListadoIncidenciasComponent,
+    FormularioIncidenciasComponent
   ],
   imports: [
     BrowserModule,

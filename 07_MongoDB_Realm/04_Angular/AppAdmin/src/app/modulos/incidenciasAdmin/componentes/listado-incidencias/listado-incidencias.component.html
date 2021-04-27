@@ -1,0 +1,21 @@
+<table class="table table-striped table-hover mt-4">
+    <thead>
+        <tr>
+            <th>Empleado</th>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody id="tablaTareas">
+        <tr *ngFor="let t of tareas" (click)="seleccionar(t._id)">
+            <td>{{t.usuario.nombre}}</td>
+            <td>{{t.titulo}}</td>
+            <td>{{t.descripcion}}</td>
+            <td>{{t.prioridad}}</td>
+            <td>{{t.estado}}</td>
+        </tr>
+    </tbody>
+</table>
+   
