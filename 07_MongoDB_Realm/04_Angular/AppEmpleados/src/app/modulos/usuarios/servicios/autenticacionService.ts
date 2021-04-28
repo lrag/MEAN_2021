@@ -41,12 +41,6 @@ export class AutenticacionService {
                 let app = this.realmService.getApp()
                 let credenciales = Credentials.emailPassword(usuario.correoE, usuario.pw)
                 await app.logIn(credenciales)
-
-                if(app.currentUser.customData.rol != "ADMIN"){
-                    reject({ mensaje : 'Rol incorrento' })
-                    await app.currentUser.logOut()
-                    return
-                }
                 
                 //Llamamos por primera vez a get esquema aunque no queramos ejecutar una consulta
                 //para asegurarnos de que el esquema queda asociado al usuario atuenticado

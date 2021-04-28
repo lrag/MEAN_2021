@@ -3,7 +3,7 @@
 users
 
 {
-    _id : 1234,
+    _id : 1234,      //En realm este valor es user.id
     email : 'a@b.c',
     pw : ??
     ??
@@ -31,8 +31,8 @@ incidencia
     prioridad   : ddd
     fecha       : eee
     usuario : {
-        id : 1234
-        nombre : Harry
+        idUsuario : 1234
+        nombre    : Harry
     }
 }
 

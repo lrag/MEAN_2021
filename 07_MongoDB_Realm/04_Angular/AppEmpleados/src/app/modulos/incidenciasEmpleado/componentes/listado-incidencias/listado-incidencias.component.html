@@ -1,0 +1,39 @@
+
+<div class="text-center mt-2 mb-2">
+    <button class="btn btn-primary mr-1" id="btnInsertar" routerLink="/incidencias/formularioIncidencias">Nuevo</button>
+    <button class="btn btn-primary mr-1" id="btnRefrescar" (click)="listarIncidencias()">Refrescar</button>
+</div>
+
+<table class="table table-striped table-hover mt-4">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody id="tablaTareas">
+        <tr *ngFor="let incidencia of incidencias">
+            <td>{{incidencia.nombre}}</td>
+            <td title="{{incidencia.descripcion}}">{{incidencia.descripcion.substring(0, 50)}}...</td>
+            <td>{{incidencia.prioridad}}</td>
+            <td>
+                <div class="d-flex">
+                    <div class="p-2">
+                        <!--Unimos con ngModel este desplegable al objeto incidencia que se está utilizando para crear este tr-->
+                        <select class="form-control" [(ngModel)]="incidencia.estado" id="estado-{{incidencia._id}}">
+                            <option value="FINALIZADA">FINALIZADA</option>
+                            <option value="EN PROCESO">EN PROCESO</option>
+                            <option value="PENDIENTE">PENDIENTE</option>
+                        </select>
+                    </div>
+                    <div class="p-2">
+                        <button class="btn btn-primary" (click)="modificarEstado(incidencia)">Cambiar</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+   

@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaquetacionLoginComponent } from './modulos/usuarios/componentes/maquetacion-login/maquetacion-login.component';
 import { UsuariosModule } from './modulos/usuarios/usuariosModule';
-import { IncidenciasAdminModule } from './modulos/incidenciasAdmin/incidenciasAdminModule';
-import { MaquetacionIncidenciasComponent } from './modulos/incidenciasAdmin/componentes/maquetacion-incidencias/maquetacion-incidencias..component';
+import { IncidenciasEmpleadoModule } from './modulos/incidenciasEmpleado/incidenciasEmpleadoModule';
+import { MaquetacionIncidenciasComponent } from './modulos/incidenciasEmpleado/componentes/maquetacion-incidencias/maquetacion-incidencias..component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { MaquetacionIncidenciasComponent } from './modulos/incidenciasAdmin/comp
     ReactiveFormsModule,     //Para los formularios reactivos y las validaciones que tanto nos gustan y tanto nos entretienen
     RouterModule.forRoot(AppModule.rutasPrimerRouterOutlet), //Para los router outlet
     UsuariosModule,
-    IncidenciasAdminModule
+    IncidenciasEmpleadoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -48,7 +48,7 @@ export class AppModule {
       {
         path      : 'incidencias',
         component : MaquetacionIncidenciasComponent,
-        children  : IncidenciasAdminModule.rutasMaquetacionIncidencias
+        children  : IncidenciasEmpleadoModule.rutasMaquetacionIncidencias
       }
   ]
   

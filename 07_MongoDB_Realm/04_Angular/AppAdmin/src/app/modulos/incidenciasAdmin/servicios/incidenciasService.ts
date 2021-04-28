@@ -11,6 +11,10 @@ export class IncidenciasService {
 
     public insertar(incidencia:Incidencia):Promise<any>{
         delete incidencia._id
+
+        console.log(JSON.stringify(incidencia))
+
+
         return this.realService.getEsquema()
             .collection("incidencias")
             .insertOne(incidencia)
