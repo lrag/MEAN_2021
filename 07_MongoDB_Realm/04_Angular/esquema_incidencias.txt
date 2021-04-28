@@ -1,0 +1,43 @@
+
+
+users
+
+{
+    _id : 1234,
+    email : 'a@b.c',
+    pw : ??
+    ??
+}
+
+usuarios (user custom data)
+
+{
+    _id       : 4567
+    nombre    : 'Harry'
+    direccion :
+    telefono  :
+    rol       :
+    idUsuario : 1234
+    email     : 'a@b.c'
+}
+
+incidencia
+
+{
+    _id         : 1357
+    nombre      : aaa
+    descripcion : bbb
+    estado      : ccc
+    prioridad   : ddd
+    fecha       : eee
+    usuario : {
+        id : 1234
+        nombre : Harry
+    }
+}
+
+RULE:
+
+{
+  "usuario.id" : "%%user.id"
+}

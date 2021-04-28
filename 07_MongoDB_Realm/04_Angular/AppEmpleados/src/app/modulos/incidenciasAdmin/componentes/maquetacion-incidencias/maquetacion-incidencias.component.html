@@ -1,0 +1,24 @@
+
+<app-menu></app-menu>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!--Las reglas para estos router-outlets están definidas en TiendaModule-->
+        
+        <div class="col-2">
+            <router-outlet name="izq"></router-outlet>
+        </div>
+        <div class="col-8">
+            <!--A este router-outlet le corresponde la segunda carpeta de la barra de navegación-->
+            <!--Este router outlet es el 'primary'-->
+            <router-outlet></router-outlet>
+        </div>
+        <div class="col-2">
+            <router-outlet name="der"></router-outlet>
+        </div>
+        
+    </div>
+    
+</div>
