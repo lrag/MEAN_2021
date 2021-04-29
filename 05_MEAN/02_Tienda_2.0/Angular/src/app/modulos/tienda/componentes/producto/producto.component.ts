@@ -15,6 +15,7 @@ export class ProductoComponent implements OnInit {
   @Input()
   public producto:Producto = new Producto()
 
+  //Desde la plantilla no se utiliza esta cesta para nada
   private cesta:Pedido
 
   constructor(private cestaService:CestaService) { 
