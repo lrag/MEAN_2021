@@ -27,6 +27,8 @@ function autenticarUsuario(request, response){
                 _id    : usuario._id, 
                 login  : usuario.login, 
                 rol    : usuario.rol,
+                //iat    : fecha_de_creacion (issued at)
+                exp    : Math.floor(Date.now() / 1000) + 40,
                 movida : "ABCDEF"
             }, 
             JWTUtil.getClave(), 

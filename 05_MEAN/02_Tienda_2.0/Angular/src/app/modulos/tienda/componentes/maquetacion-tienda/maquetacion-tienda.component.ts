@@ -15,8 +15,8 @@ export class MaquetacionTiendaComponent implements OnInit {
     //a la pantalla de login
     if(!autenticacionService.getUsuario()){
       router.navigateByUrl("/usuarios/login")
-    }
-    
+      return
+    }    
     
     router.navigate([
       "/tienda",

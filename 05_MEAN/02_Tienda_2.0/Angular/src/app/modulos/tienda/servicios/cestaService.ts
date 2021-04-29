@@ -26,6 +26,9 @@ export class CestaService {
 
     //Muchos componentes de la aplicacion necesitan la cesta
     //No sabemos exactamente cual será el primero en necesitarla
+    //
+    //getCesta no devuelve una cesta. Devuelve un subject al que subscribirse para obtener
+    //la cesta
     public getCesta():BehaviorSubject<Pedido>{
         //El primero que invoque 'getCesta' disparará:
         //-la creación del subject
@@ -40,8 +43,8 @@ export class CestaService {
                 Object.setPrototypeOf(cesta, Pedido.prototype)
             } else {
                 cesta = new Pedido()
-                cesta.usuario = this.autenticacionService.getUsuario()
-                this.sessionService.setItem(this.nombreCesta, cesta, true)
+                cesta.usuario = this.usuario
+                this.sessionService.setItem(this.nombreCesta, cesta, true) //El true es para que lo guarde en local
             }
             this.subject = new BehaviorSubject(cesta)
         }

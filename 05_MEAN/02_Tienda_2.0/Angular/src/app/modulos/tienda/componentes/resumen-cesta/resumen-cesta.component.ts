@@ -12,6 +12,7 @@ export class ResumenCestaComponent implements OnInit {
   public cesta:Pedido
 
   constructor(private cestaService:CestaService) {
+    //Gec cesta no devuelve la cesta. Devuelve el subject que nos entregará la cesta cuando corresponda
     cestaService.getCesta()
     .subscribe(
       cesta => this.cesta = cesta
