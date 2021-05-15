@@ -60,7 +60,7 @@ export class ListadoUsuariosComponent implements OnInit {
       .subscribe(
         resultado => this.usuarios = resultado.data,
         error => this.error = "Fallo al listar los usuarios"
-      ) 
+      )
   }
 
   //Experimento de [src]
